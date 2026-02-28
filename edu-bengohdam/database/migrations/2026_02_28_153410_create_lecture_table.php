@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('lectID');
            //$table->foreignId('moduleID')->constrained('module', 'moduleID')->onDelete('cascade');
             $table->string('lectName');
-            $table->foreignId('learningMaterialID')
+            $table->unsignedBigInteger('learningMaterialID')
                 ->nullable() 
                 ->constrained('learningMaterials', 'learningMaterialID')
                 ->onDelete('set null'); // keeps the lecture even if material is deleted
