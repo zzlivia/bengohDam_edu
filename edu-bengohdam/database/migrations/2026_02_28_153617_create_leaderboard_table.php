@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('leaderboard', function (Blueprint $table) {
-            $table->id();
+            $table->id('leaderboardID');
+            $table->foreignId('userID')->constrained('users', 'userID');
+            $table->integer('totalAchievements')->default(0);
+            $table->string('userRanking')->nullable();
+            $table->integer('userBadges')->default(0);
             $table->timestamps();
         });
     }
