@@ -16,12 +16,10 @@ return new class extends Migration
             $table->id('lectID');
             $table->foreignId('moduleID')->constrained('modules', 'moduleID')->onDelete('cascade');
             $table->string('lectName');
-            
-            // Add ->nullable() here
             $table->foreignId('learningMaterialID')
                 ->nullable() 
                 ->constrained('learning_materials', 'learningMaterialID')
-                ->onDelete('set null'); // Keeps the lecture even if material is deleted
+                ->onDelete('set null'); // keeps the lecture even if material is deleted
 
             $table->timestamps();
         });
