@@ -14,11 +14,11 @@ return new class extends Migration
         // represents individual lessons within a module
         Schema::create('lecture', function (Blueprint $table) {
             $table->id('lectID');
-            $table->foreignId('moduleID')->constrained('modules', 'moduleID')->onDelete('cascade');
+            $table->foreignId('moduleID')->constrained('module', 'moduleID')->onDelete('cascade');
             $table->string('lectName');
             $table->foreignId('learningMaterialID')
                 ->nullable() 
-                ->constrained('learning_materials', 'learningMaterialID')
+                ->constrained('learningMaterials', 'learningMaterialID')
                 ->onDelete('set null'); // keeps the lecture even if material is deleted
 
             $table->timestamps();
