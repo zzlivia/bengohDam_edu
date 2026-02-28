@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('module_ans', function (Blueprint $table) {
-            $table->id();
+        Schema::create('moduleAns', function (Blueprint $table) {
+            $table->id('ansID');
+            $table->foreignId('moduleQs_ID')->constrained('mcqs', 'moduleQs_ID')->onDelete('cascade');
+            $table->string('ansID_text'); // for actual answer content
+            $table->tinyInteger('ansCorrect')->default(0);
             $table->timestamps();
         });
     }
