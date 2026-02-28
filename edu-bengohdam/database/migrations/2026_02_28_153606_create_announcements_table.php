@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('announcementID');
             $table->string('announcementTitle');
             $table->longText('announcementDetails');
-            $table->foreignId('adminID')->constrained('admins', 'adminID');
+            $table->unsignedBigInteger('adminID')->constrained('admin', 'adminID');
             $table->timestamps();
         });
     }
