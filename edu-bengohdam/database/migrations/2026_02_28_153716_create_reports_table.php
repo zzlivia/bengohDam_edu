@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('reportID');
+            $table->foreignId('generatedBy')
+                ->constrained('admin', 'adminID')
+                ->onDelete('cascade');
+
+            $table->string('reportType'); // e.g., 'enrollment_summary', 'progress_report'
+            $table->string('reportFilePath'); // path to the stored PDF/CSV file
+            
+            $table->timestamps(); // tracks when the report was generated
         });
     }
 
