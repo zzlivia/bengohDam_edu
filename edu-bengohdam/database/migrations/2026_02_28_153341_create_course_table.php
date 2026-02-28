@@ -11,8 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // stores metadata of courses 
         Schema::create('course', function (Blueprint $table) {
-            $table->id();
+            $table->id('courseID');
+            $table->string('courseCode')->unique();
+            $table->string('courseName');
+            $table->string('courseAuthor');
+            $table->text('courseDesc');
+            $table->string('courseCategory');
+            $table->boolean('isAvailable')->default(true);
+            $table->text('courseImg')->nullable(); // For your aesthetic project images
             $table->timestamps();
         });
     }
