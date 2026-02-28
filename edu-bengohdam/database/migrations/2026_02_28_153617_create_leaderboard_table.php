@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('leaderboard', function (Blueprint $table) {
             $table->id('leaderboardID');
-            $table->foreignId('userID')->constrained('users', 'userID');
+            $table->unsignedBigInteger('userID')->constrained('user', 'userID');
             $table->integer('totalAchievements')->default(0);
             $table->string('userRanking')->nullable();
             $table->integer('userBadges')->default(0);
