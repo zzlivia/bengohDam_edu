@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('enrolment_course_module', function (Blueprint $table) {
-            $table->id();
+        Schema::create('enrolmentCourseModules', function (Blueprint $table) {
+            $table->id('enrolID');
+            $table->foreignId('userID')->constrained('user', 'userID');
+            $table->foreignId('courseID')->constrained('course', 'courseID');
+            $table->boolean('isCompleted')->default(false);
+            $table->boolean('inProgress')->default(true);
+            $table->string('moduleID'); 
             $table->timestamps();
         });
     }
