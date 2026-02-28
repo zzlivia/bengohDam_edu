@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // handles the backend management by administrators
         Schema::create('admin', function (Blueprint $table) {
-            $table->id();
+            $table->id('adminID');
+            $table->string('adminName');
+            $table->string('adminEmail')->unique();
+            $table->string('adminPass'); // password
+            $table->char('adminRole', 1)->default('A'); 
             $table->timestamps();
         });
     }
