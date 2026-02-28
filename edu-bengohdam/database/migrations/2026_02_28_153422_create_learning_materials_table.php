@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('learning_materials', function (Blueprint $table) {
-            $table->id();
+        // tracks title, type, storage location, etc of learning materials
+        Schema::create('learningMaterials', function (Blueprint $table) {
+            $table->id('learningMaterialID');
+            $table->string('learningMaterialTitle');
+            $table->text('learningMaterialDesc')->nullable();
+            $table->string('learningMaterialType'); // 'video' or 'pdf'
+            $table->string('storagePath'); // replaces learningMaterialStorage
+            
             $table->timestamps();
         });
     }
