@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pdflearning', function (Blueprint $table) {
-            $table->id();
+        Schema::create('pdfLearning', function (Blueprint $table) {
+            $table->id('pdfLearningID');
+            $table->foreignId('learningMaterialID')->constrained('learningMaterials', 'learningMaterialID')->onDelete('cascade');
+            $table->string('pdfLearningName');
+            $table->text('pdfLearningDesc')->nullable();
+            $table->integer('pdfLearningPages');
+            $table->float('pdfLearningSizes'); // in MB
             $table->timestamps();
         });
     }
