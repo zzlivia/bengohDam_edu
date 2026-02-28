@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('course_feedback', function (Blueprint $table) {
-            $table->id();
+        //collect reviews
+        Schema::create('courseFeedback', function (Blueprint $table) {
+            $table->id('feedbackID');
+            $table->foreignId('courseID')->constrained('course', 'courseID');
+            $table->tinyInteger('courseRating'); // 1-5 scale
             $table->timestamps();
         });
     }
