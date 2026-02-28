@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('videolearning', function (Blueprint $table) {
-            $table->id();
+        Schema::create('videoLearning', function (Blueprint $table) {
+            $table->id('videoLearningID');
+            $table->foreignId('learningMaterialID')->constrained('learningMaterials', 'learningMaterialID')->onDelete('cascade');
+            $table->string('videoLearningName');
+            $table->text('videoLearningDesc')->nullable();
+            $table->integer('videoLearningDuration'); // in seconds
+            $table->string('videoLearningResolution');
             $table->timestamps();
         });
     }
