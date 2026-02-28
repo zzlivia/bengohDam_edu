@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_progress', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        //
+        Schema::create('userProgress', function (Blueprint $table) {
+            $table->id('progressID');
+            $table->foreignId('userID')->constrained('user', 'userID')->onDelete('cascade');
+            $table->foreignId('courseID')->constrained('course', 'courseID')->onDelete('cascade');
+            $table->string('progressName');
+            $table->enum('progressStatus', ['not_started', 'in_progress', 'completed']);
+            $table->integer('completionProgress')->default(0); // in percentage
+            $table->timestamp('lastAccessed')->timestamps();
         });
     }
 
