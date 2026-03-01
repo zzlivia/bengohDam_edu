@@ -1,48 +1,23 @@
-<?php
+<?php namespace App\Models; 
 
-namespace App\Models;
-
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notifiable; 
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    protected $table = 'user';
+    protected $primaryKey = 'userID';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    protected $fillable = [ 'name', 'email', 'password', 'userName', 'userEmail', 'userPass', 'userRePass', 'authenticated', ];
+    protected $hidden = [ 'password', 'remember_token', ];
+    protected function casts(): array { return [ 'email_verified_at' => 'datetime', 'password' => 'hashed', ]; }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    public function enrolments() { return $this->hasMany(Enrollment::class, 'userID', 'userID'); }
+    public function progress() { return $this->hasMany(Progress::class, 'userID', 'userID'); }
+    public function leaderboard() { return $this->hasOne(Leaderboard::class, 'userID', 'userID'); }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
 }
