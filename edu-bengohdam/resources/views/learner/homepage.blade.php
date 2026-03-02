@@ -82,7 +82,19 @@
             <li class="nav-item mx-2"><a class="nav-link" href="/courses">Courses</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">Community Stories</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
-            
+            <li class="nav-item dropdown mx-2">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Language </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="#">English</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Bahasa Melayu</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Iban</a>
+                </li>
+            </ul>
             <li class="nav-item mx-2">
                 @auth
                     <span class="nav-link">Hi, {{ auth()->user()->userName }}</span>
@@ -200,6 +212,8 @@
         <a href="#">Contact</a>
     </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
