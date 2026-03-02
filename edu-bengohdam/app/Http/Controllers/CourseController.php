@@ -89,11 +89,11 @@ class CourseController extends Controller
     // show single course details
     public function show($id)
     {
-        $course = Course::findOrFail($id);
+        $course = Course::with([
+            'modules.lectures.learningmaterials.video',
+            'modules.lectures.learningmaterials.pdf'
+        ])->findOrFail($id);
 
-        // load selected modules
-        $modules = \App\Models\Module::where('courseID', $id)->get();
-
-        return view('learner.view_course', compact('course', 'modules'));
+        return view('learner.view_course', compact('course'));
     }
 }
