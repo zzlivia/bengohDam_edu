@@ -95,11 +95,32 @@
         {{-- Sidebar Filters --}}
         <div class="col-md-3 filter-section">
             <div class="sort-box mb-4">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="fw-bold">Sort By</span>
-                    <i class="fa fa-chevron-down small"></i>
-                </div>
-                <div class="mt-2 text-muted">Best Match</div>
+                <form method="GET" action="{{ route('courses.index') }}">
+
+                    <label class="fw-bold mb-2">Sort By</label>
+
+                    <select name="sort" class="form-select" onchange="this.form.submit()">
+
+                        <option value="">Best Match</option>
+
+                        <option value="latest"
+                            {{ request('sort') == 'latest' ? 'selected' : '' }}>
+                            Latest Added
+                        </option>
+
+                        <option value="short"
+                            {{ request('sort') == 'short' ? 'selected' : '' }}>
+                            Short Learning
+                        </option>
+
+                        <option value="updated"
+                            {{ request('sort') == 'updated' ? 'selected' : '' }}>
+                            Recently Updated
+                        </option>
+
+                    </select>
+
+                </form>
             </div>
 
             <p class="small text-muted mb-3">Refine your search:</p>
