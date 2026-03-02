@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
-class AuthController extends Controller
+class AuthenticationController extends Controller
 {
     public function showLogin()
     {
-        return view('auth.login');
+        return view('auth.signin'); // since your file is signin.blade.php
     }
 
     public function login(Request $request)
