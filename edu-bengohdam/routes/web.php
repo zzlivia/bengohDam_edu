@@ -18,3 +18,8 @@ Route::middleware('auth')->group(function () {
     })->name('learner.homepage');
 
 });
+
+//create admin route
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware('auth:admin')->name('admin.dashboard');
