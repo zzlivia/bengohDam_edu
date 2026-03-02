@@ -194,7 +194,6 @@
                             <i class="fa fa-volume-up speaker-icon"></i>
                         </div>
                         <div class="meta-text mb-2">
-                            {{-- Assuming these fields exist or you can hardcode/add to DB --}}
                             <span class="me-3">{{ $course->duration ?? '2 Weeks' }}</span>
                             <span>{{ $course->level ?? 'Beginner' }}</span>
                         </div>
