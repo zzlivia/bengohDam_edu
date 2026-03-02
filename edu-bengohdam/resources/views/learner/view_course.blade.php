@@ -72,7 +72,7 @@
     </div>
     <!-- Modules -->
     <div class="row">
-        @foreach($modules as $index => $module)
+        @foreach($course->modules as $index => $module)
         <div class="col-md-6 mb-4">
             <div class="card p-3 shadow-sm">
                 <div class="d-flex justify-content-between align-items-center mb-3">
