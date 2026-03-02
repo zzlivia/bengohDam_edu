@@ -95,11 +95,14 @@
                     <a class="dropdown-item" href="#">Iban</a>
                 </li>
             </ul>
-            <li class="nav-item mx-2">
+            <li class="nav-item mx-2 d-flex align-items-center">
                 @auth
                     <span class="nav-link">Hi, {{ auth()->user()->userName }}</span>
                 @else
-                    <a class="nav-link text-primary fw-bold" href="{{ route('login') }}">Register | Sign In</a>
+                    {{-- Split into two separate links --}}
+                    <a class="nav-link text-primary fw-bold px-1" href="{{ route('register') }}">Register</a>
+                    <span class="text-muted">|</span>
+                    <a class="nav-link text-primary fw-bold px-1" href="{{ route('login') }}">Sign In</a>
                 @endauth
             </li>
         </ul>

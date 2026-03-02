@@ -113,7 +113,10 @@
             <div class="d-flex justify-content-end align-items-center mb-4">
                 <span class="me-2">Showing</span>
                 <select class="form-select form-select-sm w-auto">
+                    <option>3</option>
                     <option>5</option>
+                    <option>8</option>
+                    <option>10</option>
                 </select>
                 <span class="ms-2">Courses Per Page</span>
             </div>
