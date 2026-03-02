@@ -19,5 +19,5 @@ class User extends Authenticatable
     public function enrolments() { return $this->hasMany(Enrollment::class, 'userID', 'userID'); }
     public function progress() { return $this->hasMany(Progress::class, 'userID', 'userID'); }
     public function leaderboard() { return $this->hasOne(Leaderboard::class, 'userID', 'userID'); }
-
+    public function getAuthPassword(){ return $this->userPass; }
 }
