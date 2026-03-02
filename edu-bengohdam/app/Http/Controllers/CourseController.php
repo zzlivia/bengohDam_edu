@@ -12,7 +12,7 @@ class CourseController extends Controller
     {
         $query = Course::where('isAvailable', 1);
 
-        // SEARCH (by name)
+        // SEARCH
         if ($request->filled('search')) {
             $query->where('courseName', 'like', '%' . $request->search . '%');
         }
@@ -53,7 +53,37 @@ class CourseController extends Controller
 
         $courses = $query->paginate(5)->withQueryString();
 
-        return view('learner.view_all_course', compact('courses'));
+
+        //for dropdowns
+
+        $categories = Course::where('isAvailable', 1)
+            ->whereNotNull('courseCategory')
+            ->select('courseCategory')
+            ->distinct()
+            ->orderBy('courseCategory')
+            ->pluck('courseCategory');
+
+        $levels = Course::where('isAvailable', 1)
+            ->whereNotNull('courseLevel')
+            ->select('courseLevel')
+            ->distinct()
+            ->orderBy('courseLevel')
+            ->pluck('courseLevel');
+
+        $durations = Course::where('isAvailable', 1)
+            ->whereNotNull('courseDuration')
+            ->select('courseDuration')
+            ->distinct()
+            ->orderBy('courseDuration')
+            ->pluck('courseDuration');
+
+
+        return view('learner.view_all_course', compact(
+            'courses',
+            'categories',
+            'levels',
+            'durations'
+        ));
     }
 
     // show single course details
