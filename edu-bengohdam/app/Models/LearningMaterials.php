@@ -21,13 +21,13 @@ class LearningMaterials extends Model
         return $this->hasOne(Lecture::class, 'learningMaterialID', 'learningMaterialID');
     }
 
-    public function pdf()
-    {
-        return $this->hasOne(PdfLearning::class, 'learningMaterialID', 'learningMaterialID');
-    }
-
     public function video()
     {
-        return $this->hasOne(VideoLearning::class, 'learningMaterialID', 'learningMaterialID');
+        return $this->hasOne(VideoLearning::class, 'learningMaterialID');
+    }
+
+    public function pdf()
+    {
+        return $this->hasOne(PdfLearning::class, 'learningMaterialID');
     }
 }
