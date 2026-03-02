@@ -91,6 +91,9 @@ class CourseController extends Controller
     {
         $course = Course::findOrFail($id);
 
-        return view('learner.course_details', compact('course'));
+        // load selected modules
+        $module = \App\Models\Module::where('courseID', $id)->get();
+
+        return view('learner.view_course', compact('course', 'module'));
     }
 }
