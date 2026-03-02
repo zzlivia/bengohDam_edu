@@ -90,8 +90,8 @@ class CourseController extends Controller
     public function show($id)
     {
         $course = Course::with([
-            'modules.lectures.materials.video',
-            'modules.lectures.materials.pdf'
+            'modules.lecture.learningMaterial.video',
+            'modules.lecture.learningMaterial.pdf'
         ])->findOrFail($id);
 
         return view('learner.view_course', compact('course'));

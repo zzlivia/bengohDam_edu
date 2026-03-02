@@ -10,6 +10,7 @@ class LearningMaterials extends Model
     protected $primaryKey = 'learningMaterialID';
 
     protected $fillable = [
+        'lectID',
         'learningMaterialTitle',
         'learningMaterialDesc',
         'learningMaterialType',
@@ -18,16 +19,16 @@ class LearningMaterials extends Model
 
     public function lecture()
     {
-        return $this->hasOne(Lecture::class, 'learningMaterialID', 'learningMaterialID');
+        return $this->belongsTo(Lecture::class, 'lectID', 'lectID');
     }
 
     public function video()
     {
-        return $this->hasOne(VideoLearning::class, 'learningMaterialID');
+        return $this->hasOne(VideoLearning::class, 'learningMaterialID', 'learningMaterialID');
     }
 
     public function pdf()
     {
-        return $this->hasOne(PdfLearning::class, 'learningMaterialID');
+        return $this->hasOne(PdfLearning::class, 'learningMaterialID', 'learningMaterialID');
     }
 }

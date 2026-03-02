@@ -11,11 +11,16 @@ class Lecture extends Model
 
     protected $fillable = [
         'lectName',
-        'learningMaterialID'
+        'moduleID'
     ];
 
-    public function learningMaterial()
+    public function module()
     {
-        return $this->hasMany(LearningMaterials::class, 'lectID');
+        return $this->belongsTo(Module::class, 'moduleID', 'moduleID');
+    }
+
+    public function materials()
+    {
+        return $this->hasMany(LearningMaterials::class, 'lectID', 'lectID');
     }
 }
