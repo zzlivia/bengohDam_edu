@@ -12,25 +12,33 @@ class AuthenticationController extends Controller
         return view('auth.signin'); // since your file is signin.blade.php
     }
 
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ]);
+public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required',
+        'password' => 'required'
+    ]);
 
-        $credentials = [
-            'userEmail' => $request->email,
-            'password' => $request->password
-        ];
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('learner.homepage'); //after sign in, the user will go to home
-        }
-
-        return back()->with('error', 'Invalid credentials');
+    /* Admin Login */
+    if (Auth::guard('admin')->attempt([
+        'adminEmail' => $request->email,
+        'password' => $request->password
+    ])) {
+        $request->session()->regenerate();
+        return redirect()->route('admin.dashboard');
     }
+
+    /* Learner Login */
+    if (Auth::attempt([
+        'userEmail' => $request->email,
+        'password' => $request->password
+    ])) {
+        $request->session()->regenerate();
+        return redirect()->route('learner.homepage');
+    }
+
+    return back()->with('error', 'Invalid credentials');
+}
 
     public function logout(Request $request)
     {
