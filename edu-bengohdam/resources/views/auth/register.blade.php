@@ -24,6 +24,30 @@
 </head>
 <body>
 
+<nav class="navbar navbar-expand-lg px-4">
+    <a class="navbar-brand fw-bold" href="#">Bengoh Academy</a>
+    <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+            <li class="nav-item mx-2"><a class="nav-link active" href="/homepage">Home</a></li>
+            <li class="nav-item mx-2"><a class="nav-link active" href="/courses">Courses</a></li>
+            <li class="nav-item mx-2"><a class="nav-link" href="#">Community Stories</a></li>
+            <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Language </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="#">English</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Bahasa Melayu</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Iban</a>
+                </li>
+            </ul>
+        </ul>
+    </div>
+</nav>
+
 <div class="container mt-5 text-center">
     <h3 class="mb-4">Register</h3>
 
