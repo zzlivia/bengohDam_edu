@@ -122,7 +122,7 @@
 
                 <div class="mt-4 small-link">
                     <p>OR</p>
-                    <a href="#">Register my account</a>
+                    <a href="{{ route('register') }}">Register my account</a>
                 </div>
 
             </div>
