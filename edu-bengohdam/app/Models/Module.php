@@ -23,4 +23,9 @@ class Module extends Model
     {
         return $this->hasMany(Mcqs::class, 'moduleID', 'moduleID');
     }
+
+    public function lectures()
+    {
+        return $this->hasMany(Lecture::class, 'moduleID');
+    }
 }
