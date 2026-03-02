@@ -12,14 +12,28 @@ class CourseController extends Controller
     {
         $query = Course::where('isAvailable', 1);
 
-        // SEARCH
+        // SEARCH (by name)
         if ($request->filled('search')) {
             $query->where('courseName', 'like', '%' . $request->search . '%');
         }
 
-        // sorting/filtering
-        switch ($request->sort) {
+        // FILTER: Category
+        if ($request->filled('category')) {
+            $query->where('courseCategory', $request->category);
+        }
 
+        // FILTER: Level
+        if ($request->filled('level')) {
+            $query->where('courseLevel', $request->level);
+        }
+
+        // FILTER: Duration
+        if ($request->filled('duration')) {
+            $query->where('courseDuration', '<=', $request->duration);
+        }
+
+        // SORTING
+        switch ($request->sort) {
             case 'latest':
                 $query->orderBy('created_at', 'desc');
                 break;
@@ -29,17 +43,10 @@ class CourseController extends Controller
                 break;
 
             case 'short':
-                // short learning duration <= 4 weeks
-                $query->where('courseDuration', '<=', 4)
-                      ->orderBy('courseDuration', 'asc');
-                break;
-
-            case 'beginner':
-                $query->where('courseLevel', 'Beginner');
+                $query->where('courseDuration', '<=', 4);
                 break;
 
             default:
-                // default sort
                 $query->orderBy('created_at', 'desc');
                 break;
         }
@@ -48,7 +55,6 @@ class CourseController extends Controller
 
         return view('learner.view_all_course', compact('courses'));
     }
-
 
     // show single course details
     public function show($id)
