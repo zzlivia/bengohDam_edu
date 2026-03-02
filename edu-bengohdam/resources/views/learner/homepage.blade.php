@@ -79,7 +79,7 @@
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
             <li class="nav-item mx-2"><a class="nav-link active" href="/">Home</a></li>
-            <li class="nav-item mx-2"><a class="nav-link" href="/courses">Courses</a></li>
+            <li class="nav-item mx-2"><a class="nav-link" href="{{ route('courses.index') }}">Courses</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">Community Stories</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
             <li class="nav-item dropdown mx-2">
@@ -151,7 +151,9 @@
     </div>
 
     <div class="text-center mb-5">
-        <a href="/courses" class="btn btn-info px-5 text-white">View All Courses</a>
+        <a href="{{ route('courses.index', $course->courseID) }}" class="btn btn-outline-secondary btn-sm">
+            View All Courses
+        </a>
     </div>
 
     {{-- Community Success Stories --}}
