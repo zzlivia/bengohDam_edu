@@ -75,18 +75,32 @@
         @foreach($modules as $index => $module)
         <div class="col-md-6 mb-4">
             <div class="card p-3 shadow-sm">
-
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h6 class="mb-0">{{ $module->moduleName }}</h6>
                     <strong>0{{ $index + 1 }}</strong>
                 </div>
-
+                <!-- Lectures List -->
                 <ul class="list-unstyled">
-                    <li>Lecture 1</li>
-                    <li>Lecture 2</li>
-                    <li>Lecture 3</li>
-                </ul>
+                    @foreach($module->lectures as $lecture)
+                        <li class="d-flex justify-content-between align-items-center mb-2">
+                            <span>{{ $lecture->lectName }}</span>
+                            <span class="text-muted small">
+                                @php
+                                    $duration = null;
 
+                                    foreach($lecture->materials as $material) {
+                                        if ($material->video) {
+                                            $duration = $material->video->videoLearningDuration;
+                                        }
+                                    }
+                                @endphp
+                                @if($duration)
+                                    ⏱ {{ $duration }} mins
+                                @endif
+                            </span>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
         </div>
         @endforeach
