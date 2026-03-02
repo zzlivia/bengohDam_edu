@@ -16,6 +16,6 @@ class Lecture extends Model
 
     public function learningMaterial()
     {
-        return $this->belongsTo(LearningMaterials::class, 'learningMaterialID', 'learningMaterialID');
+        return $this->hasMany(LearningMaterials::class, 'lectID');
     }
 }
