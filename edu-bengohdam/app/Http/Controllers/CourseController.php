@@ -96,4 +96,15 @@ class CourseController extends Controller
 
         return view('learner.view_course', compact('course'));
     }
+    
+    //redirect user to start learning interface
+    public function startLearning($id)
+    {
+        $course = Course::with([
+            'modules.lectures.materials.video',
+            'modules.lectures.materials.pdf'
+        ])->findOrFail($id);
+
+        return view('learner.startlearning', compact('course'));
+}
 }
