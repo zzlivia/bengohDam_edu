@@ -19,7 +19,7 @@ class CourseController extends Controller
 
         $courses = $query->paginate(5);
 
-        return view('learners.view_all_course', compact('course'));
+        return view('learners.view_all_course', compact('courss'));
     }
 
     //show single course details
@@ -27,6 +27,6 @@ class CourseController extends Controller
     {
         $course = Course::findOrFail($id);
 
-        return view('learners.course_details', compact('course'));
+        return view('learners.course_details', compact('courses'));
     }
 }
