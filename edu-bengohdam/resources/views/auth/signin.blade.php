@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Sign In - Bengoh Academy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{-- Bootstrap --}}
+    {{-- bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -82,10 +82,10 @@
 
         {{-- left illustration --}}
         <div class="col-md-6 text-center d-none d-md-block">
-            <img src="{{ asset('images/login-illustration.png') }}" class="left-illustration">
+            <img src="{{ asset('images/sign-in-authentication.png') }}" class="left-illustration">
         </div>
 
-        {{-- Login Form --}}
+        {{-- sign in form --}}
         <div class="col-md-6 d-flex justify-content-center">
             <div class="login-card text-center">
 
@@ -127,7 +127,6 @@
 
             </div>
         </div>
-
     </div>
 </div>
 
