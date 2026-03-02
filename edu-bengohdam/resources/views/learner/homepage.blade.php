@@ -101,6 +101,18 @@
         <img src="{{ asset('images/sign-in-authentication.png') }}" class="hero-img">
     </div>
 
+    <div class="text-center my-3">
+
+        @auth
+            <h5>Welcome back, {{ auth()->user()->userName }} 👋</h5>
+        @endauth
+
+        @guest
+            <h5>Welcome to Bengoh Academy 🌿</h5>
+        @endguest
+
+    </div>
+
     {{-- Feature Boxes --}}
     <div class="row text-center mb-4">
         <div class="col-md-4">
