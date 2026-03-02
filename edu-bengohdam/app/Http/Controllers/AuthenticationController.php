@@ -26,7 +26,7 @@ class AuthenticationController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard');
+            return redirect()->route('learner.homepage'); //after sign in, the user will go to home
         }
 
         return back()->with('error', 'Invalid credentials');
