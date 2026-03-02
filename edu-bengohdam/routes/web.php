@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\AuthenticationController;
 
+//create registration route
+Route::get('/register', [AuthenticationController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthenticationController::class, 'register']);
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
