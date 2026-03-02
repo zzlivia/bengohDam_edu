@@ -139,7 +139,7 @@
                         </p>
                         <div class="d-flex justify-content-end gap-2 mt-3">
                             <a href="#" class="btn btn-outline-dark btn-sm btn-action px-4">Start Learning</a>
-                            <a href="{{ route('courses.show', $course->id) }}" class="btn btn-outline-dark btn-sm btn-action px-4">View Course</a>
+                            <a href="{{ route('courses.show', $course->courseID) }}" class="btn btn-outline-dark btn-sm btn-action px-4">View Course</a>
                         </div>
                     </div>
                 </div>
