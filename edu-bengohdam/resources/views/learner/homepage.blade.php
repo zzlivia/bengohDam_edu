@@ -73,7 +73,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 border-bottom">
     <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
-        <img src="{{ asset('images/logo.png') }}" width="30" class="me-2"> Bengoh Academy
+        <img src="{{ asset('images/bengohdam-logo.png') }}" width="30" class="me-2"> Bengoh Academy
     </a>
 
     <div class="collapse navbar-collapse justify-content-end">
