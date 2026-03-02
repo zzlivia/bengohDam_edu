@@ -71,7 +71,7 @@
     <a class="navbar-brand fw-bold" href="/">Bengoh Academy</a>
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
-            <li class="nav-item mx-2"><a class="nav-link active" href="/">Home</a></li>
+            <li class="nav-item mx-2"><a class="nav-link active" href="/homepage">Home</a></li>
             <li class="nav-item mx-2"><a class="nav-link active" href="/courses">Courses</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">Community Stories</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
