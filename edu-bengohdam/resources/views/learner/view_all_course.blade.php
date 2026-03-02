@@ -94,12 +94,32 @@
     <div class="row">
         {{-- Sidebar Filters --}}
         <div class="col-md-3 filter-section">
-            <div class="sort-box mb-4">
-                <div class="d-flex justify-content-between align-items-center">
+        <div class="sort-box mb-4">
+            <div class="dropdown">
+                <div class="d-flex justify-content-between align-items-center" 
+                    id="sortDropdown" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false" 
+                    style="cursor: pointer;">
                     <span class="fw-bold">Sort By</span>
                     <i class="fa fa-chevron-down small"></i>
                 </div>
-                <div class="mt-2 text-muted">Best Match</div>
+                
+                {{-- Display current selection label --}}
+                <div class="mt-2 text-muted small">
+                    @if(request('sort') == 'recent') Recently Added
+                    @elseif(request('sort') == 'basic_knowledge') Basic Knowledge
+                    @elseif(request('sort') == 'short_term') Short Term Learning
+                    @else Best Match
+                    @endif
+                </div>
+
+                <ul class="dropdown-menu w-100 shadow-sm border-0" aria-labelledby="sortDropdown">
+                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['sort' => 'best_match']) }}">Best Match</a></li>
+                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['sort' => 'recent']) }}">Recently Added</a></li>
+                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['sort' => 'basic_knowledge']) }}">Basic Knowledge</a></li>
+                    <li><a class="dropdown-item small" href="{{ request()->fullUrlWithQuery(['sort' => 'short_term']) }}">Short Term Learning</a></li>
+                </ul>
             </div>
 
             <p class="small text-muted mb-3">Refine your search:</p>
