@@ -25,5 +25,5 @@ Route::get('/admin/dashboard', function () {
 })->middleware('auth:admin')->name('admin.dashboard');
 
 //course section
-Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
-Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index'); //show all courses
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show'); //show a course
