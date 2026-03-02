@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 
 //homepage
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/homepage', function () {
+    return view('learner.homepage');
+})->name('learner.homepage');
 
 
 //authentication
