@@ -26,3 +26,4 @@ Route::get('/admin/dashboard', function () {
 
 //course section
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
