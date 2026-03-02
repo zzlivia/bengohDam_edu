@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CourseController;
 
 //homepage
 Route::get('/homepage', function () {
@@ -18,8 +19,10 @@ Route::post('/register', [AuthenticationController::class, 'register']);
 
 Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
-
 //admin section
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware('auth:admin')->name('admin.dashboard');
+
+//course section
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
