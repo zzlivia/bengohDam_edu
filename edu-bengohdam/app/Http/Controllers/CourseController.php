@@ -19,7 +19,7 @@ class CourseController extends Controller
 
         $courses = $query->paginate(5);
 
-        return view('learners.view_all_course', compact('courss'));
+        return view('learners.view_all_course', compact('courses'));
     }
 
     //show single course details
