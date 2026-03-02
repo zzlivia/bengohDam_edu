@@ -130,27 +130,39 @@
                     <label class="fw-bold">Subjects</label>
                     <select name="category" class="form-select" onchange="this.form.submit()">
                         <option value="">All Subjects</option>
-                        <option value="History" {{ request('category') == 'History' ? 'selected' : '' }}>History</option>
-                        <option value="Tourism" {{ request('category') == 'Tourism' ? 'selected' : '' }}>Tourism</option>
-                        <option value="Business" {{ request('category') == 'Business' ? 'selected' : '' }}>Business</option>
+
+                        @foreach($categories as $category)
+                            <option value="{{ $category }}"
+                                {{ request('category') == $category ? 'selected' : '' }}>
+                                {{ $category }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
                     <label class="fw-bold">Course Level</label>
                     <select name="level" class="form-select" onchange="this.form.submit()">
                         <option value="">All Levels</option>
-                        <option value="Beginner" {{ request('level') == 'Beginner' ? 'selected' : '' }}>Beginner</option>
-                        <option value="Intermediate" {{ request('level') == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
-                        <option value="Advanced" {{ request('level') == 'Advanced' ? 'selected' : '' }}>Advanced</option>
+
+                        @foreach($levels as $level)
+                            <option value="{{ $level }}"
+                                {{ request('level') == $level ? 'selected' : '' }}>
+                                {{ $level }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
                     <label class="fw-bold">Course Duration</label>
                     <select name="duration" class="form-select" onchange="this.form.submit()">
                         <option value="">Any Duration</option>
-                        <option value="2" {{ request('duration') == 2 ? 'selected' : '' }}>Up to 2 Weeks</option>
-                        <option value="4" {{ request('duration') == 4 ? 'selected' : '' }}>Up to 4 Weeks</option>
-                        <option value="8" {{ request('duration') == 8 ? 'selected' : '' }}>Up to 8 Weeks</option>
+
+                        @foreach($durations as $duration)
+                            <option value="{{ $duration }}"
+                                {{ request('duration') == $duration ? 'selected' : '' }}>
+                                {{ $duration }} Weeks
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 
