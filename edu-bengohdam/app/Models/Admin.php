@@ -2,12 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
+    use HasFactory, Notifiable;
+
     protected $table = 'admin';
     protected $primaryKey = 'adminID';
+    public $incrementing = true;
+    protected $keyType = 'int';
 
     protected $fillable = [
         'adminName',
@@ -15,6 +21,15 @@ class Admin extends Model
         'adminPass',
         'adminRole'
     ];
+
+    protected $hidden = [
+        'adminPass',
+    ];
+
+    public function getAuthPassword()
+    {
+        return $this->adminPass;
+    }
 
     public function announcements()
     {
