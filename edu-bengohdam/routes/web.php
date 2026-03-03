@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CourseController;
-//use App\Http\Controllers\CommunityStoryController;
+use App\Http\Controllers\CommunityStoryController;
 use App\Http\Controllers\Admin\CommunityStoryController;
 
 //root homepage
@@ -41,8 +41,15 @@ Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQue
 //to view community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
 
-//admin insert community stories
-Route::prefix('admin')->group(function () {
-    Route::get('/stories/create', [CommunityStoryController::class, 'create'])->name('admin.stories.create');
-    Route::post('/stories/store', [CommunityStoryController::class, 'store'])->name('admin.stories.store');
+//community stories of public
+Route::get('/community-stories',[CommunityStoryController::class, 'index'])->name('community.stories');
+
+//community stories of admin side
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/stories', [CommunityStoryController::class, 'index'])->name('stories.index');
+    Route::get('/stories/create', [CommunityStoryController::class, 'create'])->name('stories.create');
+    Route::post('/stories', [CommunityStoryController::class, 'store'])->name('stories.store');
+    Route::get('/stories/{id}/edit', [CommunityStoryController::class, 'edit'])->name('stories.edit');
+    Route::put('/stories/{id}', [CommunityStoryController::class, 'update'])->name('stories.update');
+    Route::delete('/stories/{id}', [CommunityStoryController::class, 'destroy'])->name('stories.destroy');
 });
