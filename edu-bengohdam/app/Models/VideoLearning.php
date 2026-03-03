@@ -16,4 +16,9 @@ class VideoLearning extends Model
         'videoLearningDuration',
         'videoLearningResolution'
     ];
+
+    public function material()
+    {
+        return $this->belongsTo(LearningMaterials::class, 'learningMaterialID', 'learningMaterialID');
+    }
 }
