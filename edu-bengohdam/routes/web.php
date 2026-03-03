@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CommunityStoryController;
 use App\Http\Controllers\Admin\CommunityStoryController as AdminCommunityStoryController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\AdminController;
 
 //public routes
 Route::get('/', fn () => view('learner.homepage'));
@@ -38,6 +39,8 @@ Route::get('/admin/signin', [AuthController::class, 'showLogin'])
 Route::post('/admin/signin', [AuthController::class, 'login'])
     ->name('admin.login.submit');
 
+//admin user management
+Route::get('/admin/user-management', [AdminController::class, 'userManagement'])->name('admin.user.management');
 
 //admin protected route
 Route::prefix('admin')
