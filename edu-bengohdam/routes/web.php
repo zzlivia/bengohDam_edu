@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\CommunityStoryController;
+//use App\Http\Controllers\CommunityStoryController;
+use App\Http\Controllers\Admin\CommunityStoryController;
 
 //root homepage
 Route::get('/', function () {return view('learner.homepage');});
@@ -39,3 +40,9 @@ Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQue
 
 //to view community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
+
+//admin insert community stories
+Route::prefix('admin')->group(function () {
+    Route::get('/stories/create', [CommunityStoryController::class, 'create'])->name('admin.stories.create');
+    Route::post('/stories/store', [CommunityStoryController::class, 'store'])->name('admin.stories.store');
+});
