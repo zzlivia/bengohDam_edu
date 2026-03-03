@@ -40,4 +40,9 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Report::class, 'generatedBy', 'adminID');
     }
+
+    public function stories()
+    {
+        return $this->hasMany(CommunityStory::class, 'adminID', 'adminID');
+    }
 }
