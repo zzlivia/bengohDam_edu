@@ -34,4 +34,10 @@ class Module extends Model
     {
         return $this->lectures->sum('lect_duration');
     }
+
+    public function enrolment()
+    {
+        return $this->hasOne(Enrollment::class, 'moduleID', 'moduleID')
+                    ->where('userID', auth()->id());
+    }
 }
