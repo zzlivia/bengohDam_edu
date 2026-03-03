@@ -70,7 +70,9 @@
 
             <h5 class="fw-bold mb-4">Bengoh Academy</h5>
 
-            <a href="#">Dashboard</a>
+            <a href="{{ route('admin.dashboard') }}"class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                Dashboard
+            </a>
             <a href="{{ route('admin.user.management') }}" class="active">User Management</a>
             <a href="#">Course/Module Management</a>
             <a href="#">Progress</a>
