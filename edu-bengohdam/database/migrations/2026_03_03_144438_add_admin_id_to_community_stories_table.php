@@ -9,12 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('community_stories', function (Blueprint $table) {
-            $table->foreignId('adminID')
-                ->after('id')
-                ->constrained('admin')
+
+            $table->unsignedBigInteger('adminID')->after('id');
+
+            $table->foreign('adminID')
+                ->references('adminID')
+                ->on('admin')
                 ->onDelete('cascade');
         });
     }
