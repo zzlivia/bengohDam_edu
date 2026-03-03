@@ -23,4 +23,9 @@ class Lecture extends Model
     {
         return $this->hasMany(LearningMaterials::class, 'lectID', 'lectID');
     }
+
+    public function lectures()
+    {
+        return $this->hasMany(Lecture::class, 'moduleID', 'moduleID');
+    }
 }
