@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CourseController;
 
+// root homepage
+Route::get('/', function () {
+    return view('learner.homepage');
+});
+
 //homepage
 Route::get('/homepage', function () {
     return view('learner.homepage');
