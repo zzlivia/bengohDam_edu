@@ -11,7 +11,8 @@ class Lecture extends Model
 
     protected $fillable = [
         'lectName',
-        'moduleID'
+        'moduleID',
+        'lect_duration'
     ];
 
     public function module()
