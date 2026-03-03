@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CommunityStoryController;
 // Admin controller (rename alias to avoid conflict)
 use App\Http\Controllers\Admin\CommunityStoryController as AdminCommunityStoryController;
+use App\Http\Controllers\Admin\AuthController;
 
 //root homepage
 Route::get('/', function () {return view('learner.homepage');});
@@ -55,3 +56,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('/stories/{id}', [CommunityStoryController::class, 'update'])->name('stories.update');
     Route::delete('/stories/{id}', [CommunityStoryController::class, 'destroy'])->name('stories.destroy');
 });
+
+//adming sign-in 
+Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
+
+Route::post('/admin/login', [AuthController::class, 'login'])->name('admin.login.submit');
