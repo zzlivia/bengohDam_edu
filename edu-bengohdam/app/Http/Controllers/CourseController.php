@@ -91,7 +91,10 @@ class CourseController extends Controller
     {
         $course = Course::with([
             'modules.lectures.materials.video',
-            'modules.lectures.materials.pdf'
+            'modules.lectures.materials.pdf',
+            'modules.enrolment',
+            'modules.lectures'
+
         ])->findOrFail($id);
 
         return view('learner.view_course', compact('course'));
