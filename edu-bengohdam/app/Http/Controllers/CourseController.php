@@ -93,8 +93,8 @@ class CourseController extends Controller
             'modules.lectures.materials.video',
             'modules.lectures.materials.pdf',
             'modules.enrolment',
-            'modules.lectures'
-
+            'modules.lectures',
+            'modules.lectures.mcqs.answers'
         ])->findOrFail($id);
 
         return view('learner.view_course', compact('course'));
