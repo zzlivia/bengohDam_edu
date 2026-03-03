@@ -124,7 +124,9 @@ class CourseController extends Controller
 
     public function showModuleQuestions($id)
     {
-        $module = Module::with('mcqs.answers')->findOrFail($id);
+        $module = Module::with('lectures.mcqs.answers')
+                    ->findOrFail($id);
+
         return view('learner.module_question', compact('module'));
     }
 
