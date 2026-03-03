@@ -54,16 +54,15 @@
 
         <!-- sidebar -->
         <div class="col-md-2 sidebar p-3">
-
             <h5 class="fw-bold mb-4">Bengoh Academy</h5>
-
-            <a href="#" class="active">Dashboard</a>
+            <a href="{{ route('admin.dashboard') }}"class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                Dashboard
+            </a>
             <a href="{{ route('admin.user.management') }}">User Management</a>
             <a href="#">Course/Module Management</a>
             <a href="#">Progress</a>
             <a href="#">Announcements</a>
             <a href="#">Reports</a>
-
             <div class="mt-5">
                 <a href="#">Settings</a>
                 <a href="#">Help & Support</a>
