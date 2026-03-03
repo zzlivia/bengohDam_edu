@@ -110,5 +110,14 @@ class CourseController extends Controller
         ])->findOrFail($id);
 
         return view('learner.startlearning', compact('course'));
-}
+    }
+    
+    //display questions
+    public function showQuiz($id)
+    {
+        $module = \App\Models\Module::with('mcqs.answers')
+                    ->findOrFail($id);
+
+        return view('learner.module_question', compact('module'));
+    }
 }
