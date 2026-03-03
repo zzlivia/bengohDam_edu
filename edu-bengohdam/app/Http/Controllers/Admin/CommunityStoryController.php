@@ -38,9 +38,11 @@ class CommunityStoryController extends Controller
                 ->store('community_stories', 'public');
         }
 
+        //to link every story to admin
         CommunityStory::create([
-            'community_name'  => $request->community_name,
-            'title'           => $request->title,
+            'adminID' => auth('admin')->id(), // very important
+            'community_name' => $request->community_name,
+            'title' => $request->title,
             'community_story' => $request->community_story,
             'community_image' => $imagePath,
         ]);
