@@ -77,7 +77,6 @@
                 @auth
                     <span class="nav-link">Hi, {{ auth()->user()->userName }}</span>
                 @else
-                    {{-- Split into two separate links --}}
                     <a class="nav-link text-primary fw-bold px-1" href="{{ route('register') }}">Register</a>
                     <span class="text-muted">|</span>
                     <a class="nav-link text-primary fw-bold px-1" href="{{ route('login') }}">Sign In</a>
