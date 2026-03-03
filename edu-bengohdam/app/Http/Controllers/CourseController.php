@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -119,5 +120,31 @@ class CourseController extends Controller
                     ->findOrFail($id);
 
         return view('learner.module_question', compact('module'));
+    }
+
+    public function showModuleQuestions($id)
+    {
+        $module = Module::with('mcqs.answers')->findOrFail($id);
+        return view('learner.module_question', compact('module'));
+    }
+
+
+    public function submitModuleQuestions(Request $request, $id)
+    {
+        $module = Module::with('mcqs.answers')->findOrFail($id);
+        $score = 0;
+        $total = $module->mcqs->count();
+        foreach ($module->mcqs as $question) {
+            $selectedAnswer = $request->input('question_' . $question->moduleQs_ID);
+            if ($selectedAnswer) {
+                $correctAnswer = $question->answers
+                    ->where('ansCorrect', 1)
+                    ->first();
+                if ($correctAnswer && $correctAnswer->ansID == $selectedAnswer) {
+                    $score++;
+                }
+            }
+        }
+        return back()->with('result', "You scored $score / $total");
     }
 }
