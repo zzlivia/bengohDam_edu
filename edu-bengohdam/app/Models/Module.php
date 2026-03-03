@@ -28,4 +28,10 @@ class Module extends Model
     {
         return $this->hasMany(Lecture::class, 'moduleID', 'moduleID');
     }
+
+    // calculate total duration of module
+    public function totalDuration()
+    {
+        return $this->lectures->sum('lect_duration');
+    }
 }
