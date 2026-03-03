@@ -18,6 +18,11 @@ class Mcqs extends Model
         return $this->belongsTo(Module::class, 'moduleID', 'moduleID');
     }
 
+    public function lecture()
+    {
+        return $this->belongsTo(Lecture::class, 'lectID', 'lectID');
+    }
+
     public function answers()
     {
         return $this->hasMany(ModuleAns::class, 'moduleQs_ID', 'moduleQs_ID');
