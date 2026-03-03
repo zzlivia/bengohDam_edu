@@ -101,14 +101,14 @@
                     </div>
                     <ul class="list-unstyled ps-2">
                         @foreach($module->lectures as $lecture)
-                            <li class="mb-1 d-flex align-items-center">
-                                <span class="me-2">
-                                    ○
-                                </span>
-                                <span>
-                                    {{ $lecture->lectName }}
-                                </span>
-                            </li>
+                        <li class="mb-1 d-flex align-items-center">
+                            @if($module->isCompleted)
+                                <span class="me-2 text-success">●</span>
+                            @else
+                                <span class="me-2">○</span>
+                            @endif
+                            <span>{{ $lecture->lectName }}</span>
+                        </li>
                         @endforeach
                     </ul>
                 </div>
