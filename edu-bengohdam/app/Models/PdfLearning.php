@@ -16,4 +16,9 @@ class PdfLearning extends Model
         'pdfLearningPages',
         'pdfLearningSizes'
     ];
+
+    public function material()
+    {
+        return $this->belongsTo(LearningMaterials::class, 'learningMaterialID', 'learningMaterialID');
+    }
 }
