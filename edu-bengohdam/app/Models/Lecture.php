@@ -22,7 +22,7 @@ class Lecture extends Model
     public function materials()
     {
         return $this->hasMany(LearningMaterials::class, 'lectID', 'lectID');
-    }
+}
 
     public function lectures()
     {
