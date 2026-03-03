@@ -43,10 +43,10 @@ Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQue
 //to view community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
 
-//community stories of public
+//community stories of public - front end
 Route::get('/community-stories',[CommunityStoryController::class, 'index'])->name('community.stories');
 
-//community stories of admin side
+//community stories of admin side - back end
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/stories', [CommunityStoryController::class, 'index'])->name('stories.index');
     Route::get('/stories/create', [CommunityStoryController::class, 'create'])->name('stories.create');
