@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CourseController;
+// Public controller
 use App\Http\Controllers\CommunityStoryController;
-use App\Http\Controllers\Admin\CommunityStoryController;
+// Admin controller (rename alias to avoid conflict)
+use App\Http\Controllers\Admin\CommunityStoryController as AdminCommunityStoryController;
 
 //root homepage
 Route::get('/', function () {return view('learner.homepage');});
