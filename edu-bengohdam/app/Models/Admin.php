@@ -26,6 +26,10 @@ class Admin extends Authenticatable
         'adminPass',
     ];
 
+    protected $casts = [
+        'adminPass' => 'hashed',
+    ];
+
     public function getAuthPassword()
     {
         return $this->adminPass;
