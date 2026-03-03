@@ -154,7 +154,7 @@
     </div>
 
     <div class="text-center mb-5">
-        <a href="{{ route('courses.index', $course->courseID) }}" class="btn btn-outline-secondary btn-sm">
+        <a href="{{ route('courses.index') }}" class="btn btn-outline-secondary btn-sm">
             View All Courses
         </a>
     </div>
