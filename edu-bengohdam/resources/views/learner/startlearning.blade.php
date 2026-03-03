@@ -99,9 +99,12 @@
                     {{ $module->moduleName }}
                 </div>
                 @foreach($module->lectures as $lecture)
-                    <div class="lecture-item">
-                        • {{ $lecture->lectName }}
-                    </div>
+                <li class="d-flex justify-content-between align-items-center mb-2">
+                    <span>{{ $lecture->lectName }}</span>
+                    <span class="text-muted small">
+                        ⏱ {{ $lecture->lect_duration }} mins
+                    </span>
+                </li>
                 @endforeach
             @endforeach
 
