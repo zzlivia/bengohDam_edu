@@ -58,7 +58,7 @@
             <h5 class="fw-bold mb-4">Bengoh Academy</h5>
 
             <a href="#" class="active">Dashboard</a>
-            <a href="#">User Management</a>
+            <a href="{{ route('admin.user.management') }}">User Management</a>
             <a href="#">Course/Module Management</a>
             <a href="#">Progress</a>
             <a href="#">Announcements</a>
