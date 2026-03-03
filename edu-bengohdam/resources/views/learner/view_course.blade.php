@@ -111,9 +111,9 @@
         <a href="#" class="btn btn-outline-secondary">
             View Course Feedback
         </a>
-        <button class="btn btn-primary">
+        <a href="{{ route('courses.learn', $course->courseID) }}" class="btn btn-outline-dark btn-sm btn-action px-4">
             Enrol
-        </button>
+        </a>
     </div>
 </div>
 
