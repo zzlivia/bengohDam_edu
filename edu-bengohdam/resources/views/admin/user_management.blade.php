@@ -153,7 +153,7 @@
                 <div class="text-center mt-5">
                     <a href="{{ route('admin.dashboard') }}"
                     class="btn btn-primary-custom {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        Dashboard
+                        Home
                     </a>
                 </div>
             </div>
