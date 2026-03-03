@@ -182,7 +182,7 @@
         </div>
     </div>
     <div class="text-center mb-5">
-        <a href="#" class="text-primary small text-decoration-underline">Read More Community Stories</a>
+        <a href="{{ route('community.stories') }}" class="text-primary small text-decoration-underline">Read More Community Stories</a>
     </div>
 
     {{-- Bengoh Dam Histories --}}
