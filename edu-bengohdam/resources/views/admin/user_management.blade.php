@@ -61,117 +61,103 @@
 </head>
 
 <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 sidebar">
+                <h5 class="fw-bold mb-4">Bengoh Academy</h5>
+                <a href="{{ route('admin.dashboard') }}"class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    Dashboard
+                </a>
+                <a href="{{ route('admin.user.management') }}" class="active">User Management</a>
+                <a href="#">Course/Module Management</a>
+                <a href="#">Progress</a>
+                <a href="#">Announcements</a>
+                <a href="#">Reports</a>
+                <div class="mt-5">
+                    <a href="#">Settings</a>
+                    <a href="#">Help & Support</a>
+                    <a href="#">Sign Out</a>
+                </div>
+            </div>
 
-<div class="container-fluid">
-    <div class="row">
+            <div class="col-md-10 p-4">
+                <h4 class="fw-bold mb-4">Summary</h4>
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card-box text-center">
+                            <h6>Total Users</h6>
+                            <h2>{{ $totalUsers }}</h2>
+                            <small>Engaged in this week</small>
+                        </div>
+                    </div>
 
-        {{-- Sidebar --}}
-        <div class="col-md-2 sidebar">
+                    <div class="col-md-3">
+                        <div class="card-box text-center">
+                            <h6>Total Users</h6>
+                            <h2>{{ $totalUsers }}</h2>
+                            <small>Engaged in this week</small>
+                        </div>
+                    </div>
 
-            <h5 class="fw-bold mb-4">Bengoh Academy</h5>
+                    <div class="col-md-3">
+                        <div class="card-box text-center">
+                            <h6>Total Users</h6>
+                            <h2>{{ $totalUsers }}</h2>
+                            <small>Engaged in this week</small>
+                        </div>
+                    </div>
+                </div>
 
-            <a href="{{ route('admin.dashboard') }}"class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                Dashboard
-            </a>
-            <a href="{{ route('admin.user.management') }}" class="active">User Management</a>
-            <a href="#">Course/Module Management</a>
-            <a href="#">Progress</a>
-            <a href="#">Announcements</a>
-            <a href="#">Reports</a>
+                {{-- search box --}}
+                <div class="d-flex justify-content-between align-items-center mb-3">
 
-            <div class="mt-5">
-                <a href="#">Settings</a>
-                <a href="#">Help & Support</a>
-                <a href="#">Sign Out</a>
+                    <input type="text" class="form-control w-50" placeholder="Search User">
+
+                    <div>
+                        <button class="btn btn-primary-custom">Add User Manually</button>
+                        <button class="btn btn-danger-custom">Remove User</button>
+                    </div>
+                </div>
+
+                {{-- table --}}
+                <div class="card-box">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email Address</th>
+                                <th>Age</th>
+                                <th>Engagement</th>
+                                <th>Rank</th>
+                                <th>Completed Courses</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($users as $user)
+                            <tr>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6" class="text-center">No users found</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center mt-5">
+                    <a href="{{ route('admin.dashboard') }}"
+                    class="btn btn-primary-custom {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                        Dashboard
+                    </a>
+                </div>
             </div>
         </div>
-
-        {{-- Main Content --}}
-        <div class="col-md-10 p-4">
-
-            <h4 class="fw-bold mb-4">Summary</h4>
-
-            <div class="row mb-4">
-
-                <div class="col-md-3">
-                    <div class="card-box text-center">
-                        <h6>Total Users</h6>
-                        <h2>{{ $totalUsers }}</h2>
-                        <small>Engaged in this week</small>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card-box text-center">
-                        <h6>Total Users</h6>
-                        <h2>{{ $totalUsers }}</h2>
-                        <small>Engaged in this week</small>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card-box text-center">
-                        <h6>Total Users</h6>
-                        <h2>{{ $totalUsers }}</h2>
-                        <small>Engaged in this week</small>
-                    </div>
-                </div>
-
-            </div>
-
-            {{-- Search + Buttons --}}
-            <div class="d-flex justify-content-between align-items-center mb-3">
-
-                <input type="text" class="form-control w-50" placeholder="Search User">
-
-                <div>
-                    <button class="btn btn-primary-custom">Add User Manually</button>
-                    <button class="btn btn-danger-custom">Remove User</button>
-                </div>
-            </div>
-
-            {{-- Table --}}
-            <div class="card-box">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email Address</th>
-                            <th>Age</th>
-                            <th>Engagement</th>
-                            <th>Rank</th>
-                            <th>Completed Courses</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @forelse($users as $user)
-                        <tr>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="6" class="text-center">No users found</td>
-                        </tr>
-                        @endforelse
-
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="text-center mt-5">
-                <a href="/" class="btn btn-primary-custom">Home</a>
-            </div>
-
-        </div>
-
     </div>
-</div>
-
 </body>
 </html>
