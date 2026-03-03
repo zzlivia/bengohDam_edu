@@ -29,3 +29,9 @@ Route::get('/courses/{id}/learn', [CourseController::class, 'startLearning'])->n
 
 //question section
 Route::get('/module/{id}/quiz', [CourseController::class, 'showQuiz'])->name('module.quiz');
+
+//display module questions page
+Route::get('/module/{id}/questions', [CourseController::class, 'showModuleQuestions'])->name('module.questions');
+
+//submit module questions
+Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQuestions'])->name('module.questions.submit');
