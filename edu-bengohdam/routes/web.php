@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CommunityStoryController;
 
 //root homepage
 Route::get('/', function () {return view('learner.homepage');});
@@ -35,3 +36,6 @@ Route::get('/module/{id}/questions', [CourseController::class, 'showModuleQuesti
 
 //submit module questions
 Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQuestions'])->name('module.questions.submit');
+
+//to view community stories
+Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
