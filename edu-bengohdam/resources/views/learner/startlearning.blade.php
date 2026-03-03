@@ -95,8 +95,11 @@
                 <div class="module-title">
                     MODULE {{ $loop->iteration }}
                 </div>
-                <div class="fw-semibold mb-1">
-                    {{ $module->moduleName }}
+                <div class="fw-semibold mb-1 d-flex justify-content-between">
+                    <span>{{ $module->moduleName }}</span>
+                    <small class="text-muted">
+                        {{ $module->totalDuration() }} mins
+                    </small>
                 </div>
                 @foreach($module->lectures as $lecture)
                 <li class="d-flex justify-content-between align-items-center mb-2">
