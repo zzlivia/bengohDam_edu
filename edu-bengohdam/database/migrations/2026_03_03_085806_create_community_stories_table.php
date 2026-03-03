@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('community_stories', function (Blueprint $table) {
             $table->id();
-            $table->string('community_name');           // Person name
-            $table->string('title');          // Short title
-            $table->text('community_story');            // Full story
-            $table->string('community_image')->nullable(); // Optional profile image
-            $table->boolean('is_active')->default(1);
+            $table->foreignId('admin_id')
+                ->constrained('admins')
+                ->onDelete('cascade');
+            $table->string('community_name');
+            $table->string('title');
+            $table->text('community_story');
+            $table->string('community_image')->nullable();
             $table->timestamps();
         });
     }
