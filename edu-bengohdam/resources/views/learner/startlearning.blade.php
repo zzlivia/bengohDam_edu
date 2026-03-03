@@ -92,25 +92,27 @@
         <div class="col-md-3 sidebar p-3">
             <h6 class="fw-bold mb-3">Course Modules</h6>
             @foreach($course->modules as $module)
-                <div class="module-title">
-                    MODULE {{ $loop->iteration }}
+                <div class="mb-3">
+                    <div class="text-uppercase small text-muted fw-bold">
+                        MODULE {{ $loop->iteration }}
+                    </div>
+                    <div class="fw-semibold mb-2">
+                        {{ $module->moduleName }}
+                    </div>
+                    <ul class="list-unstyled ps-2">
+                        @foreach($module->lectures as $lecture)
+                            <li class="mb-1 d-flex align-items-center">
+                                <span class="me-2">
+                                    ○
+                                </span>
+                                <span>
+                                    {{ $lecture->lectName }}
+                                </span>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="fw-semibold mb-1 d-flex justify-content-between">
-                    <span>{{ $module->moduleName }}</span>
-                    <small class="text-muted">
-                        {{ $module->totalDuration() }} mins
-                    </small>
-                </div>
-                @foreach($module->lectures as $lecture)
-                <li class="d-flex justify-content-between align-items-center mb-2">
-                    <span>{{ $lecture->lectName }}</span>
-                    <span class="text-muted small">
-                        ⏱ {{ $lecture->lect_duration }} mins
-                    </span>
-                </li>
-                @endforeach
             @endforeach
-
         </div>
 
         <!-- main content -->
