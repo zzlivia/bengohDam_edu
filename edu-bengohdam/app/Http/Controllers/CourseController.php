@@ -94,6 +94,7 @@ class CourseController extends Controller
             'modules.lectures.materials.pdf',
             'modules.enrolment',
             'modules.lectures',
+            'modules.lectures.mcqs',
             'modules.lectures.mcqs.answers'
         ])->findOrFail($id);
 

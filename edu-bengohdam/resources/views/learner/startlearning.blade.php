@@ -92,26 +92,34 @@
         <div class="col-md-3 sidebar p-3">
             <h6 class="fw-bold mb-3">Course Modules</h6>
             @foreach($course->modules as $module)
+
                 <div class="mb-3">
+
                     <div class="text-uppercase small text-muted fw-bold">
                         MODULE {{ $loop->iteration }}
                     </div>
+
                     <div class="fw-semibold mb-2">
                         {{ $module->moduleName }}
                     </div>
-                    <ul class="list-unstyled ps-2">
-                        @foreach($module->lectures as $lecture)
-                            <li class="mb-1 d-flex align-items-center">
-                                @if($module->enrolment && $module->enrolment->isCompleted)
-                                    <span class="me-2 text-success fw-bold">●</span>
-                                @else
-                                    <span class="me-2 text-muted">○</span>
-                                @endif
-                                <span>{{ $lecture->lectName }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
+
+                    @foreach($module->lectures as $lecture)
+
+                        <div class="ms-2 mb-1">
+                            ○ {{ $lecture->lectName }}
+                        </div>
+
+                        {{-- SHOW MCQ IF THIS LECTURE HAS QUESTIONS --}}
+                        @if($lecture->mcqs->count() > 0)
+                            <div class="ms-4 text-primary small">
+                                📝 MCQs {{ $loop->parent->iteration }}
+                            </div>
+                        @endif
+
+                    @endforeach
+
                 </div>
+
             @endforeach
         </div>
 
