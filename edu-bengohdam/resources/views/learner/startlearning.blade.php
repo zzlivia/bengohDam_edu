@@ -159,11 +159,10 @@
                         </button>
                     @else
                         {{-- no lecture left, then MCQs --}}
-                        <a href="{{ route('module.quiz', $module->moduleID) }}"
+                        <a href="{{ route('module.questions', $module->moduleID) }}"
                         class="btn btn-dark btn-sm btn-nav">
                             NEXT
                         </a>
-
                     @endif
                 </div>
             </div>
