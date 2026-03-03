@@ -152,9 +152,19 @@
                     <button class="btn btn-outline-dark btn-sm btn-nav">
                         Get the PDF
                     </button>
-                    <button class="btn btn-dark btn-sm btn-nav">
-                        NEXT
-                    </button>
+                    @if($module->lectures->count() > 1)
+                        {{-- go to next lecture --}}
+                        <button class="btn btn-dark btn-sm btn-nav">
+                            NEXT
+                        </button>
+                    @else
+                        {{-- no lecture left, then MCQs --}}
+                        <a href="{{ route('module.quiz', $module->moduleID) }}"
+                        class="btn btn-dark btn-sm btn-nav">
+                            NEXT
+                        </a>
+
+                    @endif
                 </div>
             </div>
         </div>
