@@ -12,9 +12,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('community_stories', function (Blueprint $table) {
-
-            $table->unsignedBigInteger('adminID')->after('id');
-
             $table->foreign('adminID')
                 ->references('adminID')
                 ->on('admin')
