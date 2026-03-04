@@ -69,7 +69,7 @@
                     Dashboard
                 </a>
                 <a href="{{ route('admin.user.management') }}" class="active">User Management</a>
-                <a href="#">Course/Module Management</a>
+                <a href="{{ route('admin.course.module') }}">Course/Module Management</a>
                 <a href="#">Progress</a>
                 <a href="#">Announcements</a>
                 <a href="#">Reports</a>
