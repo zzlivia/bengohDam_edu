@@ -24,9 +24,9 @@ Go to <b>Reports</b> and choose PDF or Excel export.</p>
 <h6 class="fw-bold mt-4">Contact Support</h6>
 
 <p>
-Email: support@bengohacademy.com<br>
-Phone: +60 12-345 6789<br>
-Office Hours: Monday – Friday (9AM – 5PM)
+    Email: geemaolivia@gmail.com<br>
+    Phone: +6019 835 5025<br>
+    Office Hours: Monday – Friday (9AM – 5PM)
 </p>
 
 @endsection
