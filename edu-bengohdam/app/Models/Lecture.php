@@ -32,6 +32,6 @@ class Lecture extends Model
 
     public function mcqs()
     {
-        return $this->hasMany(Mcqs::class, 'lectID', 'lectID');
+        return $this->hasMany(Mcq::class, 'moduleID', 'moduleID');
     }
 }
