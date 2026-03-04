@@ -65,4 +65,9 @@ class AdminController extends Controller
     {
         return view('admin.reports');
     }
+
+    public function settings()
+    {
+        return view('admin.admin_settings');
+    }
 }

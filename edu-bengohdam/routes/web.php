@@ -69,6 +69,8 @@ Route::prefix('admin')
             [AdminController::class, 'reports'])
             ->name('reports');
 
+        Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
+
         Route::get('/stories', [AdminCommunityStoryController::class, 'index'])->name('stories.index');
         Route::get('/stories/create', [AdminCommunityStoryController::class, 'create'])->name('stories.create');
         Route::post('/stories', [AdminCommunityStoryController::class, 'store'])->name('stories.store');
