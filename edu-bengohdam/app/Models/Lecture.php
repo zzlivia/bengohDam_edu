@@ -40,4 +40,10 @@ class Lecture extends Model
         return $this->hasMany(LectureSection::class, 'lectID', 'lectID')
                     ->orderBy('section_order');
     }
+
+    public function create()
+    {
+        $lectures = Lecture::all();
+        return view('admin.add_section', compact('lectures'));
+    }
 }
