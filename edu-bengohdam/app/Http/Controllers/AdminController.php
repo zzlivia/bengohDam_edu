@@ -55,4 +55,9 @@ class AdminController extends Controller
     {
         return view('admin.progress');
     }
+
+    public function announcements()
+    {
+        return view('admin.announcements');
+    }
 }
