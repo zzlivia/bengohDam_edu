@@ -7,6 +7,7 @@ use App\Http\Controllers\CommunityStoryController;
 use App\Http\Controllers\Admin\CommunityStoryController as AdminCommunityStoryController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\LectureSectionController;
 
 //public routes
 Route::get('/', fn () => view('learner.homepage'));
@@ -71,6 +72,10 @@ Route::prefix('admin')
         Route::get('/reports',
             [AdminController::class, 'reports'])
             ->name('reports');
+
+        Route::post('/lecture-sections/store', 
+            [LectureSectionController::class, 'store'])
+            ->name('store');
 
         Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 
