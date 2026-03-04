@@ -25,10 +25,15 @@ Route::get('/courses', [CourseController::class, 'index'])->name('courses.index'
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 Route::get('/courses/{id}/learn', [CourseController::class, 'startLearning'])->name('courses.learn');
 
-//mcqs
-Route::get('/module/{id}/quiz', [CourseController::class, 'showQuiz'])->name('module.quiz');
-Route::get('/module/{id}/questions', [CourseController::class, 'showModuleQuestions'])->name('module.questions');
-Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQuestions'])->name('module.questions.submit');
+// MCQs
+Route::get('/module/{id}/quiz', [CourseController::class, 'showQuiz'])
+    ->name('module.quiz');
+
+Route::get('/module/{id}/questions', [CourseController::class, 'showModuleQuestions'])
+    ->name('module.questions');
+
+Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQuestions'])
+    ->name('module.questions.submit');
 
 //public community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');

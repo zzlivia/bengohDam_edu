@@ -111,9 +111,9 @@
 
                         {{-- SHOW MCQ IF THIS LECTURE HAS QUESTIONS --}}
                         @if($lecture->mcqs->count() > 0)
-                            <div class="ms-4 text-primary small">
+                            <a href="{{ route('module.questions', $module->moduleID) }}" class="ms-4 text-primary small text-decoration-none">
                                 📝 MCQs {{ $loop->parent->iteration }}
-                            </div>
+                            </a>
                         @endif
 
                     @endforeach
