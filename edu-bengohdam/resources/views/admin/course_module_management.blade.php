@@ -63,10 +63,7 @@
 
             <a href="{{ route('admin.user.management') }}">User Management</a>
 
-            <a href="{{ route('admin.course.module') }}"
-               class="{{ request()->routeIs('admin.course.module') ? 'active' : '' }}">
-                Course/Module Management
-            </a>
+            <a href="{{ route('admin.course.module') }}">Course/Module Management</a>
 
             <a href="#">Progress</a>
             <a href="#">Announcements</a>
