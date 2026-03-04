@@ -49,6 +49,23 @@
             border-bottom:1px solid #ddd;
         }
 
+        .sidebar-logout{
+            display:block;
+            padding:10px;
+            border-radius:8px;
+            text-decoration:none;
+            color:#333;
+            margin-bottom:6px;
+            width:100%;
+            background:none;
+            border:none;
+            text-align:left;
+        }
+
+        .sidebar-logout:hover{
+            background:#d6e4f5;
+            font-weight:500;
+        }
     </style>
 </head>
 
@@ -72,7 +89,10 @@
                 Settings
                 </a>
                 <a href="{{ route('admin.help') }}">Help & Support</a>
-                <a href="#">Sign Out</a>
+                <form method="POST" action="{{ route('admin.logout') }}">
+                    @csrf
+                    <button type="submit" class="sidebar-logout">Sign Out</button>
+                </form>
             </div>
         </div>
         <div class="col-md-10 p-0">
