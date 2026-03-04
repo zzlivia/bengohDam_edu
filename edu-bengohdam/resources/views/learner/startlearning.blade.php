@@ -138,15 +138,25 @@
             <!-- lesson content -->
             <div class="content-section">
                 <h6 class="fw-bold">Lesson Overview</h6>
-                <p>
-                    In this lesson, you will learn about the selected lecture from the course.
-                </p>
-                <h6 class="fw-bold mt-3">Key Points</h6>
-                <ul>
-                    <li>Understand the main topic</li>
-                    <li>Learn important concepts</li>
-                    <li>Explore practical examples</li>
-                </ul>
+                    @foreach($lecture->sections as $section)
+
+                    <h4>{{ $section->section_title }}</h4>
+
+                    @if($section->section_type == 'text')
+                        <p>{{ $section->section_content }}</p>
+                    @endif
+
+                    @if($section->section_type == 'video')
+                        <video controls width="100%">
+                            <source src="{{ asset('storage/'.$section->section_file) }}">
+                        </video>
+                    @endif
+
+                    @if($section->section_type == 'pdf')
+                        <a href="{{ asset('storage/'.$section->section_file) }}">Download PDF</a>
+                    @endif
+
+                    @endforeach
                 <hr>
                 <div class="d-flex justify-content-between">
                     <button class="btn btn-outline-dark btn-sm btn-nav">
