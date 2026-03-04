@@ -117,22 +117,3 @@
 </div>
 
 @endsection
-    <img src="{{ asset('images/homepage.png') }}" class="hero-img shadow-sm">
-</div>
-
-{{-- Feature Boxes --}}
-<div class="row text-center mb-5 g-3">
-    ...
-</div>
-
-{{-- Featured Courses --}}
-<h5 class="mb-3 fw-bold">Featured Courses</h5>
-...
-
-{{-- Community Success Stories --}}
-...
-
-{{-- Bengoh Dam Histories --}}
-...
-
-@endsection
