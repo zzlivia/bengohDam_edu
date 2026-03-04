@@ -34,4 +34,10 @@ class Lecture extends Model
     {
         return $this->hasMany(Mcqs::class, 'moduleID', 'moduleID');
     }
+
+    public function sections()
+    {
+        return $this->hasMany(LectureSection::class, 'lectID', 'lectID')
+                    ->orderBy('section_order');
+    }
 }
