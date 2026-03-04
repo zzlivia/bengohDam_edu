@@ -148,4 +148,15 @@ class CourseController extends Controller
         }
         return back()->with('result', "You scored $score / $total");
     }
+
+    public function courseFeedback()
+    {
+        return view('course_feedback');
+    }
+
+    public function submitFeedback(Request $request)
+    {
+        // later you can save to database
+        return redirect()->back()->with('success','Thank you for your feedback!');
+    }
 }
