@@ -24,6 +24,6 @@ class Mcqs extends Model
     }
     public function lecture()
     {
-        return $this->belongsTo(Lecture::class, 'lectID', 'lectID');
+        return $this->belongsTo(Lecture::class, 'moduleID', 'moduleID');
     }
 }
