@@ -79,7 +79,11 @@
     Progress
     </a>
 
-    <a href="#">Announcements</a>
+    <a href="{{ route('admin.announcements') }}"
+    class="{{ request()->routeIs('admin.announcements') ? 'active' : '' }}">
+    Announcements
+    </a>
+    
     <a href="#">Reports</a>
 
     <div class="mt-5">
