@@ -149,9 +149,13 @@ class CourseController extends Controller
         return back()->with('result', "You scored $score / $total");
     }
 
-    public function courseFeedback()
+    public function courseFeedback($id)
     {
-        return view('learner.course_feedback');
+        $course = Course::with([
+            'modules.lectures.mcqs'
+        ])->findOrFail($id);
+
+        return view('learner.course_feedback', compact('course'));
     }
 
     public function submitFeedback(Request $request)

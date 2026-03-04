@@ -5,64 +5,43 @@
 <div class="container-fluid">
 <div class="row">
 
-    {{-- SIDEBAR --}}
-    <div class="col-md-3">
+    <!-- sidebar -->
+        <div class="col-md-3 sidebar p-3">
+            <h6 class="fw-bold mb-3">Course Modules</h6>
+            @foreach($course->modules as $module)
 
-        <div class="card p-3">
+                <div class="mb-3">
 
-            <h6 class="fw-bold">Course Modules</h6>
+                    <div class="text-uppercase small text-muted fw-bold">
+                        MODULE {{ $loop->iteration }}
+                    </div>
 
-            <div class="small">
-                <p class="fw-bold mb-1">MODULE 1</p>
-                <a href="#" class="d-block text-decoration-none">Introduction to the Dam</a>
-                <a href="#" class="d-block text-decoration-none">What is a Dam</a>
-                <a href="#" class="d-block text-decoration-none">Importance of Geography</a>
-                <a href="#" class="d-block text-decoration-none">MCQs 1</a>
+                    <div class="fw-semibold mb-2">
+                        {{ $module->moduleName }}
+                    </div>
 
-                <hr>
+                    @foreach($module->lectures as $lecture)
 
-                <p class="fw-bold mb-1">MODULE 2</p>
-                <a href="#" class="d-block text-decoration-none">Historical Background</a>
-                <a href="#" class="d-block text-decoration-none">Timeline</a>
-                <a href="#" class="d-block text-decoration-none">MCQs 2</a>
+                        <div class="ms-2 mb-1">
+                            ○ {{ $lecture->lectName }}
+                        </div>
 
-                <hr>
+                        {{-- SHOW MCQ IF THIS LECTURE HAS QUESTIONS --}}
+                        @if($lecture->mcqs->count() > 0)
+                            <a href="{{ route('module.questions', $module->moduleID) }}" class="ms-4 text-primary small text-decoration-none">
+                                📝 MCQs {{ $loop->parent->iteration }}
+                            </a>
+                        @endif
 
-                <p class="fw-bold mb-1">MODULE 3</p>
-                <a href="#" class="d-block text-decoration-none">Impact of the Dam</a>
-                <a href="#" class="d-block text-decoration-none">Environmental Changes</a>
-                <a href="#" class="d-block text-decoration-none">MCQs 3</a>
+                    @endforeach
 
-                <hr>
+                </div>
 
-                <p class="fw-bold mb-1">MODULE 4</p>
-                <a href="#" class="d-block text-decoration-none">Preservation & Future</a>
-                <a href="#" class="d-block text-decoration-none">Future of the Dam</a>
-                <a href="#" class="d-block text-decoration-none">MCQs 4</a>
-
-                <hr>
-
-                <a href="{{ route('course.feedback') }}" class="d-block text-decoration-none fw-bold text-primary">
+            @endforeach
+                <a class="sidebar-link" href="{{ route('course.feedback') }}">
                     Course Feedback
                 </a>
-
-                <a href="#" class="d-block text-decoration-none">
-                    Course Assessment
-                </a>
-
-                <a href="#" class="d-block text-decoration-none">
-                    Progress
-                </a>
-
-                <a href="#" class="d-block text-decoration-none">
-                    Leaderboards
-                </a>
-
-            </div>
-
         </div>
-
-    </div>
 
 
     {{-- MAIN CONTENT --}}
