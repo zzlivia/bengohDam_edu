@@ -3,18 +3,83 @@
 @section('content')
 
 <div class="container-fluid">
+<div class="row">
 
-    <div class="text-center mb-4">
-        <h5 class="fw-semibold">Course Feedback</h5>
-        <p class="text-muted small">Help us improve Bengoh Academy by sharing your learning experience.</p>
+    {{-- SIDEBAR --}}
+    <div class="col-md-3">
+
+        <div class="card p-3">
+
+            <h6 class="fw-bold">Course Modules</h6>
+
+            <div class="small">
+                <p class="fw-bold mb-1">MODULE 1</p>
+                <a href="#" class="d-block text-decoration-none">Introduction to the Dam</a>
+                <a href="#" class="d-block text-decoration-none">What is a Dam</a>
+                <a href="#" class="d-block text-decoration-none">Importance of Geography</a>
+                <a href="#" class="d-block text-decoration-none">MCQs 1</a>
+
+                <hr>
+
+                <p class="fw-bold mb-1">MODULE 2</p>
+                <a href="#" class="d-block text-decoration-none">Historical Background</a>
+                <a href="#" class="d-block text-decoration-none">Timeline</a>
+                <a href="#" class="d-block text-decoration-none">MCQs 2</a>
+
+                <hr>
+
+                <p class="fw-bold mb-1">MODULE 3</p>
+                <a href="#" class="d-block text-decoration-none">Impact of the Dam</a>
+                <a href="#" class="d-block text-decoration-none">Environmental Changes</a>
+                <a href="#" class="d-block text-decoration-none">MCQs 3</a>
+
+                <hr>
+
+                <p class="fw-bold mb-1">MODULE 4</p>
+                <a href="#" class="d-block text-decoration-none">Preservation & Future</a>
+                <a href="#" class="d-block text-decoration-none">Future of the Dam</a>
+                <a href="#" class="d-block text-decoration-none">MCQs 4</a>
+
+                <hr>
+
+                <a href="{{ route('course.feedback') }}" class="d-block text-decoration-none fw-bold text-primary">
+                    Course Feedback
+                </a>
+
+                <a href="#" class="d-block text-decoration-none">
+                    Course Assessment
+                </a>
+
+                <a href="#" class="d-block text-decoration-none">
+                    Progress
+                </a>
+
+                <a href="#" class="d-block text-decoration-none">
+                    Leaderboards
+                </a>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <form method="POST" action="{{ route('course.feedback.submit') }}">
+
+    {{-- MAIN CONTENT --}}
+    <div class="col-md-9">
+
+        <div class="text-center mb-4">
+            <h5 class="fw-semibold">Course Feedback</h5>
+            <p class="text-muted small">
+                Help us improve Bengoh Academy by sharing your learning experience.
+            </p>
+        </div>
+
+        <form method="POST" action="{{ route('course.feedback.submit') }}">
         @csrf
 
         <div class="card shadow-sm border-0 p-4">
 
-            <!-- Question 1 -->
             <div class="mb-4">
                 <label class="form-label fw-semibold">
                     1. How clear was the course content?
@@ -41,7 +106,6 @@
                 </div>
             </div>
 
-            <!-- Question 2 -->
             <div class="mb-4">
                 <label class="form-label fw-semibold">
                     2. Did the course help you understand the importance of the Bengoh Dam?
@@ -63,7 +127,6 @@
                 </div>
             </div>
 
-            <!-- Question 3 -->
             <div class="mb-4">
                 <label class="form-label fw-semibold">
                     3. Which module did you find most interesting?
@@ -71,14 +134,13 @@
 
                 <select name="favorite_module" class="form-select">
                     <option value="">Select Module</option>
-                    <option>Module 1 - Introduction to the Dam</option>
+                    <option>Module 1 - Introduction</option>
                     <option>Module 2 - Historical Background</option>
-                    <option>Module 3 - Impact of the Dam</option>
-                    <option>Module 4 - Preservation & Future Importance</option>
+                    <option>Module 3 - Impact</option>
+                    <option>Module 4 - Preservation</option>
                 </select>
             </div>
 
-            <!-- Question 4 -->
             <div class="mb-4">
                 <label class="form-label fw-semibold">
                     4. What did you enjoy most about the course?
@@ -87,10 +149,9 @@
                 <textarea name="enjoyed" class="form-control" rows="3"></textarea>
             </div>
 
-            <!-- Question 5 -->
             <div class="mb-4">
                 <label class="form-label fw-semibold">
-                    5. Do you have any suggestions to improve this course?
+                    5. Suggestions to improve this course?
                 </label>
 
                 <textarea name="suggestions" class="form-control" rows="3"></textarea>
@@ -100,12 +161,15 @@
 
         <div class="text-end mt-4">
             <button type="submit" class="btn btn-success px-4">
-                Submit Feedback
+                Submit
             </button>
         </div>
 
-    </form>
+        </form>
 
+    </div>
+
+</div>
 </div>
 
 @endsection
