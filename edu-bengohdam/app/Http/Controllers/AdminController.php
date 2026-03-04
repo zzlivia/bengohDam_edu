@@ -17,12 +17,37 @@ class AdminController extends Controller
         $users = User::all();
 
         $totalUsers = $users->count();
-        $engagedThisWeek = $users->count(); // can modify later
+        $engagedThisWeek = $users->count();
 
         return view('admin.user_management', compact(
             'users',
             'totalUsers',
             'engagedThisWeek'
+        ));
+    }
+
+    public function courseModuleManagement()
+    {
+        // Replace later with real Course model
+        $totalCourses = 4;
+        $totalModules = 15;
+        $coursesTaken = 5;
+        $modulesCompleted = 5;
+
+        $courses = [
+            ['name' => 'Course Name 1'],
+            ['name' => 'Course Name 1'],
+            ['name' => 'Course Name 1'],
+            ['name' => 'Course Name 1'],
+            ['name' => 'Course Name 1'],
+        ];
+
+        return view('admin.course_module_management', compact(
+            'totalCourses',
+            'totalModules',
+            'coursesTaken',
+            'modulesCompleted',
+            'courses'
         ));
     }
 }
