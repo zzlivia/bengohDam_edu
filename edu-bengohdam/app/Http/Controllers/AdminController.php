@@ -70,4 +70,9 @@ class AdminController extends Controller
     {
         return view('admin.admin_settings');
     }
+
+    public function helpSupport()
+    {
+        return view('admin.admin_help_support');
+    }
 }

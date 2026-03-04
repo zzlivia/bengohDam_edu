@@ -57,62 +57,38 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 sidebar">
-
             <h5 class="fw-bold mb-4">Bengoh Academy</h5>
-
             <div>
-
                 <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard</a>
-
                 <a href="{{ route('admin.user.management') }}" class="{{ request()->routeIs('admin.user.management') ? 'active' : '' }}">User Management</a>
-
                 <a href="{{ route('admin.course.module') }}" class="{{ request()->routeIs('admin.course.module') ? 'active' : '' }}">Course/Module Management</a>
-
                 <a href="{{ route('admin.progress') }}" class="{{ request()->routeIs('admin.progress') ? 'active' : '' }}">Progress</a>
-
                 <a href="{{ route('admin.announcements') }}" class="{{ request()->routeIs('admin.announcements') ? 'active' : '' }}">Announcements</a>
-
                 <a href="{{ route('admin.reports') }}" class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">Reports</a>
-
             </div>
-
             <div class="mt-auto">
                 <a href="{{ route('admin.settings') }}"
                 class="{{ request()->routeIs('admin.settings') ? 'active' : '' }}">
                 Settings
                 </a>
-                <a href="#">Help & Support</a>
+                <a href="{{ route('admin.help') }}">Help & Support</a>
                 <a href="#">Sign Out</a>
             </div>
-
         </div>
-
-        <!-- MAIN CONTENT -->
         <div class="col-md-10 p-0">
-
-            <!-- TOPBAR -->
             <div class="topbar d-flex justify-content-between align-items-center p-3 px-4">
-
                 <div>
                     <strong>Languages</strong>
                 </div>
-
                 <div>
                     <span class="fw-bold">Olivia Geema</span>
                     <small class="text-muted">Administrator</small>
                 </div>
-
             </div>
-
-            <!-- PAGE CONTENT -->
             <div class="p-4">
-
                 @yield('content')
-
             </div>
-
         </div>
-
     </div>
 </div>
 

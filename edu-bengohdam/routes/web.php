@@ -71,6 +71,8 @@ Route::prefix('admin')
 
         Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 
+        Route::get('help-support', [AdminController::class, 'helpSupport'])->name('help');
+
         Route::get('/stories', [AdminCommunityStoryController::class, 'index'])->name('stories.index');
         Route::get('/stories/create', [AdminCommunityStoryController::class, 'create'])->name('stories.create');
         Route::post('/stories', [AdminCommunityStoryController::class, 'store'])->name('stories.store');
