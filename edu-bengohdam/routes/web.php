@@ -39,6 +39,9 @@ Route::get('/admin/signin', [AuthController::class, 'showLogin'])
 Route::post('/admin/signin', [AuthController::class, 'login'])
     ->name('admin.login.submit');
 
+Route::post('/admin/logout', [AuthController::class, 'logout'])
+    ->name('admin.logout');
+
 //admin protected route
 Route::prefix('admin')
     ->middleware('auth:admin')
