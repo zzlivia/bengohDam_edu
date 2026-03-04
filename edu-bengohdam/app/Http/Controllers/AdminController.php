@@ -60,4 +60,9 @@ class AdminController extends Controller
     {
         return view('admin.announcements');
     }
+
+    public function reports()
+    {
+        return view('admin.reports');
+    }
 }
