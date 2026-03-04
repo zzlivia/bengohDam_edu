@@ -39,15 +39,6 @@ Route::get('/admin/signin', [AuthController::class, 'showLogin'])
 Route::post('/admin/signin', [AuthController::class, 'login'])
     ->name('admin.login.submit');
 
-//admin user management
-Route::get('/admin/user-management', [AdminController::class, 'userManagement'])->name('admin.user.management');
-
-//admin course/module management
-Route::get('/admin/course-module-management',
-    [App\Http\Controllers\AdminController::class, 'courseModuleManagement'])
-    ->name('admin.course.module')
-    ->middleware('auth');
-
 //admin protected route
 Route::prefix('admin')
     ->middleware('auth:admin')
@@ -58,11 +49,18 @@ Route::prefix('admin')
             return view('admin.admin_dashboard');
         })->name('dashboard');
 
+        Route::get('/user-management',
+            [AdminController::class, 'userManagement'])
+            ->name('user.management');
+
+        Route::get('/course-module-management',
+            [AdminController::class, 'courseModuleManagement'])
+            ->name('course.module');
+
         Route::get('/stories', [AdminCommunityStoryController::class, 'index'])->name('stories.index');
         Route::get('/stories/create', [AdminCommunityStoryController::class, 'create'])->name('stories.create');
         Route::post('/stories', [AdminCommunityStoryController::class, 'store'])->name('stories.store');
         Route::get('/stories/{id}/edit', [AdminCommunityStoryController::class, 'edit'])->name('stories.edit');
         Route::put('/stories/{id}', [AdminCommunityStoryController::class, 'update'])->name('stories.update');
         Route::delete('/stories/{id}', [AdminCommunityStoryController::class, 'destroy'])->name('stories.destroy');
-
 });
