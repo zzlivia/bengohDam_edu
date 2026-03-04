@@ -8,4 +8,9 @@ class Feedback extends Model
 {
     protected $table = 'coursefeedback';
     protected $primaryKey = 'feedbackID';
+
+    protected $fillable = [
+        'courseID',
+        'courseRating'
+    ];
 }

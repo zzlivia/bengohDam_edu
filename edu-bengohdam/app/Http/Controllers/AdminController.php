@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Course;
 
 use Illuminate\Http\Request;
 
@@ -74,5 +75,12 @@ class AdminController extends Controller
     public function helpSupport()
     {
         return view('admin.admin_help_support');
+    }
+
+    //to display course, module, lecture then sections
+    public function courseModuleManagement()
+    {
+        $courses = Course::with('modules.lectures.sections')->get();
+        return view('admin.course_module_management', compact('courses'));
     }
 }

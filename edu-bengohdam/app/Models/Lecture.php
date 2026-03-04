@@ -23,11 +23,6 @@ class Lecture extends Model
     public function materials()
     {
         return $this->hasMany(LearningMaterials::class, 'lectID', 'lectID');
-}
-
-    public function lectures()
-    {
-        return $this->hasMany(Lecture::class, 'moduleID', 'moduleID');
     }
 
     public function mcqs()
@@ -39,11 +34,5 @@ class Lecture extends Model
     {
         return $this->hasMany(LectureSection::class, 'lectID', 'lectID')
                     ->orderBy('section_order');
-    }
-
-    public function create()
-    {
-        $lectures = Lecture::all();
-        return view('admin.add_section', compact('lectures'));
     }
 }
