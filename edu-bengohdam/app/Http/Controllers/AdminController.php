@@ -29,26 +29,19 @@ class AdminController extends Controller
 
     public function courseModuleManagement()
     {
-        // Replace later with real Course model
-        $totalCourses = 4;
-        $totalModules = 15;
-        $coursesTaken = 5;
-        $modulesCompleted = 5;
+        $courses = Course::with('modules.lectures.sections')->get();
 
-        $courses = [
-            ['name' => 'Course Name 1'],
-            ['name' => 'Course Name 1'],
-            ['name' => 'Course Name 1'],
-            ['name' => 'Course Name 1'],
-            ['name' => 'Course Name 1'],
-        ];
+        $totalCourses = $courses->count();
+        $totalModules = $courses->sum(fn($course) => $course->modules->count());
+        $coursesTaken = 0; // update later from enrolment table
+        $modulesCompleted = 0; // update later from progress table
 
         return view('admin.course_module_management', compact(
+            'courses',
             'totalCourses',
             'totalModules',
             'coursesTaken',
-            'modulesCompleted',
-            'courses'
+            'modulesCompleted'
         ));
     }
 
@@ -75,12 +68,5 @@ class AdminController extends Controller
     public function helpSupport()
     {
         return view('admin.admin_help_support');
-    }
-
-    //to display course, module, lecture then sections
-    public function courseModuleManagement()
-    {
-        $courses = Course::with('modules.lectures.sections')->get();
-        return view('admin.course_module_management', compact('courses'));
     }
 }
