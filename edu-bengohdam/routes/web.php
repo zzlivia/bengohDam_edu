@@ -42,6 +42,12 @@ Route::post('/admin/signin', [AuthController::class, 'login'])
 //admin user management
 Route::get('/admin/user-management', [AdminController::class, 'userManagement'])->name('admin.user.management');
 
+//admin course/module management
+Route::get('/admin/course-module-management',
+    [App\Http\Controllers\AdminController::class, 'courseModuleManagement'])
+    ->name('admin.course.module')
+    ->middleware('auth');
+
 //admin protected route
 Route::prefix('admin')
     ->middleware('auth:admin')
