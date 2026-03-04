@@ -83,8 +83,11 @@
     class="{{ request()->routeIs('admin.announcements') ? 'active' : '' }}">
     Announcements
     </a>
-    
-    <a href="#">Reports</a>
+
+    <a href="{{ route('admin.reports') }}"
+    class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
+    Reports
+    </a>
 
     <div class="mt-5">
         <a href="#">Settings</a>
