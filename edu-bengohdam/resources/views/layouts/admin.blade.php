@@ -17,6 +17,9 @@
             background:white;
             padding:20px;
             border-right:1px solid #ddd;
+
+            display:flex;
+            flex-direction:column;
         }
 
         .sidebar a{
@@ -57,43 +60,29 @@
 <!-- SIDEBAR -->
 <div class="col-md-2 sidebar">
 
-    <h5 class="fw-bold mb-4">Bengoh Academy</h5>
+<h5 class="fw-bold mb-4">Bengoh Academy</h5>
 
-    <a href="{{ route('admin.dashboard') }}"
-    class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-    Dashboard
-    </a>
+<div>
 
-    <a href="{{ route('admin.user.management') }}"
-    class="{{ request()->routeIs('admin.user.management') ? 'active' : '' }}">
-    User Management
-    </a>
+<a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard</a>
 
-    <a href="{{ route('admin.course.module') }}"
-    class="{{ request()->routeIs('admin.course.module') ? 'active' : '' }}">
-    Course/Module Management
-    </a>
+<a href="{{ route('admin.user.management') }}" class="{{ request()->routeIs('admin.user.management') ? 'active' : '' }}">User Management</a>
 
-    <a href="{{ route('admin.progress') }}"
-    class="{{ request()->routeIs('admin.progress') ? 'active' : '' }}">
-    Progress
-    </a>
+<a href="{{ route('admin.course.module') }}" class="{{ request()->routeIs('admin.course.module') ? 'active' : '' }}">Course/Module Management</a>
 
-    <a href="{{ route('admin.announcements') }}"
-    class="{{ request()->routeIs('admin.announcements') ? 'active' : '' }}">
-    Announcements
-    </a>
+<a href="{{ route('admin.progress') }}" class="{{ request()->routeIs('admin.progress') ? 'active' : '' }}">Progress</a>
 
-    <a href="{{ route('admin.reports') }}"
-    class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">
-    Reports
-    </a>
+<a href="{{ route('admin.announcements') }}" class="{{ request()->routeIs('admin.announcements') ? 'active' : '' }}">Announcements</a>
 
-    <div class="mt-5">
-        <a href="#">Settings</a>
-        <a href="#">Help & Support</a>
-        <a href="#">Sign Out</a>
-    </div>
+<a href="{{ route('admin.reports') }}" class="{{ request()->routeIs('admin.reports') ? 'active' : '' }}">Reports</a>
+
+</div>
+
+<div class="mt-auto">
+<a href="#">Settings</a>
+<a href="#">Help & Support</a>
+<a href="#">Sign Out</a>
+</div>
 
 </div>
 
