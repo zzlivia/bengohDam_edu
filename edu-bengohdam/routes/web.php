@@ -35,6 +35,10 @@ Route::get('/module/{id}/questions', [CourseController::class, 'showModuleQuesti
 Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQuestions'])
     ->name('module.questions.submit');
 
+// course feedback
+Route::get('/course/feedback', [CourseController::class, 'courseFeedback'])->name('course.feedback');
+Route::post('/course/feedback', [CourseController::class, 'submitFeedback'])->name('course.feedback.submit');
+
 //public community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
 
