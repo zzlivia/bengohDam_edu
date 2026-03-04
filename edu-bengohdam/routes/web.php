@@ -63,7 +63,7 @@ Route::prefix('admin')
 
         Route::get('/announcements',
             [AdminController::class, 'announcements'])
-            ->name('admin.announcements');
+            ->name('announcements');
 
         Route::get('/stories', [AdminCommunityStoryController::class, 'index'])->name('stories.index');
         Route::get('/stories/create', [AdminCommunityStoryController::class, 'create'])->name('stories.create');
