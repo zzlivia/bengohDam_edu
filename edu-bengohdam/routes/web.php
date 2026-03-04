@@ -56,6 +56,10 @@ Route::prefix('admin')
         Route::get('/course-module-management',
             [AdminController::class, 'courseModuleManagement'])
             ->name('course.module');
+        
+        Route::get('/progress',
+            [AdminController::class, 'progress'])
+            ->name('progress');
 
         Route::get('/stories', [AdminCommunityStoryController::class, 'index'])->name('stories.index');
         Route::get('/stories/create', [AdminCommunityStoryController::class, 'create'])->name('stories.create');
