@@ -121,6 +121,9 @@
                 </div>
 
             @endforeach
+                <a class="sidebar-link" href="{{ route('course.feedback') }}">
+                    Course Feedback
+                </a>
         </div>
 
         <!-- main content -->

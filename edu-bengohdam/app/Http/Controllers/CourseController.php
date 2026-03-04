@@ -151,7 +151,7 @@ class CourseController extends Controller
 
     public function courseFeedback()
     {
-        return view('course_feedback');
+        return view('learner.course_feedback');
     }
 
     public function submitFeedback(Request $request)
