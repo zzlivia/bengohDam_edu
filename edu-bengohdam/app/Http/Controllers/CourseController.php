@@ -160,7 +160,6 @@ class CourseController extends Controller
 
     public function submitFeedback(Request $request)
     {
-        // later you can save to database
         return redirect()->back()->with('success','Thank you for your feedback!');
     }
 }

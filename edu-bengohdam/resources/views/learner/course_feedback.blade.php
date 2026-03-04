@@ -38,7 +38,7 @@
                 </div>
 
             @endforeach
-                <a class="sidebar-link" href="{{ route('course.feedback') }}">
+                <a class="sidebar-link" href="{{ route('course.feedback', $course->courseID) }}">
                     Course Feedback
                 </a>
         </div>
@@ -54,7 +54,7 @@
             </p>
         </div>
 
-        <form method="POST" action="{{ route('course.feedback.submit') }}">
+        <form method="POST" action="{{ route('course.feedback.submit', $course->courseID) }}">
         @csrf
 
         <div class="card shadow-sm border-0 p-4">
