@@ -80,7 +80,7 @@
         <ul class="navbar-nav">
             <li class="nav-item mx-2"><a class="nav-link active" href="/homepage">Home</a></li>
             <li class="nav-item mx-2"><a class="nav-link active" href="/courses">Courses</a></li>
-            <li class="nav-item mx-2"><a class="nav-link" href="#">Community Stories</a></li>
+            <li class="nav-item mx-2"><a class="nav-link" href="/community-stories">Community Stories</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
             <li class="nav-item dropdown mx-2">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Language </a>

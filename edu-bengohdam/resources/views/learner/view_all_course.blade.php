@@ -75,7 +75,16 @@
             <li class="nav-item mx-2"><a class="nav-link active" href="/courses">Courses</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">Community Stories</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
-            <li class="nav-item mx-2"><a class="nav-link text-primary" href="#">Register | Sign In</a></li>
+            <li class="nav-item mx-2 d-flex align-items-center">
+                @auth
+                    <span class="nav-link">Hi, {{ auth()->user()->userName }}</span>
+                @else
+                    {{-- Split into two separate links --}}
+                    <a class="nav-link text-primary fw-bold px-1" href="{{ route('register') }}">Register</a>
+                    <span class="text-muted">|</span>
+                    <a class="nav-link text-primary fw-bold px-1" href="{{ route('login') }}">Sign In</a>
+                @endauth
+            </li>
         </ul>
     </div>
 </nav>
