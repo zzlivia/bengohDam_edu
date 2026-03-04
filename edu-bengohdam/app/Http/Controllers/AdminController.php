@@ -50,4 +50,9 @@ class AdminController extends Controller
             'courses'
         ));
     }
+
+    public function progress()
+    {
+        return view('admin.progress');
+    }
 }
