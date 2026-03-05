@@ -203,7 +203,7 @@ class CourseController extends Controller
     {
         $progress = Progress::where('userID', Auth::id())
                     ->where('courseID', $courseID)
-                    ->max('completionProgress');
+                    ->get(); //return all progress records
 
         return view('learner.course_progress', compact('progress'));
     }
