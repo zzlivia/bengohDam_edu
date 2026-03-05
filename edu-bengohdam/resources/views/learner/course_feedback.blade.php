@@ -38,10 +38,11 @@
                 </div>
 
             @endforeach
-            <a class="sidebar-link" href="{{ route('course.feedback', $course->courseID) }}">
+            <a class="sidebar-link d-block mb-2" href="{{ route('course.feedback', $course->courseID) }}">
                 Course Feedback
             </a>
-            <a class="sidebar-link" href="{{ route('course.assessment', $course->courseID) }}">
+
+            <a class="sidebar-link d-block" href="{{ route('course.assessment', $course->courseID) }}">
                 Course Assessment
             </a>
         </div>
