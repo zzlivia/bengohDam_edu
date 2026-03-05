@@ -46,7 +46,7 @@ Route::post('/course/feedback', [CourseController::class, 'submitFeedback'])->na
 //course assessment
 Route::get('/course/assessment', function () {
     return view('courseAssessment');
-})->name('course.assessment');
+})->middleware('auth'); //only logged-in users can access
 
 //public community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
