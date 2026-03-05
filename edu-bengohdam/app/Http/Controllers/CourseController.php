@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Module;
 use App\Models\Progress;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -206,5 +207,22 @@ class CourseController extends Controller
                     ->get(); //return all progress records
 
         return view('learner.course_progress', compact('progress'));
+    }
+    
+    //only registered users can view
+    public function leaderboard()
+    {
+        $learners = DB::table('userprogress')
+            ->join('users', 'userprogress.userID', '=', 'users.id')
+            ->select(
+                'users.name',
+                DB::raw('COUNT(DISTINCT userprogress.courseID) as completed_courses')
+            )
+            ->where('userprogress.progressStatus', 'completed')
+            ->groupBy('users.id', 'users.name')
+            ->orderByDesc('completed_courses')
+            ->get();
+
+        return view('courses.leaderboards', compact('learners'));
     }
 }
