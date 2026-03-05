@@ -200,11 +200,11 @@ class CourseController extends Controller
 
     //calculate overall percentage
     public function progress($courseID)
-{
-    $progress = Progress::where('userID', Auth::id())
-                ->where('courseID', $courseID)
-                ->max('completionProgress');
+    {
+        $progress = Progress::where('userID', Auth::id())
+                    ->where('courseID', $courseID)
+                    ->max('completionProgress');
 
-    return view('courses.course_progress', compact('progress'));
-}
+        return view('courses.course_progress', compact('progress'));
+    }
 }
