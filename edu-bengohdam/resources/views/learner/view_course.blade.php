@@ -108,7 +108,7 @@
 
     <!-- Bottom Buttons -->
     <div class="d-flex justify-content-between mt-4">
-        <a href="#" class="btn btn-outline-secondary">
+        <a href="{{ route('course.feedback', $course->courseID) }}" class="btn btn-outline-secondary">
             View Course Feedback
         </a>
         <a href="{{ route('courses.learn', $course->courseID) }}" class="btn btn-outline-dark btn-sm btn-action px-4">
