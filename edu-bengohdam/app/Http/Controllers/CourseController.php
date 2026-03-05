@@ -117,7 +117,7 @@ class CourseController extends Controller
     //display questions
     public function showQuiz($id)
     {
-        $module = \App\Models\Module::with('mcqs.answers')
+        $module = Module::with('mcqs.answers')
                     ->findOrFail($id);
 
         return view('learner.module_question', compact('module'));
@@ -169,5 +169,31 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
 
         return view('learner.courseAssessment', compact('course'));
+    }
+
+    //update progress auto when a user finishes MCQ or assessment given
+    public function updateProgress($courseID, $activity)
+    {
+        $progressMap = [
+            'MCQ1' => 20,
+            'MCQ2' => 40,
+            'MCQ3' => 60,
+            'MCQ4' => 80,
+            'ASSESSMENT' => 100
+        ];
+
+        $percentage = $progressMap[$activity] ?? 0;
+
+        Progress::updateOrCreate(
+            [
+                'userID' => Auth::id(),
+                'courseID' => $courseID,
+                'progressName' => $activity
+            ],
+            [
+                'progressStatus' => 'completed',
+                'completionProgress' => $percentage
+            ]
+        );
     }
 }
