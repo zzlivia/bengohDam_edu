@@ -44,10 +44,9 @@ Route::get('/course/{id}/feedback', [CourseController::class, 'courseFeedback'])
 Route::post('/course/feedback', [CourseController::class, 'submitFeedback'])->name('course.feedback.submit');
 
 //course assessment
-Route::get('/course/assessment', function () {
-    return view('courseAssessment');
-})->middleware('auth'); //only logged-in users can access
-
+Route::get('/course/{id}/assessment', [CourseController::class, 'courseAssessment'])
+    ->name('course.assessment');
+    
 //public community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
 

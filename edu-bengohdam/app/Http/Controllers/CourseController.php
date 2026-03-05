@@ -162,4 +162,11 @@ class CourseController extends Controller
     {
         return redirect()->back()->with('success','Thank you for your feedback!');
     }
+
+    public function courseAssessment($id)
+    {
+        $course = Course::findOrFail($id);
+
+        return view('courses.courseAssessment', compact('course'));
+    }
 }
