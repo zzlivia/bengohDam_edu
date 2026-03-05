@@ -1,5 +1,7 @@
 @extends('layouts.learner')
 
+<link rel="stylesheet" href="{{ asset('css/course_progress.css') }}">
+
 @section('content')
 
 <div class="container mt-4">
