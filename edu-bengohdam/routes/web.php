@@ -46,7 +46,11 @@ Route::post('/course/feedback', [CourseController::class, 'submitFeedback'])->na
 //course assessment
 Route::get('/course/{id}/assessment', [CourseController::class, 'courseAssessment'])
     ->name('course.assessment');
-    
+
+//course progress of a user
+Route::get('/course/{course}/progress', [CourseController::class, 'progress'])
+    ->name('course.progress');
+
 //public community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
 
