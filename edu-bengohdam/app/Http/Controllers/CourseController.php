@@ -167,6 +167,6 @@ class CourseController extends Controller
     {
         $course = Course::findOrFail($id);
 
-        return view('courses.courseAssessment', compact('course'));
+        return view('learner.courseAssessment', compact('course'));
     }
 }
