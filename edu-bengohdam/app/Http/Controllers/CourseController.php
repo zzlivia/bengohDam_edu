@@ -205,6 +205,6 @@ class CourseController extends Controller
                     ->where('courseID', $courseID)
                     ->max('completionProgress');
 
-        return view('courses.course_progress', compact('progress'));
+        return view('learner.course_progress', compact('progress'));
     }
 }
