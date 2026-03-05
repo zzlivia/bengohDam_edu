@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CommunityStoryController as AdminCommunityStoryCo
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\LectureSectionController;
+use App\Http\Controllers\SettingsController;
 
 //public routes
 Route::get('/', fn () => view('learner.homepage'));
@@ -55,6 +56,33 @@ Route::get('/course/{course}/progress', [CourseController::class, 'progress'])
 Route::get('/leaderboards', [CourseController::class, 'leaderboard'])
     ->middleware('auth')
     ->name('leaderboards');
+
+//learner's setting
+Route::prefix('settings')->group(function () {
+    //profile setting
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [SettingsController::class, 'profile'])
+            ->name('settings.profile');
+
+        Route::post('/profile/update', [SettingsController::class, 'updateProfile'])
+            ->name('settings.profile.update');
+
+    });
+
+    //notifications
+    Route::get('/notifications', [SettingsController::class, 'notifications'])
+        ->name('settings.notifications');
+
+    Route::post('/notifications/save', [SettingsController::class, 'saveNotifications'])
+        ->name('settings.notifications.save');
+
+    //preferences
+    Route::get('/preferences', [SettingsController::class, 'preferences'])
+        ->name('settings.preferences');
+
+    Route::post('/preferences/save', [SettingsController::class, 'savePreferences'])
+        ->name('settings.preferences.save');
+});
 
 //public community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
