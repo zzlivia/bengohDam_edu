@@ -50,6 +50,11 @@
             <a class="sidebar-link d-block" href="{{ route('course.progress', $course->courseID) }}">
                 Progress
             </a>
+            
+            <a class="sidebar-link d-block" href="{{ route('leaderboards') }}">
+            Leaderboards
+            </a>
+
         </div>
 
 
