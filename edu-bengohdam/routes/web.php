@@ -51,6 +51,11 @@ Route::get('/course/{id}/assessment', [CourseController::class, 'courseAssessmen
 Route::get('/course/{course}/progress', [CourseController::class, 'progress'])
     ->name('course.progress');
 
+//leaderboard requires user to sign in to access
+Route::get('/leaderboards', [CourseController::class, 'leaderboard'])
+    ->middleware('auth')
+    ->name('leaderboards');
+
 //public community stories
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])->name('community.stories');
 
