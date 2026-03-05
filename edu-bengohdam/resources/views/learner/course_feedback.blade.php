@@ -38,9 +38,9 @@
                 </div>
 
             @endforeach
-                <a class="sidebar-link" href="{{ route('course.feedback', $course->courseID) }}">
-                    Course Feedback
-                </a>
+            <a class="sidebar-link" href="{{ route('course.feedback', $course->courseID) }}">
+                Course Feedback
+            </a>
         </div>
 
 
