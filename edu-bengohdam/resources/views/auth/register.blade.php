@@ -88,7 +88,15 @@
 
     <div class="registration-container text-center px-3">
         <h3 class="mb-4">Register</h3>
-        
+        {{-- check errors during validation --}}
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
         <form method="POST" action="{{ route('register') }}" autocomplete="off">
             @csrf
 
