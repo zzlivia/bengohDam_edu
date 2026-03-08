@@ -110,9 +110,13 @@
         {{-- sign in form --}}
         <div class="col-md-6 d-flex justify-content-center">
             <div class="login-card text-center">
-
                 <h3 class="mb-4 fw-bold">Sign In</h3>
-
+                {{-- alert of successfull after register --}}
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
                 <form method="POST" action="{{ url('/login') }}">
                     @csrf
 
