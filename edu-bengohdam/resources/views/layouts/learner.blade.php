@@ -32,14 +32,33 @@
                 </li>
                 {{-- authentication --}}
                 <li class="nav-item mx-2 d-flex align-items-center">
-                    @auth
-                        <span class="nav-link">Hi, {{ auth()->user()->userName }}</span> {{-- when a user is signed in --}}
-                    @else
-                        {{-- when a user no longer sign in --}}
-                        <a class="nav-link text-primary fw-bold px-1" href="{{ route('register') }}">Register</a>
-                        <span class="text-muted">|</span>
-                        <a class="nav-link text-primary fw-bold px-1" href="{{ route('login') }}">Sign In</a>
-                    @endauth
+                @auth
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        Hi, {{ auth()->user()->userName }}
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('settings') }}">
+                                Profile Settings
+                            </a>
+                        </li>
+
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="dropdown-item">Sign Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
+                @else
+                <a class="nav-link text-primary fw-bold px-1" href="{{ route('register') }}">Register</a>
+                <span class="text-muted">|</span>
+                <a class="nav-link text-primary fw-bold px-1" href="{{ route('login') }}">Sign In</a>
+                @endauth
                 </li>
             </ul>
         </div>
