@@ -4,67 +4,60 @@
     <meta charset="UTF-8">
     <title>Bengoh Academy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    {{-- Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    {{-- FontAwesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    {{-- Custom CSS --}}
+    {{-- custom CSS --}}
     <link rel="stylesheet" href="{{ asset('css/learner.css') }}">
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 border-bottom">
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="/"> {{-- logo --}}
+            <img src="{{ asset('images/bengohdam-logo.png') }}" width="30" class="me-2"> Bengoh Academy
+        </a>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav"> {{-- navigation bar on top --}}
+                <li class="nav-item mx-2"><a class="nav-link active" href="/homepage">Home</a></li>
+                <li class="nav-item mx-2"><a class="nav-link active" href="/courses">Courses</a></li>
+                <li class="nav-item mx-2"><a class="nav-link" href="/community-stories">Community Stories</a></li>
+                <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
+                {{-- language switches --}}
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Language</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">English</a></li>
+                        <li><a class="dropdown-item" href="#">Bahasa Melayu</a></li>
+                        <li><a class="dropdown-item" href="#">Iban</a></li>
+                    </ul>
+                </li>
+                {{-- authentication --}}
+                <li class="nav-item mx-2 d-flex align-items-center">
+                    @auth
+                        <span class="nav-link">Hi, {{ auth()->user()->userName }}</span> {{-- when a user is signed in --}}
+                    @else
+                        {{-- when a user no longer sign in --}}
+                        <a class="nav-link text-primary fw-bold px-1" href="{{ route('register') }}">Register</a>
+                        <span class="text-muted">|</span>
+                        <a class="nav-link text-primary fw-bold px-1" href="{{ route('login') }}">Sign In</a>
+                    @endauth
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white px-4 border-bottom">
-    <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
-        <img src="{{ asset('images/bengohdam-logo.png') }}" width="30" class="me-2"> Bengoh Academy
-    </a>
-
-    <div class="collapse navbar-collapse justify-content-end">
-        <ul class="navbar-nav">
-            <li class="nav-item mx-2"><a class="nav-link active" href="/homepage">Home</a></li>
-            <li class="nav-item mx-2"><a class="nav-link active" href="/courses">Courses</a></li>
-            <li class="nav-item mx-2"><a class="nav-link" href="/community-stories">Community Stories</a></li>
-            <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
-
-            <li class="nav-item dropdown mx-2">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Language</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">English</a></li>
-                    <li><a class="dropdown-item" href="#">Bahasa Melayu</a></li>
-                    <li><a class="dropdown-item" href="#">Iban</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-item mx-2 d-flex align-items-center">
-                @auth
-                    <span class="nav-link">Hi, {{ auth()->user()->userName }}</span>
-                @else
-                    <a class="nav-link text-primary fw-bold px-1" href="{{ route('register') }}">Register</a>
-                    <span class="text-muted">|</span>
-                    <a class="nav-link text-primary fw-bold px-1" href="{{ route('login') }}">Sign In</a>
-                @endauth
-            </li>
-        </ul>
+    {{-- content --}}
+    <div class="container mt-4">
+        @yield('content')
     </div>
-</nav>
-
-{{-- PAGE CONTENT --}}
-<div class="container mt-4">
-    @yield('content')
-</div>
-
-<footer>
-    <div class="container d-flex justify-content-start gap-4 small fw-bold">
-        <a href="#">Terms</a>
-        <a href="#">Privacy</a>
-        <a href="#">Contact</a>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    {{-- bottom navigation bar --}}
+    <footer>
+        <div class="container d-flex justify-content-start gap-4 small fw-bold">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+    </footer>
+    {{-- JS for dropdowns --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
