@@ -41,7 +41,7 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
                             <a class="dropdown-item" href="{{ route('settings') }}">
-                                Profile Settings
+                                Settings
                             </a>
                         </li>
 
