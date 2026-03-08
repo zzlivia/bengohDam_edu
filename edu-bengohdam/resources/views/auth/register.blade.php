@@ -97,6 +97,7 @@
                 @endforeach
             </ul>
         </div>
+        @endif
         <form method="POST" action="{{ route('register') }}" autocomplete="off">
             @csrf
 
