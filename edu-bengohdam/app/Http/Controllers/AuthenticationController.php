@@ -22,19 +22,30 @@ class AuthenticationController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:user,userEmail',
+            'email' => 'required|email|unique:user,userEmail|unique:admin,adminEmail', 
             'password' => 'required|min:6|confirmed',
+            'role' => 'required_if:is_admin,on' // if the checkbox is ticked
         ]);
 
-        \App\Models\User::create([
-            'userName' => $request->name,
-            'userEmail' => $request->email,
-            'userPass' => bcrypt($request->password),
-            'userRePass' => bcrypt($request->password),
-            'authenticated' => 1
-        ]);
+        if ($request->has('is_admin')) {
+            \App\Models\Admin::create([
+                'adminName'  => $request->name,
+                'adminEmail' => $request->email,
+                'adminPass'  => bcrypt($request->password),
+                'role'       => $request->role, 
+            ]);
 
-        return redirect()->route('login')->with('success', 'Account created successfully!');
+            return redirect()->route('login')->with('success', 'Admin account created!');
+        } else {
+            \App\Models\User::create([
+                'userName'      => $request->name,
+                'userEmail'     => $request->email,
+                'userPass'      => bcrypt($request->password),
+                'authenticated' => 1
+            ]);
+
+            return redirect()->route('login')->with('success', 'Learner account created!');
+        }
     }
 
     public function login(Request $request)

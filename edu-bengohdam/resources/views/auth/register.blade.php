@@ -3,12 +3,11 @@
 <head>
     <title>Register - Bengoh Academy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body { background:#f3f3f3; }
-        .form-control {
+        .form-control, .form-select {
             background:#dcd6c9;
             border:none;
             border-radius:10px;
@@ -19,6 +18,12 @@
             border:none;
             border-radius:10px;
             padding:8px 20px;
+            font-weight: bold;
+        }
+        /* Hide the admin role box by default */
+        #admin-role-section {
+            display: none;
+            transition: all 0.3s ease;
         }
     </style>
 </head>
@@ -32,18 +37,6 @@
             <li class="nav-item mx-2"><a class="nav-link active" href="/courses">Courses</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">Community Stories</a></li>
             <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Language </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item" href="#">English</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">Bahasa Melayu</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">Iban</a>
-                </li>
-            </ul>
         </ul>
     </div>
 </nav>
@@ -54,19 +47,30 @@
     <form method="POST" action="{{ route('register') }}" style="max-width:400px;margin:auto;">
         @csrf
 
-        <input type="text" name="name" class="form-control mb-3"
-               placeholder="Enter your full name" required>
+        <input type="text" name="name" class="form-control mb-3" placeholder="Enter your full name" required>
+        <input type="email" name="email" class="form-control mb-3" placeholder="Enter your email" required>
+        <input type="password" name="password" class="form-control mb-3" placeholder="Enter your password" required>
+        <input type="password" name="password_confirmation" class="form-control mb-3" placeholder="Re-enter your password" required>
 
-        <input type="email" name="email" class="form-control mb-3"
-               placeholder="Enter your email" required>
+        <div class="mb-3 text-start px-2">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="isAdminCheck" name="is_admin">
+                <label class="form-check-label" for="isAdminCheck">
+                    Are you an admin?
+                </label>
+            </div>
+        </div>
 
-        <input type="password" name="password" class="form-control mb-3"
-               placeholder="Enter your password" required>
+        <div id="admin-role-section" class="mb-4">
+            <label class="form-label d-block text-start px-2">Select Admin Role:</label>
+            <select name="role" class="form-select">
+                <option value="editor">Content Editor</option>
+                <option value="moderator">Moderator</option>
+                <option value="superadmin">Super Admin</option>
+            </select>
+        </div>
 
-        <input type="password" name="password_confirmation" class="form-control mb-3"
-               placeholder="Re-enter your password" required>
-
-        <button type="submit" class="btn btn-register">REGISTER</button>
+        <button type="submit" class="btn btn-register w-100">REGISTER</button>
     </form>
 
     @if ($errors->any())
@@ -78,10 +82,22 @@
     @endif
 
     <p class="mt-3">
-        Already have an account?
-        <a href="{{ route('login') }}">Sign in here</a>
+        Already have an account? <a href="{{ route('login') }}">Sign in here</a>
     </p>
 </div>
+
+<script>
+    const adminCheckbox = document.getElementById('isAdminCheck');
+    const roleSection = document.getElementById('admin-role-section');
+
+    adminCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            roleSection.style.display = 'block';
+        } else {
+            roleSection.style.display = 'none';
+        }
+    });
+</script>
 
 </body>
 </html>
