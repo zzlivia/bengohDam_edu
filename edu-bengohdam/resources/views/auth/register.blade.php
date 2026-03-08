@@ -6,7 +6,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        body { background:#f3f3f3; }
+        body { 
+            background:#f3f3f3; 
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden; /* Prevents scrollbars from the peeking image */
+            position: relative;
+        }
+        
         .form-control, .form-select {
             background:#dcd6c9;
             border:none;
@@ -14,22 +23,19 @@
             padding:12px;
         }
 
-        /* register button */
         .btn-register {
             background:#dcd6c9;
             border:none;
             border-radius:10px;
-            padding:8px 20px;
+            padding:10px 20px;
             font-weight: bold;
         }
 
-        /* role section transition */
         #admin-role-section { 
             display: none; 
             transition: all 0.3s ease; 
         }
 
-        /* eye icon */
         .password-container { position: relative; }
         .toggle-password {
             position: absolute;
@@ -40,7 +46,6 @@
             color: #6c757d;
         }
 
-        /* styling for the bottom link */
         .signin-link {
             text-decoration: none;
             color: #6c757d;
@@ -50,18 +55,45 @@
             color: #000;
             text-decoration: underline;
         }
+
+        /* Far Right Image Styling */
+        .right-peeking-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 30%; /* Limits size so it doesn't overlap the form on small screens */
+            height: auto;
+            pointer-events: none; /* Allows clicking "through" the image if it overlaps slightly */
+            z-index: 1;
+        }
+
+        /* Ensure form stays on top of the image if they overlap */
+        .registration-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        /* Hide image on very small mobile screens to keep the form clean */
+        @media (max-width: 768px) {
+            .right-peeking-image {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container mt-5 text-center">
-        <h3 class="mb-4">Register</h3>
 
-        <form method="POST" action="{{ route('register') }}" style="max-width:400px;margin:auto;" autocomplete="off">
+    <div class="registration-container text-center px-3">
+        <h3 class="mb-4">Register</h3>
+        
+        <form method="POST" action="{{ route('register') }}" autocomplete="off">
             @csrf
 
-            <input type="text" name="name" class="form-control mb-3" placeholder="Enter your full name" required autocomplete="off">
-            
-            <input type="email" name="email" class="form-control mb-3" placeholder="Enter your email" required autocomplete="off">
+            <input type="text" name="name" class="form-control mb-3" placeholder="Enter your full name" required>
+            <input type="email" name="email" class="form-control mb-3" placeholder="Enter your email" required>
 
             <div class="password-container mb-3"> 
                 <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required autocomplete="new-password">
@@ -97,8 +129,10 @@
         </form>
     </div>
 
+    <img src="{{ asset('images/registration-authentication.png') }}" alt="Woman Peeking" class="right-peeking-image">
+
     <script>
-        // validation check
+        // Admin toggle logic
         const adminCheckbox = document.getElementById('isAdminCheck');
         const roleSection = document.getElementById('admin-role-section');
 
@@ -106,7 +140,7 @@
             roleSection.style.display = this.checked ? 'block' : 'none';
         });
 
-        // password visibility
+        // Password visibility logic
         function setupPasswordToggle(toggleId, inputId) {
             const toggle = document.getElementById(toggleId);
             const input = document.getElementById(inputId);
