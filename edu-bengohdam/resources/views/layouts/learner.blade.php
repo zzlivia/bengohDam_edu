@@ -40,7 +40,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="{{ route('settings') }}">
+                            <a class="dropdown-item" href="{{ route('settings.index') }}">
                                 Settings
                             </a>
                         </li>
