@@ -58,10 +58,33 @@
         .small-link {
             font-size: 14px;
         }
+
+        .left-peeking-image{
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 30%;
+            height: auto;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .login-card{
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width:768px){
+            .left-peeking-image{
+                display:none;
+            }
+        }
     </style>
 </head>
 <body>
-
+{{-- left illustration --}}
+<img src="{{ asset('images/sign-in-authentication.png') }}" class="left-peeking-image">
 <nav class="navbar navbar-expand-lg px-4">
     <a class="navbar-brand fw-bold" href="#">Bengoh Academy</a>
     <div class="collapse navbar-collapse justify-content-end">
@@ -101,12 +124,6 @@
 <div class="container login-section d-flex align-items-center">
 
     <div class="row w-100 align-items-center">
-
-        {{-- left illustration --}}
-        <div class="col-md-6 text-center d-none d-md-block">
-            <img src="{{ asset('images/sign-in-authentication.png') }}" class="left-illustration">
-        </div>
-
         {{-- sign in form --}}
         <div class="col-md-6 d-flex justify-content-center">
             <div class="login-card text-center">
