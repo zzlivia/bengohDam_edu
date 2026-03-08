@@ -58,30 +58,31 @@ Route::get('/leaderboards', [CourseController::class, 'leaderboard'])
     ->name('leaderboards');
 
 //learner's setting
-Route::prefix('settings')->group(function () {
-    //profile setting
-    Route::middleware('auth')->group(function () {
-        Route::get('/profile', [SettingsController::class, 'profile'])
-            ->name('settings.profile');
+Route::prefix('settings')->name('settings.')->group(function () {
 
-        Route::post('/profile/update', [SettingsController::class, 'updateProfile'])
-            ->name('settings.profile.update');
+    // public settings
+    Route::get('/', fn () => view('settings.settings'))->name('index');
 
-    });
-
-    //notifications
     Route::get('/notifications', [SettingsController::class, 'notifications'])
-        ->name('settings.notifications');
+        ->name('notifications');
 
     Route::post('/notifications/save', [SettingsController::class, 'saveNotifications'])
-        ->name('settings.notifications.save');
+        ->name('notifications.save');
 
-    //preferences
     Route::get('/preferences', [SettingsController::class, 'preferences'])
-        ->name('settings.preferences');
+        ->name('preferences');
 
     Route::post('/preferences/save', [SettingsController::class, 'savePreferences'])
-        ->name('settings.preferences.save');
+        ->name('preferences.save');
+
+    // profile (login required)
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [SettingsController::class, 'profile'])
+            ->name('profile');
+
+        Route::post('/profile/update', [SettingsController::class, 'updateProfile'])
+            ->name('profile.update');
+    });
 });
 
 //public community stories
