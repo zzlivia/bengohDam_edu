@@ -98,7 +98,7 @@
     </div>
 
     <script>
-        // 1. Admin Toggle Logic
+        // validation check
         const adminCheckbox = document.getElementById('isAdminCheck');
         const roleSection = document.getElementById('admin-role-section');
 
@@ -106,7 +106,7 @@
             roleSection.style.display = this.checked ? 'block' : 'none';
         });
 
-        // 2. Password Visibility Logic
+        // password visibility
         function setupPasswordToggle(toggleId, inputId) {
             const toggle = document.getElementById(toggleId);
             const input = document.getElementById(inputId);
