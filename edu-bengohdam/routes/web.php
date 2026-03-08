@@ -21,6 +21,9 @@ Route::get('/register', [AuthenticationController::class, 'showRegister'])->name
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
 Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
+//main settings for learner
+Route::get('/settings', function () {return view('settings.settings');})->name('settings');
+
 //courses
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
