@@ -13,8 +13,7 @@ class User extends Authenticatable
     public $incrementing = true;
     protected $keyType = 'int';
     protected $fillable = ['userName', 'userEmail', 'userPass', 'userRePass', 'authenticated', ];
-    protected $hidden = [ 'password', 'remember_token', ];
-    protected function casts(): array { return [ 'email_verified_at' => 'datetime', 'password' => 'hashed', ]; }
+    protected $hidden = [ 'userPass', 'userRePass', ];
 
     public function enrolments() { return $this->hasMany(Enrollment::class, 'userID', 'userID'); }
     public function progress() { return $this->hasMany(Progress::class, 'userID', 'userID'); }
