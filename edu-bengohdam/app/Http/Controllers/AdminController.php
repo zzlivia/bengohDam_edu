@@ -61,9 +61,7 @@ class AdminController extends Controller
             'courseAuthor' => 'required',
             'courseLevel' => 'required'
         ]);
-
         $course = new Course();
-
         $course->courseCode = $request->courseCode;
         $course->courseName = $request->courseName;
         $course->courseAuthor = $request->courseAuthor;
@@ -72,16 +70,44 @@ class AdminController extends Controller
         $course->courseLevel = $request->courseLevel;
         $course->courseDuration = $request->courseDuration;
         $course->isAvailable = $request->isAvailable;
-
         if ($request->hasFile('courseImg')) {
             $image = $request->file('courseImg')->store('courses', 'public');
             $course->courseImg = $image;
         }
-
         $course->save();
 
         return redirect()->route('admin.course.module')
             ->with('success', 'Course added successfully!');
+    }
+
+    public function updateCourse(Request $request, $id)
+    {
+        $course = Course::findOrFail($id);
+        $course->courseCode = $request->courseCode;
+        $course->courseName = $request->courseName;
+        $course->courseAuthor = $request->courseAuthor;
+        $course->courseDesc = $request->courseDesc;
+        $course->courseCategory = $request->courseCategory;
+        $course->courseLevel = $request->courseLevel;
+        $course->courseDuration = $request->courseDuration;
+        $course->save();
+
+        return redirect()->route('admin.course.module')
+            ->with('success','Course updated successfully');
+    }
+    public function editCourse($id)
+    {
+        $course = Course::findOrFail($id);
+        return view('admin.edit_course_module', compact('course'));
+    }
+
+    public function deleteCourse($id)
+    {
+        $course = Course::findOrFail($id);
+        $course->delete();
+
+        return redirect()->route('admin.course.module')
+            ->with('success','Course deleted successfully');
     }
 
     public function progress()

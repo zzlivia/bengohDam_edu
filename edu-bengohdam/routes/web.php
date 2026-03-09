@@ -125,6 +125,18 @@ Route::prefix('admin')
             [AdminController::class, 'storeCourse'])
             ->name('course.store');
 
+        Route::get('/course/edit/{id}',
+            [AdminController::class,'editCourse'])
+            ->name('course.edit');
+
+        Route::put('/course/update/{id}',
+            [AdminController::class,'updateCourse'])
+            ->name('course.update');
+
+        Route::delete('/course/delete/{id}',
+            [AdminController::class,'deleteCourse'])
+            ->name('course.delete');
+            
         Route::get('/progress',
             [AdminController::class, 'progress'])
             ->name('progress');

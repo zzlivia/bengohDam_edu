@@ -48,6 +48,41 @@
 
 {{-- table --}}
 <div class="card-box">
+    @foreach($courses as $course)
+    <div class="modal fade" id="viewCourseModal{{ $course->courseID }}" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Course Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card p-3">
+                        <h4>{{ $course->courseName }}</h4>
+
+                        <p><strong>Course Code:</strong> {{ $course->courseCode }}</p>
+
+                        <p><strong>Author:</strong> {{ $course->courseAuthor }}</p>
+
+                        <p><strong>Category:</strong> {{ $course->courseCategory }}</p>
+
+                        <p><strong>Level:</strong> {{ $course->courseLevel }}</p>
+
+                        <p><strong>Duration:</strong> {{ $course->courseDuration }} hours</p>
+
+                        <p><strong>Description:</strong></p>
+                        <p>{{ $course->courseDesc }}</p>
+
+                        @if($course->courseImg)
+                        <img src="{{ asset('storage/'.$course->courseImg) }}" class="img-fluid rounded" style="max-height:200px;">
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @endforeach
     <table class="table">
         <thead>
             <tr>
@@ -76,9 +111,26 @@
                 @endif
             </td>
             <td>
-                <a href="#">View</a> |
-                <a href="#">Edit</a> |
-                <a href="#">Delete</a>
+                <button class="btn btn-sm btn-info"
+                    data-bs-toggle="modal"
+                    data-bs-target="#viewCourseModal{{ $course->courseID }}">
+                    View
+                </button>
+
+                <a href="{{ route('admin.course.edit', $course->courseID) }}"
+                    class="btn btn-sm btn-warning">
+                    Edit
+                </a>
+
+                <form action="{{ route('admin.course.delete', $course->courseID) }}"
+                    method="POST"
+                    style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-sm btn-danger">
+                        Delete
+                    </button>
+                </form>
             </td>
         </tr>
         @endforeach
