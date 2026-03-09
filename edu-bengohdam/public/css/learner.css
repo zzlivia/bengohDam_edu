@@ -1,6 +1,19 @@
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: #ffffff;
     font-family: Arial, sans-serif;
+
+    /* Sticky footer layout */
+    display: flex;
+    flex-direction: column;
+}
+
+/* allow page content to expand and push footer down */
+.container {
+    flex: 1;
 }
 
 .hero-img {
