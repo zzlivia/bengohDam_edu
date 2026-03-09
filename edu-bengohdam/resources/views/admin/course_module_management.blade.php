@@ -55,6 +55,7 @@
                 <th>Course Code</th>
                 <th>Course Name</th>
                 <th>Author</th>
+                <th>No of Modules</th>
                 <th>Availability</th>
                 <th>Action</th>
             </tr>
@@ -66,11 +67,12 @@
             <td>{{ $course->courseCode }}</td>
             <td>{{ $course->courseName }}</td>
             <td>{{ $course->courseAuthor }}</td>
+            <td>{{ $course->modules->count() }}</td>
             <td>
                 @if($course->isAvailable)
-                    <span class="badge bg-success">Available</span>
+                    <span class="badge bg-success">Available</span> {{-- green badge --}}
                 @else
-                    <span class="badge bg-danger">Hidden</span>
+                    <span class="badge bg-danger">Hidden</span> {{-- red badge --}}
                 @endif
             </td>
             <td>
