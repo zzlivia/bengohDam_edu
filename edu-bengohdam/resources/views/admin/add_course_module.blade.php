@@ -35,7 +35,7 @@
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">Course Duration (hours)</label>
+            <label class="form-label">Course Duration (minutes)</label>
             <input type="number" class="form-control" name="courseDuration">
         </div>
         <div class="mb-3">
