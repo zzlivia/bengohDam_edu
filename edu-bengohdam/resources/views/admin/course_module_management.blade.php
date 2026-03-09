@@ -26,12 +26,33 @@
     @endforeach
 </div>
 
-{{-- Search and Add --}}
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <input type="text" class="form-control w-50" placeholder="Search Course/Modules">
-    <a href="{{ route('admin.course.module.create') }}" class="btn btn-primary">
-        + Add Course / Module
-    </a>
+{{-- Search and Add Course or Module --}}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="input-group w-50">
+        <span class="input-group-text bg-white border-end-0">
+            <i class="fas fa-search text-muted"></i>
+        </span>
+        <input type="text" class="form-control border-start-0 ps-0" placeholder="Search Course/Modules">
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="addDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-plus me-1"></i> Add New
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="addDropdown">
+            <li>
+                <a class="dropdown-item" href="{{ route('admin.course.module.create') }}">
+                    <i class="fas fa-book-open me-2"></i> Add Course
+                </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <a class="dropdown-item py-2" href="{{ route('admin.module.create') }}">
+                    <i class="fas fa-layer-group me-2 text-success"></i> Add Module
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div class="card-box">

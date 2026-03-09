@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\LectureSectionController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\ModuleController;
 
 //public routes
 Route::get('/', fn () => view('learner.homepage'));
@@ -136,7 +137,15 @@ Route::prefix('admin')
         Route::delete('/course/delete/{id}',
             [AdminController::class,'deleteCourse'])
             ->name('course.delete');
+
+        Route::get('/module/create', 
+            [ModuleController::class, 'create'])
+            ->name('module.create');
             
+        Route::post('/module/store', 
+            [ModuleController::class, 'store'])
+            ->name('module.store');
+
         Route::get('/progress',
             [AdminController::class, 'progress'])
             ->name('progress');
