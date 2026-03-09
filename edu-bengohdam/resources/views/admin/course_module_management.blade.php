@@ -34,7 +34,7 @@
         </span>
         <input type="text" class="form-control border-start-0 ps-0" placeholder="Search Course/Modules">
     </div>
-
+    @php dump(get_defined_vars()); @endphp
     <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" id="addDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-plus me-1"></i> Add New
