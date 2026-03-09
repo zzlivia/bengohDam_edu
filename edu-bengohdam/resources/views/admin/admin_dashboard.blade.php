@@ -1,4 +1,4 @@
-@extends('layouts.admin') {{-- layout template of admin --}}
+@extends('layouts.admin') {{-- layout template of admin from admin.blade.php --}}
 
 @section('content') {{-- content section --}}
 
@@ -7,7 +7,7 @@
     <div class="col-md-3">
         <div class="card card-stat p-3 text-center">
             <h6>Total Users</h6>
-            <h3>5</h3>
+            <h3>{{ $totalUsers }}</h3>
             <small class="text-muted">Registered Users</small>
         </div>
     </div>
