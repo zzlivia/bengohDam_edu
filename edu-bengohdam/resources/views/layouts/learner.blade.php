@@ -1,22 +1,23 @@
+{{-- template for learner interface--}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> {{-- language of the webpage Eng --}}
 <head>
     <meta charset="UTF-8">
-    <title>Bengoh Academy</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bengoh Academy</title> {{-- page title --}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {{-- responsive design --}}
+    {{-- bootstrap and font --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    {{-- custom CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/learner.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/learner.css') }}">{{-- custom CSS --}}
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 border-bottom"> {{-- top navigation bar --}}
         <a class="navbar-brand fw-bold d-flex align-items-center" href="/"> {{-- logo --}}
             <img src="{{ asset('images/bengohdam-logo.png') }}" width="30" class="me-2"> Bengoh Academy
         </a>
         <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav"> {{-- navigation bar on top --}}
+            <ul class="navbar-nav"> {{-- navigation menu --}}
                 <li class="nav-item mx-2"><a class="nav-link active" href="/homepage">Home</a></li>
                 <li class="nav-item mx-2"><a class="nav-link active" href="/courses">Courses</a></li>
                 <li class="nav-item mx-2"><a class="nav-link" href="/community-stories">Community Stories</a></li>
@@ -34,13 +35,14 @@
                 <li class="nav-item mx-2 d-flex align-items-center">
                 @auth
                 <div class="dropdown">
+                    {{-- if a user logged in, it shows the name of the user --}}
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                         Hi, {{ auth()->user()->userName }}
                     </a>
-
+                    {{-- when user click on their own name --}}
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="{{ route('settings.index') }}">
+                            <a class="dropdown-item" href="{{ route('settings.index') }}"> {{-- redirect user to settings page --}}
                                 Settings
                             </a>
                         </li>
@@ -48,7 +50,7 @@
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button class="dropdown-item">Sign Out</button>
+                                <button class="dropdown-item">Sign Out</button> {{-- allow user to log out --}}
                             </form>
                         </li>
                     </ul>
@@ -64,7 +66,7 @@
         </div>
     </nav>
 
-    {{-- content --}}
+    {{-- to main content --}}
     <div class="container mt-4">
         @yield('content')
     </div>
