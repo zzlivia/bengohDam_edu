@@ -3,42 +3,30 @@
 @section('content')
 
 <h4 class="fw-bold mb-4">Course/Module Management</h4>
+
 {{-- Summary Cards --}}
 <div class="row mb-4">
-    <div class="col-md-3">
-        <div class="card-box text-center">
-            <h6>Total courses</h6>
-            <h2>{{ $totalCourses }}</h2>
-            <small>Engaged in this week</small>
-        </div>
-    </div>
+    @php
+        $stats = [
+            ['label' => 'Total courses', 'value' => $totalCourses],
+            ['label' => 'Total modules', 'value' => $totalModules],
+            ['label' => 'Total courses taken', 'value' => $coursesTaken],
+            ['label' => 'Total modules completed', 'value' => $modulesCompleted],
+        ];
+    @endphp
 
+    @foreach($stats as $stat)
     <div class="col-md-3">
         <div class="card-box text-center">
-            <h6>Total modules</h6>
-            <h2>{{ $totalModules }}</h2>
+            <h6>{{ $stat['label'] }}</h6>
+            <h2>{{ $stat['value'] }}</h2>
             <small>Engaged in this week</small>
         </div>
     </div>
-
-    <div class="col-md-3">
-        <div class="card-box text-center">
-            <h6>Total courses taken</h6>
-            <h2>{{ $coursesTaken }}</h2>
-            <small>Engaged in this week</small>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card-box text-center">
-            <h6>Total modules completed</h6>
-            <h2>{{ $modulesCompleted }}</h2>
-            <small>Engaged in this week</small>
-        </div>
-    </div>
+    @endforeach
 </div>
 
-{{-- search course and add course --}}
+{{-- Search and Add --}}
 <div class="d-flex justify-content-between align-items-center mb-3">
     <input type="text" class="form-control w-50" placeholder="Search Course/Modules">
     <a href="{{ route('admin.course.module.create') }}" class="btn btn-primary">
@@ -46,43 +34,7 @@
     </a>
 </div>
 
-{{-- table --}}
 <div class="card-box">
-    @foreach($courses as $course)
-    <div class="modal fade" id="viewCourseModal{{ $course->courseID }}" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Course Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="card p-3">
-                        <h4>{{ $course->courseName }}</h4>
-
-                        <p><strong>Course Code:</strong> {{ $course->courseCode }}</p>
-
-                        <p><strong>Author:</strong> {{ $course->courseAuthor }}</p>
-
-                        <p><strong>Category:</strong> {{ $course->courseCategory }}</p>
-
-                        <p><strong>Level:</strong> {{ $course->courseLevel }}</p>
-
-                        <p><strong>Duration:</strong> {{ $course->courseDuration }} hours</p>
-
-                        <p><strong>Description:</strong></p>
-                        <p>{{ $course->courseDesc }}</p>
-
-                        @if($course->courseImg)
-                        <img src="{{ asset('storage/'.$course->courseImg) }}" class="img-fluid rounded" style="max-height:200px;">
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @endforeach
     <table class="table">
         <thead>
             <tr>
@@ -104,41 +56,57 @@
             <td>{{ $course->courseAuthor }}</td>
             <td>{{ $course->modules->count() }}</td>
             <td>
-                @if($course->isAvailable)
-                    <span class="badge bg-success">Available</span> {{-- green badge --}}
-                @else
-                    <span class="badge bg-danger">Hidden</span> {{-- red badge --}}
-                @endif
+                <span class="badge {{ $course->isAvailable ? 'bg-success' : 'bg-danger' }}">
+                    {{ $course->isAvailable ? 'Available' : 'Hidden' }}
+                </span>
             </td>
             <td>
-                <button class="btn btn-sm btn-info"
-                    data-bs-toggle="modal"
-                    data-bs-target="#viewCourseModal{{ $course->courseID }}">
-                    View
-                </button>
-
-                <a href="{{ route('admin.course.edit', $course->courseID) }}"
-                    class="btn btn-sm btn-warning">
-                    Edit
-                </a>
-
-                <form action="{{ route('admin.course.delete', $course->courseID) }}"
-                    method="POST"
-                    style="display:inline;">
+                <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewCourseModal{{ $course->courseID }}"> View </button>
+                <a href="{{ route('admin.course.edit', $course->courseID) }}" class="btn btn-sm btn-warning"> Edit </a>
+                
+                <form action="{{ route('admin.course.delete', $course->courseID) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-sm btn-danger">
-                        Delete
-                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"> Delete </button>
                 </form>
             </td>
         </tr>
         @endforeach
         </tbody>
     </table>
-    {{-- save change button --}}
-    <div class="text-center mt-3">
-        <button class="btn btn-dark">Save Changes</button>
+
+    {{-- Modals (Keep only one loop, ideally after the table) --}}
+    @foreach($courses as $course)
+    <div class="modal fade" id="viewCourseModal{{ $course->courseID }}" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Course Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card p-3">
+                        <h4>{{ $course->courseName }}</h4>
+                        <p><strong>Course Code:</strong> {{ $course->courseCode }}</p>
+                        <p><strong>Author:</strong> {{ $course->courseAuthor }}</p>
+                        <p><strong>Category:</strong> {{ $course->courseCategory }}</p>
+                        <p><strong>Level:</strong> {{ $course->courseLevel }}</p>
+                        <p><strong>Duration:</strong> {{ $course->courseDuration }} hours</p>
+                        <p><strong>Description:</strong></p>
+                        <p>{{ $course->courseDesc }}</p>
+                        @if($course->courseImg)
+                            <img src="{{ asset('storage/'.$course->courseImg) }}" class="img-fluid rounded" style="max-height:200px;">
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    @endforeach
+
+      
+    {{--<div class="text-center mt-3">
+        <button class="btn btn-dark">Save Changes</button>
+    </div>--}}
 </div>
 @endsection
