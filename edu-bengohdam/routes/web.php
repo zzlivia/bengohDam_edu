@@ -116,7 +116,15 @@ Route::prefix('admin')
         Route::get('/course-module-management',
             [AdminController::class, 'courseModuleManagement'])
             ->name('course.module');
-        
+        //create the course
+        Route::get('/course-module/create',
+            [AdminController::class, 'createCourseModule'])
+            ->name('course.module.create');  
+        //storing the course
+        Route::post('/course/store', 
+            [AdminController::class, 'storeCourse'])
+            ->name('course.store');
+
         Route::get('/progress',
             [AdminController::class, 'progress'])
             ->name('progress');

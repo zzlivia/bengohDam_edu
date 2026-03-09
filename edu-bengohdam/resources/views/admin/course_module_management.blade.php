@@ -41,9 +41,12 @@
 
 </div>
 
-{{-- Search --}}
-<div class="mb-3">
+{{-- search course and add course --}}
+<div class="d-flex justify-content-between align-items-center mb-3">
     <input type="text" class="form-control w-50" placeholder="Search Course/Modules">
+    <a href="{{ route('admin.course.module.create') }}" class="btn btn-primary">
+        + Add Course / Module
+    </a>
 </div>
 
 {{-- Table --}}

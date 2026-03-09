@@ -48,6 +48,42 @@ class AdminController extends Controller
         ));
     }
 
+    public function createCourseModule()
+    {
+        return view('admin.add_course_module');
+    }
+
+    public function storeCourse(Request $request)
+    {
+        $request->validate([
+            'courseCode' => 'required',
+            'courseName' => 'required',
+            'courseAuthor' => 'required',
+            'courseLevel' => 'required'
+        ]);
+
+        $course = new Course();
+
+        $course->courseCode = $request->courseCode;
+        $course->courseName = $request->courseName;
+        $course->courseAuthor = $request->courseAuthor;
+        $course->courseDesc = $request->courseDesc;
+        $course->courseCategory = $request->courseCategory;
+        $course->courseLevel = $request->courseLevel;
+        $course->courseDuration = $request->courseDuration;
+        $course->isAvailable = $request->isAvailable;
+
+        if ($request->hasFile('courseImg')) {
+            $image = $request->file('courseImg')->store('courses', 'public');
+            $course->courseImg = $image;
+        }
+
+        $course->save();
+
+        return redirect()->route('admin.course.module')
+            ->with('success', 'Course added successfully!');
+    }
+
     public function progress()
     {
         return view('admin.progress');
