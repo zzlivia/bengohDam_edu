@@ -3,70 +3,10 @@
 <head>
     <title>Bengoh Academy - Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-
-        body{
-            background:#eaf1f7;
-        }
-
-        .sidebar{
-            height:100vh;
-            background:white;
-            padding:20px;
-            border-right:1px solid #ddd;
-
-            display:flex;
-            flex-direction:column;
-        }
-
-        .sidebar a{
-            display:block;
-            padding:10px;
-            border-radius:8px;
-            text-decoration:none;
-            color:#333;
-            margin-bottom:6px;
-        }
-
-        .sidebar a.active,
-        .sidebar a:hover{
-            background:#d6e4f5;
-            font-weight:500;
-        }
-
-        .card-box{
-            background:white;
-            border-radius:12px;
-            padding:20px;
-            box-shadow:0 3px 8px rgba(0,0,0,0.05);
-        }
-
-        .topbar{
-            background:white;
-            border-bottom:1px solid #ddd;
-        }
-
-        .sidebar-logout{
-            display:block;
-            padding:10px;
-            border-radius:8px;
-            text-decoration:none;
-            color:#333;
-            margin-bottom:6px;
-            width:100%;
-            background:none;
-            border:none;
-            text-align:left;
-        }
-
-        .sidebar-logout:hover{
-            background:#d6e4f5;
-            font-weight:500;
-        }
-    </style>
+    <!-- admin css -->
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 
 <body>
