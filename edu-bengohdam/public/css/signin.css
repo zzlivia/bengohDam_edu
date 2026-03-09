@@ -1,0 +1,81 @@
+html, body{
+    height:100%;
+}
+
+body{
+    background-color:#f5f5f5;
+    font-family:Arial, sans-serif;
+}
+
+/* navbar */
+.navbar{
+    background-color:white;
+}
+
+/* login section */
+.login-section{
+    min-height:calc(100vh - 70px);
+    display:flex;
+    align-items:center;
+}
+
+/* form card */
+.login-card{
+    background:transparent;
+    border:none;
+    width:100%;
+    max-width:400px;
+}
+
+/* input fields */
+.form-control{
+    background-color:#dcd6c9;
+    border:none;
+    border-radius:10px;
+    padding:12px;
+}
+
+.form-control:focus{
+    box-shadow:none;
+    background-color:#dcd6c9;
+}
+
+/* login button */
+.btn-login{
+    background-color:#dcd6c9;
+    border:none;
+    border-radius:10px;
+    padding:10px;
+    font-weight:bold;
+}
+
+.btn-login:hover{
+    background-color:#cfc8bb;
+}
+
+/* side illustration */
+.left-peeking-image{
+    position:fixed;
+    left:0;
+    bottom:0;
+    max-width:420px;
+    height:auto;
+    z-index:0;
+}
+
+/* form above image */
+.login-card{
+    position:relative;
+    z-index:2;
+}
+
+.small-link{
+    font-size:14px;
+}
+
+/* hide image on mobile */
+@media (max-width:768px){
+    .left-peeking-image{
+        display:none;
+    }
+}
