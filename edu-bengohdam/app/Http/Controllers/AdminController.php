@@ -9,9 +9,12 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
 
+    // calculate the number of users in user table
     public function dashboard()
     {
-        return view('admin.admin_dashboard');
+        $totalUsers = User::count(); //receive calculation
+
+        return view('admin.admin_dashboard', compact('totalUsers'));
     }
     public function userManagement()
     {
