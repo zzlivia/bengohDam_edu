@@ -1,18 +1,33 @@
+html, body{
+    height:100%;
+}
+
+body{
+    background-color:#f5f5f5;
+    font-family:Arial, sans-serif;
+}
+
+/* navbar */
+.navbar{
+    background-color:white;
+}
+
+/* login section */
 .login-section{
-    min-height:calc(100vh - 80px);
+    min-height:calc(100vh - 70px);
     display:flex;
     align-items:center;
-    justify-content:center;
-    position:relative;
 }
 
-/* form */
+/* form card */
 .login-card{
-    max-width:400px;
+    background:transparent;
+    border:none;
     width:100%;
+    max-width:400px;
 }
 
-/* inputs */
+/* input fields */
 .form-control{
     background-color:#dcd6c9;
     border:none;
@@ -38,9 +53,9 @@
     background-color:#cfc8bb;
 }
 
-/* illustration */
+/* side illustration */
 .left-peeking-image{
-    position:absolute;
+    position:fixed;
     left:0;
     bottom:0;
     max-width:420px;
@@ -48,6 +63,7 @@
     z-index:0;
 }
 
+/* form above image */
 .login-card{
     position:relative;
     z-index:2;
@@ -57,6 +73,7 @@
     font-size:14px;
 }
 
+/* hide image on mobile */
 @media (max-width:768px){
     .left-peeking-image{
         display:none;
