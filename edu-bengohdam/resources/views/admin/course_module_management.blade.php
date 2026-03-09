@@ -75,7 +75,7 @@
         </tbody>
     </table>
 
-    {{-- Modals (Keep only one loop, ideally after the table) --}}
+    
     @foreach($courses as $course)
     <div class="modal fade" id="viewCourseModal{{ $course->courseID }}" tabindex="-1">
         <div class="modal-dialog modal-lg">
@@ -92,10 +92,10 @@
                         <p><strong>Category:</strong> {{ $course->courseCategory }}</p>
                         <p><strong>Level:</strong> {{ $course->courseLevel }}</p>
                         <p><strong>Duration:</strong> {{ $course->courseDuration }} hours</p>
-                        <p><strong>Description:</strong></p>
-                        <p>{{ $course->courseDesc }}</p>
+                        <p><strong>Description:</strong> {{ $course->courseDesc }}</p>
+                        
                         @if($course->courseImg)
-                            <img src="{{ asset('storage/'.$course->courseImg) }}" class="img-fluid rounded" style="max-height:200px;">
+                            <img src="{{ asset('storage/'.$course->courseImg) }}" class="img-fluid rounded" style="width:250px; height:200px; object-fit:cover;">
                         @endif
                     </div>
                 </div>
