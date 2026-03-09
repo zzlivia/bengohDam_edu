@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="container mt-4">
+<div class="mt-4">
 
     {{-- Hero Section --}}
     <div class="course-hero mb-5">
