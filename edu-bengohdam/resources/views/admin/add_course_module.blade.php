@@ -11,6 +11,9 @@
         <li class="nav-item">
             <button class="nav-link" id="module-tab" data-bs-toggle="tab" data-bs-target="#module-form" type="button">Add Module</button>
         </li>
+        <li class="nav-item">
+            <button class="nav-link" id="lecture-tab" data-bs-toggle="tab" data-bs-target="#lecture-form" type="button">Add Lecture</button>
+        </li>
     </ul>
 
     <div class="tab-content">
