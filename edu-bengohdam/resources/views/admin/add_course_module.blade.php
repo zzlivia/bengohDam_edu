@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="container">
+    {{-- success notification --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+    
     <h3 class="mb-4">Create Course or Module</h3>
     
     <ul class="nav nav-tabs mb-4" id="managementTab" role="tablist">
