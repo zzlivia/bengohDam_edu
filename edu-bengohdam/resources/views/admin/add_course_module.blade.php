@@ -76,6 +76,7 @@
 
                 <div class="text-end">
                     <button type="submit" class="btn btn-success">Save Course</button>
+                    <a href="{{ route('admin.course.module') }}" class="btn btn-secondary">Back</a>
                 </div>
             </form>
         </div>
@@ -100,6 +101,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Save Module</button>
+                <a href="{{ route('admin.course.module') }}" class="btn btn-secondary">Back</a>
             </form>
         </div>
     </div>
