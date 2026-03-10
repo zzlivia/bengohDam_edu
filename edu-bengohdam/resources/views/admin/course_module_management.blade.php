@@ -40,14 +40,15 @@
             <i class="fas fa-plus me-1"></i> Add New
         </button>
         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="addDropdown">
+            {{-- passing query parameter --}}
             <li>
-                <a class="dropdown-item" href="{{ route('admin.course.module.create') }}">
+                <a class="dropdown-item" href="{{ route('admin.course.module.create') }}?tab=course">
                     <i class="fas fa-book-open me-2"></i> Add Course
                 </a>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
-                <a class="dropdown-item py-2" href="{{ route('admin.course.module.create') }}"> {{-- change admin.module.create to admin.course.module.create--}}
+                <a class="dropdown-item py-2" href="{{ route('admin.course.module.create') }}?tab=module"> {{-- change admin.module.create to admin.course.module.create--}}
                     <i class="fas fa-layer-group me-2 text-success"></i> Add Module
                 </a>
             </li>
