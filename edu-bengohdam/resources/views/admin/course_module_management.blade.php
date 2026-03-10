@@ -47,7 +47,7 @@
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
-                <a class="dropdown-item py-2" href="{{ route('admin.module.create') }}">
+                <a class="dropdown-item py-2" href="{{ route('admin.course.module.create') }}"> {{-- change admin.module.create to admin.course.module.create--}}
                     <i class="fas fa-layer-group me-2 text-success"></i> Add Module
                 </a>
             </li>
