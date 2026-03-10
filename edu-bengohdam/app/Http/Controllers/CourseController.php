@@ -230,7 +230,7 @@ class CourseController extends Controller
     public function create()
     {
         $courses = Course::all();
-        $modules = Module::all(); // Needed for the Lecture form dropdown
+        $modules = Module::all();
         
         return view('admin.add_course_module', compact('courses', 'modules'));
     }
