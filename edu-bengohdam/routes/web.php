@@ -79,6 +79,9 @@ Route::prefix('settings')->name('settings.')->group(function () {
 
     Route::post('/preferences/save', [SettingsController::class, 'savePreferences'])
         ->name('preferences.save');
+    
+    Route::post('/lecture/store', [LectureSectionController::class, 'storeLecture'])
+        ->name('lecture.store');
 
     // profile (login required)
     Route::middleware('auth')->group(function () {
