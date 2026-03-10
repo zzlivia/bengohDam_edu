@@ -109,7 +109,7 @@
         </div>
         {{-- LECTURE FORM --}}
         <div class="tab-pane fade" id="lecture-form">
-            <form method="POST" action="{{ route('lecture.store') }}">
+            <form method="POST" action="{{ route('admin.lecture.store') }}">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 mb-3">
