@@ -225,4 +225,25 @@ class CourseController extends Controller
 
         return view('courses.leaderboards', compact('learners'));
     }
+
+    //handling courses
+    public function lectureStore(Request $request)
+{
+    $request->validate([
+        'lectID' => 'required|unique:lectures,lectID',
+        'moduleID' => 'required|exists:modules,moduleID',
+        'lectName' => 'required|string|max:255',
+        'lect_duration' => 'required|integer',
+    ]);
+
+    // Assuming your model is named Lecture
+    Lecture::create([
+        'lectID' => $request->lectID,
+        'moduleID' => $request->moduleID,
+        'lectName' => $request->lectName,
+        'lect_duration' => $request->lect_duration,
+    ]);
+
+    return redirect()->back()->with('success', 'Lecture added successfully!');
+}
 }
