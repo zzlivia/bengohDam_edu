@@ -20,14 +20,16 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'moduleID'   => 'required|unique:module,moduleID',
             'moduleName' => 'required|string|max:255',
-            'courseID'   => 'required|exists:course,courseID', // or courseID depending on your PK
+            'courseID' => 'required|exists:course,courseID'
         ]);
 
-        Module::create($request->all());
+        Module::create([
+            'moduleName' => $request->moduleName,
+            'courseID' => $request->courseID
+        ]);
 
         return redirect()->route('admin.course.module')
-                         ->with('success', 'Module created successfully!');
+            ->with('success', 'Module added successfully!');
     }
 }
