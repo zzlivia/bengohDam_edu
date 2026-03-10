@@ -14,40 +14,59 @@ use App\Models\LectureSection;
 
 class LectureSectionController extends Controller
 {
+
+    // STORE LECTURE SECTION (used when adding lesson content later)
     public function store(Request $request)
     {
+        $request->validate([
+            'lectID' => 'required',
+            'section_title' => 'required',
+            'section_type' => 'required'
+        ]);
+
         LectureSection::create([
             'lectID' => $request->lectID,
             'section_title' => $request->section_title,
             'section_type' => $request->section_type,
             'section_content' => $request->section_content,
             'section_file' => $request->section_file,
-            'section_order' => $request->section_order
+            'section_order' => $request->section_order ?? 1
         ]);
 
         return redirect()->back()->with('success','Section added successfully');
     }
 
+
+    // STORE LECTURE (this is what your form should call)
     public function storeLecture(Request $request)
     {
+        $request->validate([
+            'moduleID' => 'required',
+            'lectName' => 'required',
+            'lect_duration' => 'required'
+        ]);
+
         DB::beginTransaction();
 
         try {
-            // create the base Lecture
-            $lecture = new Lecture(); //name of model
+
+            // Create Lecture
+            $lecture = new Lecture();
             $lecture->moduleID = $request->moduleID;
             $lecture->lectName = $request->lectName;
             $lecture->lect_duration = $request->lect_duration;
             $lecture->save();
 
-            // create the parent, Learning Material record
-            $material = new LearningMaterials(); //name of model
-            $material->lectID = $lecture->id;
+
+            // Create Learning Material parent
+            $material = new LearningMaterials();
+            $material->lectID = $lecture->lectID; // use correct PK
             $material->learningMaterialTitle = $request->lectName;
-            $material->learningMaterialType = 'composite'; 
+            $material->learningMaterialType = 'composite';
             $material->save();
 
-            // handle video (if URL/Path provided)
+
+            // Optional Video
             if ($request->video_path) {
                 VideoLearning::create([
                     'videoLearningName' => $request->lectName . " Video",
@@ -56,9 +75,12 @@ class LectureSectionController extends Controller
                 ]);
             }
 
-            // 4. Handle PDF (if file uploaded)
+
+            // Optional PDF
             if ($request->hasFile('pdf_file')) {
+
                 $path = $request->file('pdf_file')->store('course_pdfs', 'public');
+
                 PdfLearning::create([
                     'pdfLearningName' => $request->lectName . " PDF",
                     'pdfLearningPath' => $path,
@@ -66,21 +88,17 @@ class LectureSectionController extends Controller
                 ]);
             }
 
-            // 5. Save the "Lesson Overview" Text into Lecture Sections
-            LectureSection::create([
-                'lectID' => $lecture->id,
-                'section_title' => 'Lesson Overview',
-                'section_type' => 'text',
-                'section_content' => $request->lesson_content, // The long text from your screenshot
-                'section_order' => 1
-            ]);
 
             DB::commit();
+
             return redirect()->back()->with('success', 'Lecture created successfully!');
 
         } catch (\Exception $e) {
+
             DB::rollback();
-            return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
+
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 }
