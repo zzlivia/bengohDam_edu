@@ -148,4 +148,30 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Get the 'tab' value from the URL (e.g., ?tab=lecture)
+        const urlParams = new URLSearchParams(window.location.search);
+        const tabTarget = urlParams.get('tab');
+
+        if (tabTarget) {
+            // 2. Map the URL parameter to the specific button ID
+            const tabMap = {
+                'course': '#course-tab',
+                'module': '#module-tab',
+                'lecture': '#lecture-tab'
+            };
+
+            const selector = tabMap[tabTarget];
+            const tabButton = document.querySelector(selector);
+
+            if (tabButton) {
+                // 3. Use Bootstrap's Tab instance to show the tab
+                const tab = new bootstrap.Tab(tabButton);
+                tab.show();
+            }
+        }
+    });
+</script>
 @endsection
