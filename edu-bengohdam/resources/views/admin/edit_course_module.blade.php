@@ -21,9 +21,8 @@
             <input type="text" name="courseAuthor" class="form-control" value="{{ $course->courseAuthor }}">
         </div>
 
-        <button class="btn btn-success">
-        Update Course
-        </button>
+        <button class="btn btn-success">Update Course</button>
+        <a href="{{ route('admin.course.module') }}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 @endsection
