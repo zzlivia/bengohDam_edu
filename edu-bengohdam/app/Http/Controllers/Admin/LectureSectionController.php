@@ -46,59 +46,12 @@ class LectureSectionController extends Controller
             'lect_duration' => 'required'
         ]);
 
-        DB::beginTransaction();
+        $lecture = new Lecture();
+        $lecture->moduleID = $request->moduleID;
+        $lecture->lectName = $request->lectName;
+        $lecture->lect_duration = $request->lect_duration;
+        $lecture->save();
 
-        try {
-
-            // Create Lecture
-            $lecture = new Lecture();
-            $lecture->moduleID = $request->moduleID;
-            $lecture->lectName = $request->lectName;
-            $lecture->lect_duration = $request->lect_duration;
-            $lecture->save();
-
-
-            // Create Learning Material parent
-            $material = new LearningMaterials();
-            $material->lectID = $lecture->lectID; // use correct PK
-            $material->learningMaterialTitle = $request->lectName;
-            $material->learningMaterialType = 'composite';
-            $material->save();
-
-
-            // Optional Video
-            if ($request->video_path) {
-                VideoLearning::create([
-                    'videoLearningName' => $request->lectName . " Video",
-                    'videoLearningPath' => $request->video_path,
-                    'learningMaterialID' => $material->id
-                ]);
-            }
-
-
-            // Optional PDF
-            if ($request->hasFile('pdf_file')) {
-
-                $path = $request->file('pdf_file')->store('course_pdfs', 'public');
-
-                PdfLearning::create([
-                    'pdfLearningName' => $request->lectName . " PDF",
-                    'pdfLearningPath' => $path,
-                    'learningMaterialID' => $material->id
-                ]);
-            }
-
-
-            DB::commit();
-
-            return redirect()->back()->with('success', 'Lecture created successfully!');
-
-        } catch (\Exception $e) {
-
-            DB::rollback();
-
-            return redirect()->back()->with('error', $e->getMessage());
-        }
+        return redirect()->back()->with('success','Lecture saved!');
     }
-
 }
