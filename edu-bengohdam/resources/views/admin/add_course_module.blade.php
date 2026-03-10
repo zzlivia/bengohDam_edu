@@ -18,18 +18,65 @@
         <div class="tab-pane fade show active" id="course-form">
             <form method="POST" action="{{ route('admin.course.store') }}" enctype="multipart/form-data">
                 @csrf
+                
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Course Code</label>
                         <input type="text" class="form-control" name="courseCode" required>
                     </div>
+
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Course Name</label>
                         <input type="text" class="form-control" name="courseName" required>
                     </div>
                 </div>
-                {{-- ... include your other course fields here (Author, Category, etc.) ... --}}
-                <button type="submit" class="btn btn-success">Save Course</button>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Author</label>
+                        <input type="text" class="form-control" name="courseAuthor" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Category</label>
+                        <input type="text" class="form-control" name="courseCategory" placeholder="e.g. Programming, Design" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Level</label>
+                        <select class="form-control" name="courseLevel" required>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Duration (Hours)</label>
+                        <input type="number" class="form-control" name="courseDuration" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Course Thumbnail</label>
+                        <input type="file" class="form-control" name="courseImg" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="courseDesc" rows="4" required></textarea>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" name="isAvailable" value="1" id="isAvailable" checked>
+                    <label class="form-check-label" for="isAvailable">Make this course available immediately</label>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success">Save Course</button>
+                </div>
             </form>
         </div>
 
