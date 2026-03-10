@@ -121,11 +121,6 @@
                 @csrf
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Lecture ID/Code</label>
-                        <input type="text" class="form-control" name="lectID" placeholder="e.g. LEC-001" required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
                         <label class="form-label">Select Module</label>
                         <select class="form-control" name="moduleID" required>
                             <option value="">-- Choose a Module --</option>
