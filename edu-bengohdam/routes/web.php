@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\LectureSectionController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\Admin\ModuleController;
 
 //public routes
 Route::get('/', fn () => view('learner.homepage'));
