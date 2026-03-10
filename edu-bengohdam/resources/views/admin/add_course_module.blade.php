@@ -104,6 +104,46 @@
                 <a href="{{ route('admin.course.module') }}" class="btn btn-secondary">Back</a>
             </form>
         </div>
+        
+        {{-- LECTURE FORM (NEW) --}}
+        <div class="tab-pane fade" id="lecture-form">
+            <form method="POST" action="{{ route('admin.lecture.store') }}">
+                @csrf
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Lecture ID/Code</label>
+                        <input type="text" class="form-control" name="lectID" placeholder="e.g. LEC-001" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Select Module</label>
+                        <select class="form-control" name="moduleID" required>
+                            <option value="">-- Choose a Module --</option>
+                            @foreach($modules as $module)
+                                <option value="{{ $module->moduleID }}">{{ $module->moduleName }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">Lecture Name</label>
+                        <input type="text" class="form-control" name="lectName" placeholder="e.g. Setup and Installation" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Duration (Minutes)</label>
+                        <input type="number" class="form-control" name="lect_duration" placeholder="e.g. 15" required>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-info text-white">Save Lecture</button>
+                    <a href="{{ route('admin.course.module') }}" class="btn btn-secondary">Back</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
