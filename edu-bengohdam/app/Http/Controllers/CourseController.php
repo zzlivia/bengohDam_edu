@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Module;
 use App\Models\Progress;
+use App\Models\Lecture;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -226,24 +227,33 @@ class CourseController extends Controller
         return view('courses.leaderboards', compact('learners'));
     }
 
+    public function create()
+    {
+        $courses = Course::all();
+        $modules = Module::all(); // Needed for the Lecture form dropdown
+        
+        return view('admin.add_course_module', compact('courses', 'modules'));
+    }
+
     //handling courses
     public function lectureStore(Request $request)
-{
-    $request->validate([
-        'lectID' => 'required|unique:lectures,lectID',
-        'moduleID' => 'required|exists:modules,moduleID',
-        'lectName' => 'required|string|max:255',
-        'lect_duration' => 'required|integer',
-    ]);
+    {
+        // 1. Validation
+        $request->validate([
+            'lectID' => 'required|unique:lectures,lectID',
+            'moduleID' => 'required|exists:modules,moduleID',
+            'lectName' => 'required|string|max:255',
+            'lect_duration' => 'required|integer',
+        ]);
 
-    // Assuming your model is named Lecture
-    Lecture::create([
-        'lectID' => $request->lectID,
-        'moduleID' => $request->moduleID,
-        'lectName' => $request->lectName,
-        'lect_duration' => $request->lect_duration,
-    ]);
+        // 2. Creation
+        Lecture::create([
+            'lectID'        => $request->lectID,
+            'moduleID'      => $request->moduleID,
+            'lectName'      => $request->lectName,
+            'lect_duration' => $request->lect_duration,
+        ]);
 
-    return redirect()->back()->with('success', 'Lecture added successfully!');
-}
+        return redirect()->back()->with('success', 'Lecture added successfully!');
+    }
 }
