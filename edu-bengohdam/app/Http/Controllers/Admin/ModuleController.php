@@ -20,9 +20,9 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'moduleID'   => 'required|unique:modules,moduleID',
+            'moduleID'   => 'required|unique:module,moduleID',
             'moduleName' => 'required|string|max:255',
-            'courseID'   => 'required|exists:courses,id', // or courseID depending on your PK
+            'courseID'   => 'required|exists:course,courseID', // or courseID depending on your PK
         ]);
 
         Module::create($request->all());

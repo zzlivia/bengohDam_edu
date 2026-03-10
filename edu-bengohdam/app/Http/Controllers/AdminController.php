@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Module;
+use App\Models\Lecture;
+use App\Models\LearningMaterials;
+use App\Models\VideoLearning;
+use App\Models\PdfLearning;
+use App\Models\LectureSection;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
