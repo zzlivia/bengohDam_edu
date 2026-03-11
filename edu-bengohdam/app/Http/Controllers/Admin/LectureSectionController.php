@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Lecture;
-use App\Models\LearningMaterials;
-use App\Models\VideoLearning;
-use App\Models\PdfLearning;
 use App\Models\LectureSection;
 
 class LectureSectionController extends Controller
