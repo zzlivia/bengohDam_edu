@@ -29,12 +29,24 @@ class AdminController extends Controller
                         ->take(4)
                         ->get();
 
+        
+        //each learner is counted per course
+        $courseStats = DB::table('enrolmentcoursemodules')
+        ->join('courses', 'enrolmentcoursemodules.courseID', '=', 'courses.courseID')
+        ->select('courses.courseName', DB::raw('COUNT(DISTINCT enrolmentcoursemodules.userID) as total'))
+        ->groupBy('courses.courseName')
+        ->orderByDesc('total')
+        ->take(5)
+        ->get();
+
+        //pass data to Blade file
         return view('admin.admin_dashboard', compact(
             'totalUsers',
             'totalCourses',
             'totalModules',
             'totalLectures',
-            'announcements'
+            'announcements',
+            'courseStats'
         ));
     }
 

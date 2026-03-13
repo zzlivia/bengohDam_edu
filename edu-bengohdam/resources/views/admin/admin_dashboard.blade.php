@@ -49,7 +49,10 @@
                 @foreach($announcements as $announcement)
                     <li class="list-group-item">
                         <strong>{{ $announcement->announcementTitle }}</strong><br>
-                        {{ $announcement->announcementDetails }}
+                        {{ $announcement->announcementDetails }} <br>
+                        <small class="text-muted">
+                            {{ $announcement->created_at->format('d M Y') }}
+                        </small>
                     </li>
                 @endforeach
             </ul>
