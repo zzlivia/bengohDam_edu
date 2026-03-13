@@ -15,18 +15,21 @@
         <div class="card card-stat p-3 text-center">
             <h6>Total Courses</h6>
             <h3>{{ $totalCourses }}</h3>
+            <small class="text-muted">Offered Courses</small>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card card-stat p-3 text-center">
             <h6>Total Modules</h6>
             <h3>{{ $totalModules }}</h3>
+            <small class="text-muted">Available Modules</small>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card card-stat p-3 text-center">
             <h6>Total Lectures</h6>
             <h3>{{ $totalLectures }}</h3>
+            <small class="text-muted">Available Lectures</small>
         </div>
     </div>
 </div>
