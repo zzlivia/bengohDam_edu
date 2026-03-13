@@ -121,4 +121,34 @@
         }
     });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const courseNames = @json($courseStats->pluck('courseName'));
+const courseTotals = @json($courseStats->pluck('total'));
+
+const ctx = document.getElementById('barChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: courseNames,
+        datasets: [{
+            label: 'Students Enrolled',
+            data: courseTotals,
+            backgroundColor: '#4e73df'
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                precision: 0
+            }
+        }
+    }
+});
+</script>
 @endpush

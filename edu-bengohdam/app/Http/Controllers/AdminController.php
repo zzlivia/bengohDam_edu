@@ -32,9 +32,9 @@ class AdminController extends Controller
         
         //each learner is counted per course
         $courseStats = DB::table('enrolmentcoursemodules')
-        ->join('courses', 'enrolmentcoursemodules.courseID', '=', 'courses.courseID')
-        ->select('courses.courseName', DB::raw('COUNT(DISTINCT enrolmentcoursemodules.userID) as total'))
-        ->groupBy('courses.courseName')
+        ->join('course', 'enrolmentcoursemodules.courseID', '=', 'course.courseID')
+        ->select('course.courseName', DB::raw('COUNT(DISTINCT enrolmentcoursemodules.userID) as total'))
+        ->groupBy('course.courseName')
         ->orderByDesc('total')
         ->take(5)
         ->get();
