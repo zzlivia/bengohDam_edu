@@ -29,7 +29,7 @@
 
 
 {{-- search, add, remove actions --}}
-<form method="GET" action="{{ route('admin.user_management') }}" 
+<form method="GET" action="{{ route('admin.user.management') }}" 
       class="d-flex justify-content-between align-items-center mb-3">
     <input type="text" name="search" class="form-control w-50"
            placeholder="Search User">
