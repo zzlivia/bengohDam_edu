@@ -43,9 +43,7 @@
 
 {{-- User Table --}}
 <div class="card-box">
-
     <table class="table">
-
         <thead>
             <tr>
                 <th>Name</th>
@@ -55,32 +53,30 @@
                 <th>Completed Courses</th>
             </tr>
         </thead>
-
         <tbody>
-
         @forelse($users as $user)
-
-        <tr>
-            <td>{{ $user->name }}</td>
-            <td>{{ $user->email }}</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-        </tr>
-
+            <tr>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->engagement }}</td>
+                <td>
+                    @if($user->completedCourses >= 10)
+                        Expert
+                    @elseif($user->completedCourses >= 5)
+                        Intermediate
+                    @else
+                        Beginner
+                    @endif
+                </td>
+                <td>{{ $user->completedCourses }}</td>
+            </tr>
         @empty
-
-        <tr>
-            <td colspan="6" class="text-center">No users found</td>
-        </tr>
-
+            <tr>
+                <td colspan="5" class="text-center">No users found</td>
+            </tr>
         @endforelse
-
         </tbody>
-
     </table>
-
 </div>
 
 

@@ -52,10 +52,27 @@ class AdminController extends Controller
 
     public function userManagement()
     {
-        $users = User::all();
-        $totalUsers = User::count();
-        $newUsers = User::where('created_at', '>=', now()->subDays(7))->count();
-        $activeUsers = User::where('updated_at', '>=', now()->subDays(7))->count();
+        $totalUsers = DB::table('user')->count();
+
+        $newUsers = DB::table('user')
+            ->where('created_at', '>=', now()->subDays(7))
+            ->count();
+
+        $activeUsers = DB::table('user')
+            ->where('updated_at', '>=', now()->subDays(7))
+            ->count();
+
+        $users = DB::table('user')
+            ->leftJoin('enrolmentcoursemodules', 'user.userID', '=', 'enrolmentcoursemodules.userID')
+            ->select(
+                'user.userID',
+                'user.userName as name',
+                'user.userEmail as email',
+                DB::raw('COUNT(CASE WHEN enrolmentcoursemodules.inProgress = 1 THEN 1 END) as engagement'),
+                DB::raw('COUNT(CASE WHEN enrolmentcoursemodules.isCompleted = 1 THEN 1 END) as completedCourses')
+            )
+            ->groupBy('user.userID', 'user.userName', 'user.userEmail')
+            ->get();
 
         return view('admin.user_management', compact(
             'users',
