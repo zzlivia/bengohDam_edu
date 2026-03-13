@@ -50,20 +50,28 @@ class AdminController extends Controller
         ));
     }
 
-    public function userManagement()
+    public function userManagement(Request $request)
     {
+        $search = $request->search;
+
+        // Summary cards
         $totalUsers = DB::table('user')->count();
 
         $newUsers = DB::table('user')
-            ->where('created_at', '>=', now()->subDays(7))
+            ->whereDate('userID', '>=', now()->subDays(7)) // placeholder if no created_at
             ->count();
 
-        $activeUsers = DB::table('user')
-            ->where('updated_at', '>=', now()->subDays(7))
-            ->count();
+        $activeUsers = DB::table('enrolmentcoursemodules')
+            ->where('inProgress', 1)
+            ->distinct('userID')
+            ->count('userID');
 
+        // User table
         $users = DB::table('user')
             ->leftJoin('enrolmentcoursemodules', 'user.userID', '=', 'enrolmentcoursemodules.userID')
+            ->when($search, function ($query, $search) {
+                return $query->where('user.userName', 'like', "%$search%");
+            })
             ->select(
                 'user.userID',
                 'user.userName as name',
