@@ -31,15 +31,12 @@
 {{-- search, add, remove actions --}}
 <form method="GET" action="{{ route('admin.user_management') }}" 
       class="d-flex justify-content-between align-items-center mb-3">
-
     <input type="text" name="search" class="form-control w-50"
            placeholder="Search User">
-
     <div>
         <button class="btn btn-primary">Search</button>
         <button type="button" class="btn btn-danger">Remove User</button>
     </div>
-
 </form>
 
 
