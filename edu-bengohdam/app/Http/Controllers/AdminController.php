@@ -9,7 +9,7 @@ use App\Models\LearningMaterials;
 use App\Models\VideoLearning;
 use App\Models\PdfLearning;
 use App\Models\LectureSection;
-
+use App\Models\Announcement;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -24,14 +24,20 @@ class AdminController extends Controller
         $totalModules = Module::count();
         $totalLectures = Lecture::count();
 
+        // get latest 4 announcements
+        $announcements = Announcement::orderBy('created_at', 'desc')
+                        ->take(4)
+                        ->get();
+
         return view('admin.admin_dashboard', compact(
             'totalUsers',
             'totalCourses',
             'totalModules',
-            'totalLectures'
+            'totalLectures',
+            'announcements'
         ));
     }
-    
+
     public function userManagement()
     {
         $users = User::all();
