@@ -24,7 +24,7 @@ class AdminController extends Controller
         $totalModules = Module::count();
         $totalLectures = Lecture::count();
 
-        // get latest 4 announcements
+        // get at least 4 announcements
         $announcements = Announcements::orderBy('created_at', 'desc')
                         ->take(4)
                         ->get();
