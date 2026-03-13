@@ -57,7 +57,7 @@ class AdminController extends Controller
         $newUsers = User::where('created_at', '>=', now()->subDays(7))->count();
         $activeUsers = User::where('updated_at', '>=', now()->subDays(7))->count();
 
-        return view('admin.userManagement', compact(
+        return view('admin.user_management', compact(
             'users',
             'totalUsers',
             'newUsers',
