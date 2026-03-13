@@ -26,7 +26,7 @@
     @endforeach
 </div>
 
-{{-- Search and Add Course or Module --}}
+{{-- search and add course or module --}}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div class="input-group w-50">
         <span class="input-group-text bg-white border-end-0">
@@ -60,7 +60,7 @@
         </ul>
     </div>
 </div>
-
+{{-- display box of courses with author, availability, and modules --}}
 <div class="card-box">
     <table class="table">
         <thead>
@@ -102,7 +102,7 @@
         </tbody>
     </table>
 
-    
+    {{-- when user click on View Action, it display pop up modal tab --}}
     @foreach($courses as $course)
     <div class="modal fade" id="viewCourseModal{{ $course->courseID }}" tabindex="-1">
         <div class="modal-dialog modal-lg">
