@@ -53,14 +53,15 @@ class AdminController extends Controller
     public function userManagement()
     {
         $users = User::all();
+        $totalUsers = User::count();
+        $newUsers = User::where('created_at', '>=', now()->subDays(7))->count();
+        $activeUsers = User::where('updated_at', '>=', now()->subDays(7))->count();
 
-        $totalUsers = $users->count();
-        $engagedThisWeek = $users->count();
-
-        return view('admin.user_management', compact(
+        return view('admin.userManagement', compact(
             'users',
             'totalUsers',
-            'engagedThisWeek'
+            'newUsers',
+            'activeUsers'
         ));
     }
 

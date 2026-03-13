@@ -3,33 +3,28 @@
 @section('content')
 
 <h4 class="fw-bold mb-4">Summary</h4>
-
-<div class="row mb-4">
-
-    <div class="col-md-3">
+<div class="row mb-4 justify-content-center">
+    <div class="col-md-4">
         <div class="card-box text-center">
             <h6>Total Users</h6>
             <h2>{{ $totalUsers }}</h2>
-            <small>Engaged in this week</small>
+            <small>Registered users</small>
         </div>
     </div>
-
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="card-box text-center">
-            <h6>Total Users</h6>
-            <h2>{{ $totalUsers }}</h2>
-            <small>Engaged in this week</small>
+            <h6>New Users</h6>
+            <h2>{{ $newUsers }}</h2>
+            <small>Joined this week</small>
         </div>
     </div>
-
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="card-box text-center">
-            <h6>Total Users</h6>
-            <h2>{{ $totalUsers }}</h2>
-            <small>Engaged in this week</small>
+            <h6>Active Users</h6>
+            <h2>{{ $activeUsers }}</h2>
+            <small>Active this week</small>
         </div>
     </div>
-
 </div>
 
 
@@ -55,7 +50,6 @@
             <tr>
                 <th>Name</th>
                 <th>Email Address</th>
-                <th>Age</th>
                 <th>Engagement</th>
                 <th>Rank</th>
                 <th>Completed Courses</th>
