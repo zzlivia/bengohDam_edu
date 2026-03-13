@@ -9,7 +9,7 @@ use App\Models\LearningMaterials;
 use App\Models\VideoLearning;
 use App\Models\PdfLearning;
 use App\Models\LectureSection;
-use App\Models\Announcement;
+use App\Models\Announcements;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -25,7 +25,7 @@ class AdminController extends Controller
         $totalLectures = Lecture::count();
 
         // get latest 4 announcements
-        $announcements = Announcement::orderBy('created_at', 'desc')
+        $announcements = Announcements::orderBy('created_at', 'desc')
                         ->take(4)
                         ->get();
 
