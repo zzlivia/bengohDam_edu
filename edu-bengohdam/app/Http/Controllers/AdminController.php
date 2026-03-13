@@ -19,10 +19,19 @@ class AdminController extends Controller
     // calculate the number of users in user table
     public function dashboard()
     {
-        $totalUsers = User::count(); //receive calculation
+        $totalUsers = User::count();
+        $totalCourses = Course::count();
+        $totalModules = Module::count();
+        $totalLectures = Lecture::count();
 
-        return view('admin.admin_dashboard', compact('totalUsers'));
+        return view('admin.admin_dashboard', compact(
+            'totalUsers',
+            'totalCourses',
+            'totalModules',
+            'totalLectures'
+        ));
     }
+    
     public function userManagement()
     {
         $users = User::all();
