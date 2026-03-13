@@ -46,10 +46,12 @@
         <div class="card card-custom p-4">
             <h6>Announcements</h6>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">System maintenance scheduled on 03 January 2026</li>
-                <li class="list-group-item">New learning resources uploaded</li>
-                <li class="list-group-item">New user has just registered</li>
-                <li class="list-group-item">Learner earned Historical Badge</li>
+                @foreach($announcements as $announcement)
+                    <li class="list-group-item">
+                        <strong>{{ $announcement->announcementTitle }}</strong><br>
+                        {{ $announcement->announcementDetails }}
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>
