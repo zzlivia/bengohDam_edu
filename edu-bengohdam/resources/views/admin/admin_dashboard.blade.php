@@ -14,19 +14,19 @@
     <div class="col-md-3">
         <div class="card card-stat p-3 text-center">
             <h6>Total Courses</h6>
-            <h3>4</h3>
+            <h3>{{ $totalCourses }}</h3>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card card-stat p-3 text-center">
-            <h6>Assessments Completed</h6>
-            <h3>3</h3>
+            <h6>Total Modules</h6>
+            <h3>{{ $totalModules }}</h3>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card card-stat p-3 text-center">
-            <h6>Total Enrollment</h6>
-            <h3>5</h3>
+            <h6>Total Lectures</h6>
+            <h3>{{ $totalLectures }}</h3>
         </div>
     </div>
 </div>
