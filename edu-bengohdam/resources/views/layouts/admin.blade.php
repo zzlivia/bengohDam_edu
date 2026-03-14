@@ -3,6 +3,9 @@
 <head>
     <title>Bengoh Academy - Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{-- add manifest link --}}
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d6efd">
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- admin css -->
