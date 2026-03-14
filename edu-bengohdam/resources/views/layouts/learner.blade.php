@@ -84,5 +84,13 @@
     </footer>
     {{-- JS for dropdowns --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- add service worker --}}
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+        .then(function() {
+            console.log("Service Worker Registered");
+        });
+    }
 </body>
 </html>
