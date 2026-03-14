@@ -29,7 +29,6 @@ class AdminController extends Controller
                         ->take(4)
                         ->get();
 
-        
         //each learner is counted per course
         $courseStats = DB::table('enrolmentcoursemodules')
         ->join('course', 'enrolmentcoursemodules.courseID', '=', 'course.courseID')
