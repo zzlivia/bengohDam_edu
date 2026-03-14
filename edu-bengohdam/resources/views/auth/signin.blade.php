@@ -29,18 +29,20 @@
 
                 <div class="mb-3">
                     <input type="text"
-                           name="email"
-                           class="form-control"
-                           placeholder="Enter your email"
-                           required>
+                        name="email"
+                        class="form-control"
+                        placeholder="Enter your email"
+                        autocomplete="off"
+                        required>
                 </div>
 
                 <div class="mb-2">
                     <input type="password"
-                           name="password"
-                           class="form-control"
-                           placeholder="Enter your password"
-                           required>
+                        name="password"
+                        class="form-control"
+                        placeholder="Enter your password"
+                        autocomplete="new-password"
+                        required>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-3 small-link">
