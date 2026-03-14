@@ -24,15 +24,15 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login') }}" autocomplete="off">
+            <form method="POST" action="{{ route('login') }}">
                 @csrf
-
+                {{-- allow autofill to improves usability --}}
                 <div class="mb-3">
-                    <input type="text"
+                    <input type="email"
                         name="email"
                         class="form-control"
                         placeholder="Enter your email"
-                        autocomplete="off"
+                        autocomplete="username"
                         required>
                 </div>
 
@@ -41,7 +41,7 @@
                         name="password"
                         class="form-control"
                         placeholder="Enter your password"
-                        autocomplete="new-password"
+                        autocomplete="current-password"
                         required>
                 </div>
 
