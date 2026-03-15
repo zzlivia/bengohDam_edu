@@ -227,10 +227,21 @@ Route::prefix('admin')
 
     Route::get('/announcements', [AdminController::class, 'announcements'])
         ->name('announcements');
+        
     Route::get('/announcements/create', [AdminController::class, 'createAnnouncement'])
         ->name('announcements.create');
+
     Route::post('/announcements/store', [AdminController::class, 'storeAnnouncement'])
         ->name('announcements.store');
+
+    Route::get('/announcements/{id}/view', [AdminController::class, 'viewAnnouncement'])
+        ->name('announcements.view');
+
+    Route::get('/announcements/{id}/review', [AdminController::class, 'reviewAnnouncement'])
+        ->name('announcements.review');
+
+    Route::get('/announcements/{id}/edit', [AdminController::class, 'editAnnouncement'])
+        ->name('announcements.edit');
 
     Route::get('/reports', [AdminController::class, 'reports'])
         ->name('reports');
@@ -247,12 +258,10 @@ Route::prefix('admin')
     | Community Stories Admin
     |--------------------------------------------------------------------------
     */
-
     Route::get('/stories', [AdminCommunityStoryController::class, 'index'])->name('stories.index');
     Route::get('/stories/create', [AdminCommunityStoryController::class, 'create'])->name('stories.create');
     Route::post('/stories', [AdminCommunityStoryController::class, 'store'])->name('stories.store');
     Route::get('/stories/{id}/edit', [AdminCommunityStoryController::class, 'edit'])->name('stories.edit');
     Route::put('/stories/{id}', [AdminCommunityStoryController::class, 'update'])->name('stories.update');
     Route::delete('/stories/{id}', [AdminCommunityStoryController::class, 'destroy'])->name('stories.destroy');
-
 });

@@ -262,6 +262,24 @@ class AdminController extends Controller
             ->with('success', 'Announcement added successfully!');
     }
 
+    public function viewAnnouncement($id)
+    {
+        $announcement = Announcements::where('announcementID', $id)->first();
+        return view('admin.viewAnnouncement', compact('announcement'));
+    }
+
+    public function reviewAnnouncement($id)
+    {
+        $announcement = Announcements::where('announcementID', $id)->first();
+        return view('admin.reviewAnnouncement', compact('announcement'));
+    }
+
+    public function editAnnouncement($id)
+    {
+        $announcement = Announcements::where('announcementID', $id)->first();
+        return view('admin.editAnnouncement', compact('announcement'));
+    }
+    
     public function reports()
     {
 
