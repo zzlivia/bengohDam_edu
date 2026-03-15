@@ -16,7 +16,7 @@
     </div>
 
     <div class="mt-4">
-        <a href="{{ route('announcements') }}" class="btn btn-light">
+        <a href="{{ route('admin.announcements') }}" class="btn btn-light">
             ← Back
         </a>
     </div>
