@@ -385,15 +385,32 @@ class AdminController extends Controller
     public function downloadReport()
     {
         $totalUsers = User::count();
-
-        $data = [
-            'totalUsers' => $totalUsers
-        ];
-
-        $pdf = Pdf::loadView('admin.reportPDF', $data);
-
+        $newUsers = User::whereDate('created_at', today())->count();
+        $activeUsers = User::where('status','active')->count();
+        $inactiveUsers = User::where('status','inactive')->count();
+        $guestUsers = 0;
+        $courseModules = DB::table('module')
+                ->join('course','module.courseID','=','course.courseID')
+                ->select(
+                    'course.courseName',
+                    'module.moduleName',
+                    DB::raw('0 as enrolled'),
+                    DB::raw('0 as completed'),
+                    DB::raw('0 as in_progress')
+                )
+                ->get();
+        $data = compact(
+            'totalUsers',
+            'newUsers',
+            'activeUsers',
+            'inactiveUsers',
+            'guestUsers',
+            'courseModules'
+        );
+        $pdf = Pdf::loadView('admin.reportPDF',$data);
         return $pdf->download('system_report.pdf');
     }
+
     public function settings()
     {
         return view('admin.admin_settings');
