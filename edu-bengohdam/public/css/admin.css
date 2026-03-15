@@ -62,3 +62,46 @@ body{
     height:280px;
     margin:auto;
 }
+
+.progress-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #d9d9d9 calc(var(--value) * 1%),
+        #eee 0
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: relative;
+}
+
+.progress-circle::before {
+    content: "";
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    background: white;
+    border-radius: 50%;
+}
+
+.progress-circle span {
+    position: relative;
+    font-size: 14px;
+}
+
+.progress-circle.red {
+    background: conic-gradient(
+        #ff3b3b calc(var(--value) * 1%),
+        #eee 0
+    );
+}
+
+.progress-circle.dark-red {
+    background: conic-gradient(
+        #c90000 calc(var(--value) * 1%),
+        #eee 0
+    );
+}

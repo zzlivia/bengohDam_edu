@@ -216,15 +216,12 @@ class AdminController extends Controller
 
     public function progress()
     {
-        // total records
-        $totalProgress = \App\Models\Progress::count();
+        $totalProgress = Progress::count();
 
-        // count by status
-        $notStarted = \App\Models\Progress::where('progressStatus', 'Not Started')->count();
-        $inProgress = \App\Models\Progress::where('progressStatus', 'In Progress')->count();
-        $completed = \App\Models\Progress::where('progressStatus', 'Completed')->count();
+        $notStarted = Progress::where('progressStatus', 'Not Started')->count();
+        $inProgress = Progress::where('progressStatus', 'In Progress')->count();
+        $completed = Progress::where('progressStatus', 'Completed')->count();
 
-        // calculate percentage
         $notStartedPercent = $totalProgress > 0 ? round(($notStarted / $totalProgress) * 100) : 0;
         $inProgressPercent = $totalProgress > 0 ? round(($inProgress / $totalProgress) * 100) : 0;
         $completedPercent = $totalProgress > 0 ? round(($completed / $totalProgress) * 100) : 0;
