@@ -384,28 +384,61 @@ class AdminController extends Controller
 
     public function downloadReport()
     {
-        $totalUsers = User::count();
-        $newUsers = User::whereDate('created_at', today())->count();
-        $activeUsers = User::where('status','active')->count();
-        $inactiveUsers = User::where('status','inactive')->count();
+
+        $totalUsers = DB::table('user')->count();
+        // new user recent register
+        $newUsers = DB::table('user')
+            ->whereDate('created_at', today())
+            ->count();
+
+
+        // active user define by authenticated attribute
+        $activeUsers = DB::table('user')
+            ->where('authenticated', 1)
+            ->count();
+
+        // inactive users define by authenticated attribute
+        $inactiveUsers = DB::table('user')
+            ->where('authenticated', 0)
+            ->count();
+
+        // guest users store by session
         $guestUsers = 0;
+
+        // course and module
         $courseModules = DB::table('module')
-                ->join('course','module.courseID','=','course.courseID')
-                ->select(
-                    'course.courseName',
-                    'module.moduleName',
-                    DB::raw('0 as enrolled'),
-                    DB::raw('0 as completed'),
-                    DB::raw('0 as in_progress')
-                )
-                ->get();
+            ->join('course','module.courseID','=','course.courseID')
+            ->leftJoin('enrolmentcoursemodules','module.moduleID','=','enrolmentcoursemodules.moduleID')
+            ->select(
+                'course.courseName',
+                'module.moduleName',
+
+                DB::raw('COUNT(enrolmentcoursemodules.userID) as enrolled'),
+
+                DB::raw('SUM(enrolmentcoursemodules.isCompleted = 1) as completed'),
+
+                DB::raw('SUM(enrolmentcoursemodules.inProgress = 1) as in_progress')
+            )
+            ->groupBy('module.moduleID','course.courseName','module.moduleName')
+            ->get();
+
+        $assessmentReport = DB::table('mcqs')
+            ->join('module','mcqs.moduleID','=','module.moduleID')
+            ->select(
+                'module.moduleName',
+                DB::raw('COUNT(mcqs.moduleQs_ID) as totalAssessment')
+            )
+            ->groupBy('module.moduleName')
+            ->get();
+
         $data = compact(
             'totalUsers',
             'newUsers',
             'activeUsers',
             'inactiveUsers',
             'guestUsers',
-            'courseModules'
+            'courseModules',
+            'assessmentReport'
         );
         $pdf = Pdf::loadView('admin.reportPDF',$data);
         return $pdf->download('system_report.pdf');

@@ -70,7 +70,7 @@
 
     {{-- HEADER --}}
     <div class="header">
-        <img src="{{ public_path('images/logo.png') }}" class="logo">
+        <img src="{{ public_path('images/bengohdam-logo.png') }}" class="logo">
         <div class="title">Bengoh Dam Learning System</div>
         <div class="subtitle">
         System Analytics Report
