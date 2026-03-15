@@ -5,10 +5,7 @@ use App\Models\User;
 use App\Models\Course;
 use App\Models\Module;
 use App\Models\Lecture;
-use App\Models\LearningMaterials;
-use App\Models\VideoLearning;
-use App\Models\PdfLearning;
-use App\Models\LectureSection;
+use App\Models\Progress;
 use App\Models\Announcements;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -219,7 +216,24 @@ class AdminController extends Controller
 
     public function progress()
     {
-        return view('admin.progress');
+        // total records
+        $totalProgress = \App\Models\Progress::count();
+
+        // count by status
+        $notStarted = \App\Models\Progress::where('progressStatus', 'Not Started')->count();
+        $inProgress = \App\Models\Progress::where('progressStatus', 'In Progress')->count();
+        $completed = \App\Models\Progress::where('progressStatus', 'Completed')->count();
+
+        // calculate percentage
+        $notStartedPercent = $totalProgress > 0 ? round(($notStarted / $totalProgress) * 100) : 0;
+        $inProgressPercent = $totalProgress > 0 ? round(($inProgress / $totalProgress) * 100) : 0;
+        $completedPercent = $totalProgress > 0 ? round(($completed / $totalProgress) * 100) : 0;
+
+        return view('admin.progress', compact(
+            'notStartedPercent',
+            'inProgressPercent',
+            'completedPercent'
+        ));
     }
 
     public function announcements()
