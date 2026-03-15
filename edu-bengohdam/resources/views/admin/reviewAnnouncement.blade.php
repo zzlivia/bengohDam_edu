@@ -15,7 +15,7 @@
         </small>
     </div>
     <div class="mt-4 d-flex gap-2">
-        <a href="{{ route('announcements') }}" class="btn btn-light">
+        <a href="{{ route('admin.announcements') }}" class="btn btn-light">
             Back
         </a>
         <button class="btn btn-success">
