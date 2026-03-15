@@ -252,6 +252,9 @@ Route::prefix('admin')
     Route::get('/report-overview', [AdminController::class, 'reportOverview'])
         ->name('reportOverview');
 
+    Route::get('/download-report', [AdminController::class, 'downloadReport'])
+        ->name('downloadReport');
+
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 
     Route::get('/help-support', [AdminController::class, 'helpSupport'])->name('help');
