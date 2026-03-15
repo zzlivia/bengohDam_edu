@@ -256,6 +256,46 @@ class AdminController extends Controller
         return view('admin.reports');
     }
 
+    public function reportOverview()
+    {
+
+        // Total users
+        $totalUsers = User::count();
+
+        // New users (registered this month)
+        $newUsers = User::whereMonth('created_at', now()->month)->count();
+
+        // Active users (example: users that logged in)
+        $activeUsers = User::where('status', 'active')->count();
+
+        // Inactive users
+        $inactiveUsers = User::where('status', 'inactive')->count();
+
+        // Guess / unregistered access (if you track visitors)
+        $guestUsers = 0;
+
+        // Course & Module Performance
+        $courseModules = DB::table('course')
+            ->join('module', 'course.courseID', '=', 'module.courseID')
+            ->select(
+                'course.courseName',
+                'module.moduleName',
+                DB::raw('0 as enrolled'),
+                DB::raw('0 as completed'),
+                DB::raw('0 as in_progress')
+            )
+            ->get();
+
+        return view('admin.reportOverview', compact(
+            'totalUsers',
+            'newUsers',
+            'activeUsers',
+            'inactiveUsers',
+            'guestUsers',
+            'courseModules'
+        ));
+    }
+
     public function settings()
     {
         return view('admin.admin_settings');
