@@ -226,7 +226,7 @@ Route::prefix('admin')
 
     Route::get('/announcements', [AdminController::class, 'announcements'])->name('announcements');
     Route::get('/announcements/create', [AdminController::class, 'createAnnouncement'])
-        ->name('admin.announcements.create');
+        ->name('announcements.create');
 
     Route::get('/reports', [AdminController::class, 'reports'])->name('reports');
 
