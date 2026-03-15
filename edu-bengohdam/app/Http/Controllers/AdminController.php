@@ -11,6 +11,7 @@ use App\Models\PdfLearning;
 use App\Models\LectureSection;
 use App\Models\Announcements;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -239,6 +240,20 @@ class AdminController extends Controller
     public function createAnnouncement()
     {
         return view('admin.create_announcement');
+    }
+
+    public function storeAnnouncement(Request $request)
+    {
+        DB::table('announcements')->insert([
+            'announcementTitle' => $request->announcementTitle,
+            'announcementDetails' => $request->announcementDetails,
+            'adminID' => Auth::id(),   // get logged in admin ID
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        return redirect()->route('admin.announcements')
+            ->with('success', 'Announcement added successfully!');
     }
 
     public function reports()
