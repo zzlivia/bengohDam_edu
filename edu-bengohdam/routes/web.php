@@ -223,10 +223,15 @@ Route::prefix('admin')
     */
 
     Route::get('/progress', [AdminController::class, 'progress'])->name('progress');
+
     Route::get('/announcements', [AdminController::class, 'announcements'])->name('announcements');
+    Route::get('/announcements/create', [AdminController::class, 'createAnnouncement'])
+        ->name('admin.announcements.create');
+
     Route::get('/reports', [AdminController::class, 'reports'])->name('reports');
 
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
+
     Route::get('/help-support', [AdminController::class, 'helpSupport'])->name('help');
 
     /*

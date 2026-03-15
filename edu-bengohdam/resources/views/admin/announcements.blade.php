@@ -9,24 +9,43 @@
 
     <input type="text" class="form-control w-50" placeholder="Filter the announcements">
 
-    <button class="btn btn-light">
-        ⚙
-    </button>
+    <div>
+
+        {{-- Add Announcement --}}
+        <a href="{{ route('admin.announcements.create') }}" class="btn btn-primary me-2">
+            + Add Announcement
+        </a>
+
+        <button class="btn btn-light">
+            ⚙
+        </button>
+
+    </div>
 
 </div>
 
 
 {{-- Announcement list --}}
+@forelse($announcements as $announcement)
+
 <div class="card-box mb-3">
 
     <div class="d-flex justify-content-between align-items-start">
 
         <div>
-            <h6 class="fw-bold">Pending Module Review</h6>
+
+            <h6 class="fw-bold">
+                {{ $announcement->announcementTitle }}
+            </h6>
+
             <p class="mb-1 text-muted">
-                2 modules are in draft and require approval before publishing
+                {{ $announcement->announcementDetails }}
             </p>
-            <small class="text-muted">Priority:</small>
+
+            <small class="text-muted">
+                Posted: {{ \Carbon\Carbon::parse($announcement->created_at)->format('d M Y') }}
+            </small>
+
         </div>
 
         <div>
@@ -39,106 +58,20 @@
 
 </div>
 
+@empty
 
-<div class="card-box mb-3">
-
-    <div class="d-flex justify-content-between align-items-start">
-
-        <div>
-            <h6 class="fw-bold">New Resources Uploaded</h6>
-            <p class="mb-1 text-muted">
-                3 PDFs were uploaded and are awaiting verification
-            </p>
-            <small class="text-muted">Priority:</small>
-        </div>
-
-        <div>
-            <button class="btn btn-sm btn-light">View</button>
-            <button class="btn btn-sm btn-warning">Review</button>
-            <button class="btn btn-sm btn-light">Edit</button>
-        </div>
-
-    </div>
-
+<div class="card-box text-center">
+    <p class="text-muted mb-0">No announcements available yet.</p>
 </div>
 
-
-<div class="card-box mb-3">
-
-    <div class="d-flex justify-content-between align-items-start">
-
-        <div>
-            <h6 class="fw-bold">Caption in Video Need to be Checked</h6>
-            <p class="mb-1 text-muted">
-                3 videos are missing subtitles
-            </p>
-            <small class="text-muted">Priority:</small>
-        </div>
-
-        <div>
-            <button class="btn btn-sm btn-light">View</button>
-            <button class="btn btn-sm btn-warning">Review</button>
-            <button class="btn btn-sm btn-light">Edit</button>
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="card-box mb-3">
-
-    <div class="d-flex justify-content-between align-items-start">
-
-        <div>
-            <h6 class="fw-bold">MCQs are ready for activation</h6>
-            <p class="mb-1 text-muted">
-                MCQs for Module Marketing in a Local Homestay is created and ready to be published.
-            </p>
-            <small class="text-muted">Priority:</small>
-        </div>
-
-        <div>
-            <button class="btn btn-sm btn-light">View</button>
-            <button class="btn btn-sm btn-warning">Review</button>
-            <button class="btn btn-sm btn-light">Edit</button>
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="card-box mb-3">
-
-    <div class="d-flex justify-content-between align-items-start">
-
-        <div>
-            <h6 class="fw-bold">Assessment Results are Available</h6>
-            <p class="mb-1 text-muted">
-                Learners can review their assessment results
-            </p>
-            <small class="text-muted">Priority:</small>
-        </div>
-
-        <div>
-            <button class="btn btn-sm btn-light">View</button>
-            <button class="btn btn-sm btn-warning">Review</button>
-            <button class="btn btn-sm btn-light">Edit</button>
-        </div>
-
-    </div>
-
-</div>
+@endforelse
 
 
 {{-- Home button --}}
 <div class="text-center mt-4">
-
     <a href="{{ route('admin.dashboard') }}" class="btn btn-light px-4">
         HOME
     </a>
-
 </div>
 
 @endsection
