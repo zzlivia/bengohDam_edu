@@ -33,9 +33,15 @@
                 </small>
             </div>
             <div>
-                <a href="{{ route('admin.announcements.show', $announcement->announcementID) }}" class="btn btn-sm btn-light">View</a>
-                <a href="{{ route('admin.announcements.review', $announcement->announcementID) }}" class="btn btn-sm btn-warning">Review</a>
-                <a href="{{ route('admin.announcements.edit', $announcement->announcementID) }}" class="btn btn-sm btn-light">Edit</a>
+                <a href="{{ route('announcements.view', $announcement->announcementID) }}" class="btn btn-sm btn-light">
+                    View
+                </a>
+                <a href="{{ route('announcements.review', $announcement->announcementID) }}" class="btn btn-sm btn-warning">
+                    Review
+                </a>
+                <a href="{{ route('announcements.edit', $announcement->announcementID) }}" class="btn btn-sm btn-light">
+                    Edit
+                </a>
             </div>
         </div>
     </div>
