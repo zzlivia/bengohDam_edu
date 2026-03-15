@@ -253,7 +253,50 @@ class AdminController extends Controller
 
     public function reports()
     {
-        return view('admin.reports');
+
+        // total registered users
+        $totalUsers = DB::table('user')->count();
+
+        // new users per month
+        $newUsers = DB::table('user')
+            ->whereMonth('created_at', now()->month)
+            ->count();
+
+        // active users (authenticated = 1)
+        $activeUsers = DB::table('user')
+            ->where('authenticated', 1)
+            ->count();
+
+        // inactive users
+        $inactiveUsers = DB::table('user')
+            ->where('authenticated', 0)
+            ->count();
+
+        // guest users by session
+        $guestUsers = 0;
+
+        // course & module
+        $courseModules = DB::table('course')
+            ->join('module', 'course.courseID', '=', 'module.courseID')
+            ->select(
+                'course.courseName',
+                'module.moduleName',
+                DB::raw('COUNT(enrolmentcoursemodules.userID) as enrolled'),
+                DB::raw('SUM(enrolmentcoursemodules.isCompleted) as completed'),
+                DB::raw('SUM(enrolmentcoursemodules.inProgress) as in_progress')
+            )
+            ->leftJoin('enrolmentcoursemodules', 'module.moduleID', '=', 'enrolmentcoursemodules.moduleID')
+            ->groupBy('course.courseName','module.moduleName')
+            ->get();
+
+        return view('admin.reports', compact(
+            'totalUsers',
+            'newUsers',
+            'activeUsers',
+            'inactiveUsers',
+            'guestUsers',
+            'courseModules'
+        ));
     }
 
     public function reportOverview()

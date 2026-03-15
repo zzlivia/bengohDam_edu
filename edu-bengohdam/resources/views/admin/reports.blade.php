@@ -11,7 +11,6 @@
         <h6 class="fw-bold mb-0">User & Enrolment</h6>
         <button class="btn btn-light btn-sm">⚙</button>
     </div>
-
     <div class="row mb-3">
         <div class="col-md-6">
             <p>Total Registered Users</p>
@@ -20,16 +19,14 @@
             <p>Inactive Users</p>
             <p>Unregistered (guess) access account</p>
         </div>
-
         <div class="col-md-6 text-end">
-            <p>:</p>
-            <p>:</p>
-            <p>:</p>
-            <p>:</p>
-            <p>:</p>
+            <p>: {{ $totalUsers }}</p>
+            <p>: {{ $newUsers }}</p>
+            <p>: {{ $activeUsers }}</p>
+            <p>: {{ $inactiveUsers }}</p>
+            <p>: {{ $guestUsers }}</p>
         </div>
     </div>
-
     <div class="text-end">
         <button class="btn btn-sm btn-warning">View more</button>
     </div>
@@ -39,9 +36,7 @@
 
 {{-- Course & Module Performance --}}
 <div class="card-box mb-4">
-
     <h6 class="fw-bold mb-3">Course & Module Performance</h6>
-
     <table class="table">
         <thead>
             <tr>
@@ -52,20 +47,30 @@
                 <th>In Progress</th>
             </tr>
         </thead>
-
         <tbody>
+        @if($courseModules->count() > 0)
+            @foreach($courseModules as $row)
             <tr>
-                <td colspan="5" class="text-center text-muted">
-                    No data available
-                </td>
+                <td>{{ $row->courseName }}</td>
+                <td>{{ $row->moduleName }}</td>
+                <td>{{ $row->enrolled }}</td>
+                <td>{{ $row->completed }}</td>
+                <td>{{ $row->in_progress }}</td>
             </tr>
+            @endforeach
+        @else
+        <tr>
+            <td colspan="5" class="text-center text-muted">
+                No data available
+            </td>
+        </tr>
+        @endif
         </tbody>
     </table>
 
     <div class="text-end">
         <button class="btn btn-sm btn-warning">View more</button>
     </div>
-
 </div>
 
 
