@@ -11,7 +11,7 @@
             </button>
         </div>
         <div>
-            <a href="{{ route('admin.announcements.create') }}" class="btn btn-primary">
+            <a href="{{ route('announcements.create') }}" class="btn btn-primary">
                 + Add Announcement
             </a>
         </div>
