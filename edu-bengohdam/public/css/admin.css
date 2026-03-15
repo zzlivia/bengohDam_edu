@@ -63,45 +63,45 @@ body{
     margin:auto;
 }
 
-.progress-circle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: conic-gradient(
-        #d9d9d9 calc(var(--value) * 1%),
-        #eee 0
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    position: relative;
+.progress-circle{
+width:70px;
+height:70px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+position:relative;
+background:conic-gradient(#ddd calc(var(--value)*1%), #eee 0);
+animation:growProgress 1s ease-out;
 }
 
-.progress-circle::before {
-    content: "";
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    background: white;
-    border-radius: 50%;
+.progress-circle::before{
+content:"";
+position:absolute;
+width:52px;
+height:52px;
+background:#fff;
+border-radius:50%;
 }
 
-.progress-circle span {
-    position: relative;
-    font-size: 14px;
+.progress-circle span{
+position:relative;
+font-size:14px;
 }
 
-.progress-circle.red {
-    background: conic-gradient(
-        #ff3b3b calc(var(--value) * 1%),
-        #eee 0
-    );
+.progress-circle.red{
+background:conic-gradient(#ff3b3b calc(var(--value)*1%), #eee 0);
 }
 
-.progress-circle.dark-red {
-    background: conic-gradient(
-        #c90000 calc(var(--value) * 1%),
-        #eee 0
-    );
+.progress-circle.blue{
+background:conic-gradient(#1e90ff calc(var(--value)*1%), #eee 0);
+}
+
+.progress-circle.gray{
+background:conic-gradient(#bfbfbf calc(var(--value)*1%), #eee 0);
+}
+
+@keyframes growProgress{
+from{--value:0}
 }
