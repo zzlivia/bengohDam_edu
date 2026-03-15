@@ -10,6 +10,7 @@ use App\Models\Announcements;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminController extends Controller
 {
@@ -381,6 +382,18 @@ class AdminController extends Controller
         ));
     }
 
+    public function downloadReport()
+    {
+        $totalUsers = User::count();
+
+        $data = [
+            'totalUsers' => $totalUsers
+        ];
+
+        $pdf = Pdf::loadView('admin.reportPDF', $data);
+
+        return $pdf->download('system_report.pdf');
+    }
     public function settings()
     {
         return view('admin.admin_settings');
