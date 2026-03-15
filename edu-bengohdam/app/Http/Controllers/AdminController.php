@@ -39,6 +39,32 @@ class AdminController extends Controller
             ->take(5)
             ->get();
 
+                                                            /* summary of resources */
+
+        // recently uploaded material
+        $recentMaterial = DB::table('learningmaterials')
+            ->orderByDesc('created_at')
+            ->first();
+
+        // most recent uploaded PDF
+        $recentPdf = DB::table('pdflearning')
+            ->join('learningmaterials','pdflearning.learningMaterialID','=','learningmaterials.learningMaterialID')
+            ->select('learningmaterials.learningMaterialTitle')
+            ->orderByDesc('learningmaterials.created_at')
+            ->first();
+
+        // most recent video learning uploaded
+        $recentVideo = DB::table('videolearning')
+            ->join('learningmaterials','videolearning.learningMaterialID','=','learningmaterials.learningMaterialID')
+            ->select('learningmaterials.learningMaterialTitle')
+            ->orderByDesc('learningmaterials.created_at')
+            ->first();
+
+        // unused materials
+        $unusedMaterials = DB::table('learningmaterials')
+            ->whereNull('lectID')
+            ->count();
+
                                                                                         /* pie chart */
 
         // completed modules
@@ -61,7 +87,11 @@ class AdminController extends Controller
             'courseStats',
             'completedModules',
             'pdfMaterials',
-            'videoMaterials'
+            'videoMaterials',
+            'recentMaterial',
+            'recentPdf',
+            'recentVideo',
+            'unusedMaterials'
         ));
     }
 
@@ -94,46 +124,11 @@ class AdminController extends Controller
             ->groupBy('user.userID', 'user.userName', 'user.userEmail')
             ->get();
 
-                                                                            /* resources summary part */
-
-        // recently uploaded material
-        $recentMaterial = DB::table('learningmaterials')
-            ->orderByDesc('created_at')
-            ->first();
-
-        // most recent uploaded PDF
-        $recentPdf = DB::table('pdflearning')
-            ->join('learningmaterials','pdflearning.learningMaterialID','=','learningmaterials.learningMaterialID')
-            ->select('learningmaterials.learningMaterialTitle')
-            ->orderByDesc('learningmaterials.created_at')
-            ->first();
-
-        // most recent video learning uploaded
-        $recentVideo = DB::table('videolearning')
-            ->join('learningmaterials','videolearning.learningMaterialID','=','learningmaterials.learningMaterialID')
-            ->select('learningmaterials.learningMaterialTitle')
-            ->orderByDesc('learningmaterials.created_at')
-            ->first();
-
-        // unused materials that does not linked to any lecture)
-        $unusedMaterials = DB::table('learningmaterials')
-            ->whereNull('lectID')
-            ->count();
-
-        return view('admin.admin_dashboard', compact(
+        return view('admin.user_management', compact(
+            'users',
             'totalUsers',
-            'totalCourses',
-            'totalModules',
-            'totalLectures',
-            'announcements',
-            'courseStats',
-            'completedModules',
-            'pdfMaterials',
-            'videoMaterials',
-            'recentMaterial',
-            'recentPdf',
-            'recentVideo',
-            'unusedMaterials'
+            'newUsers',
+            'activeUsers'
         ));
     }
 

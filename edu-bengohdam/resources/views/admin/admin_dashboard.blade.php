@@ -108,43 +108,19 @@
 </div>
 @endsection
 
-
 @push('scripts')
-<script>
-    // bar chart
-    new Chart(document.getElementById('barChart'), {
-        type: 'bar',
-        data: {
-            labels: ['01','02','03','04','05','06','07'],
-            datasets: [{
-                label: 'Courses',
-                data: [6,5,7,8,6,9,8],
-                backgroundColor: '#198754'
-            }]
-        }
-    });
-    // pie chart
-    new Chart(document.getElementById('pieChart'), {
-        type: 'pie',
-        data: {
-            labels: ['Completed Modules', 'Assessment', 'MCQ'],
-            datasets: [{
-                data: [30,25,45],
-                backgroundColor: ['#dc3545','#ffc107','#28a745']
-            }]
-        }
-    });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
+// ---------- BAR CHART ----------
 const courseNames = @json($courseStats->pluck('courseName'));
 const courseTotals = @json($courseStats->pluck('total'));
 
-const ctx = document.getElementById('barChart').getContext('2d');
+const barCtx = document.getElementById('barChart').getContext('2d');
 
-new Chart(ctx, {
+new Chart(barCtx, {
     type: 'bar',
     data: {
         labels: courseNames,
@@ -164,28 +140,41 @@ new Chart(ctx, {
         }
     }
 });
-</script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-const ctx = document.getElementById('pieChart');
+// ---------- PIE CHART ----------
+const pieCtx = document.getElementById('pieChart').getContext('2d');
 
-new Chart(ctx, {
+let completed = {{ $completedModules }};
+let pdf = {{ $pdfMaterials }};
+let video = {{ $videoMaterials }};
+
+let chartData;
+let chartLabels;
+let chartColors;
+
+// if all values are 0
+if (completed === 0 && pdf === 0 && video === 0) {
+
+    chartData = [1]; // dummy value so chart renders
+    chartLabels = ['No Data Available'];
+    chartColors = ['#d3d3d3']; // grey
+
+} else {
+
+    chartData = [completed, pdf, video];
+    chartLabels = ['Completed Modules', 'PDF Materials', 'Video Materials'];
+    chartColors = ['#dc3545', '#ffc107', '#28a745'];
+
+}
+
+new Chart(pieCtx, {
     type: 'pie',
     data: {
-        labels: ['Completed Modules', 'PDF Materials', 'Video Materials'],
+        labels: chartLabels,
         datasets: [{
-            data: [
-                {{ $completedModules }},
-                {{ $pdfMaterials }},
-                {{ $videoMaterials }}
-            ],
-            backgroundColor: [
-                '#dc3545',
-                '#ffc107',
-                '#28a745'
-            ]
+            data: chartData,
+            backgroundColor: chartColors
         }]
     },
     options: {
@@ -193,5 +182,7 @@ new Chart(ctx, {
         maintainAspectRatio: false
     }
 });
+
 </script>
+
 @endpush
