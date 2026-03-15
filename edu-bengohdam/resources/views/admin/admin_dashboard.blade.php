@@ -65,7 +65,10 @@
     <div class="col-md-6">
         <div class="card card-custom p-4">
             <h6>Overall Analysis on Modules</h6>
-            <canvas id="pieChart" height="200"></canvas>
+
+            <div class="chart-container">
+                <canvas id="pieChart"></canvas>
+            </div>
         </div>
     </div>
     <div class="col-md-6">
@@ -74,19 +77,30 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between">
                     Most Downloaded PDF
-                    <span>Learn Local History of The Dam</span>
+                    <span>
+                        {{ $recentPdf->learningMaterialTitle ?? 'Not Available Yet' }}
+                    </span>
                 </li>
+
                 <li class="list-group-item d-flex justify-content-between">
                     Most Viewed Video
-                    <span>Learn Local History of The Dam</span>
+                    <span>
+                        {{ $recentVideo->learningMaterialTitle ?? 'Not Available Yet' }}
+                    </span>
                 </li>
+
                 <li class="list-group-item d-flex justify-content-between">
                     Unused Materials
-                    <span>Learn Local History of The Dam</span>
+                    <span>
+                        {{ $unusedMaterials ?? 'Not Available Yet' }}
+                    </span>
                 </li>
+
                 <li class="list-group-item d-flex justify-content-between">
                     Recently Uploaded
-                    <span>Marketing a Local Homestay</span>
+                    <span>
+                        {{ $recentMaterial->learningMaterialTitle ?? 'Not Available Yet' }}
+                    </span>
                 </li>
             </ul>
         </div>
@@ -148,6 +162,35 @@ new Chart(ctx, {
                 precision: 0
             }
         }
+    }
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById('pieChart');
+
+new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Completed Modules', 'PDF Materials', 'Video Materials'],
+        datasets: [{
+            data: [
+                {{ $completedModules }},
+                {{ $pdfMaterials }},
+                {{ $videoMaterials }}
+            ],
+            backgroundColor: [
+                '#dc3545',
+                '#ffc107',
+                '#28a745'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
     }
 });
 </script>

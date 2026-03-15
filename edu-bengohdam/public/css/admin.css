@@ -56,3 +56,9 @@ body{
     background:#d6e4f5;
     font-weight:500;
 }
+
+.chart-container{
+    width:280px;
+    height:280px;
+    margin:auto;
+}

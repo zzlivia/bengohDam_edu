@@ -24,28 +24,43 @@ class AdminController extends Controller
         $totalModules = Module::count();
         $totalLectures = Lecture::count();
 
-        // get at least 4 announcements
+        // announcements
         $announcements = Announcements::orderBy('created_at', 'desc')
                         ->take(4)
                         ->get();
 
-        //each learner is counted per course
+        // most taken courses
         $courseStats = DB::table('enrolmentcoursemodules')
-        ->join('course', 'enrolmentcoursemodules.courseID', '=', 'course.courseID')
-        ->select('course.courseName', DB::raw('COUNT(DISTINCT enrolmentcoursemodules.userID) as total'))
-        ->groupBy('course.courseName')
-        ->orderByDesc('total')
-        ->take(5)
-        ->get();
+            ->join('course', 'enrolmentcoursemodules.courseID', '=', 'course.courseID')
+            ->select('course.courseName', DB::raw('COUNT(DISTINCT enrolmentcoursemodules.userID) as total'))
+            ->groupBy('course.courseName')
+            ->orderByDesc('total')
+            ->take(5)
+            ->get();
 
-        //pass data to Blade file
+                                                                                        /* pie chart */
+
+        // completed modules
+        $completedModules = DB::table('enrolmentcoursemodules')
+            ->where('isCompleted', 1)
+            ->count();
+
+        // total pdf learning materials
+        $pdfMaterials = DB::table('pdflearning')->count();
+
+        // total video learning materials
+        $videoMaterials = DB::table('videolearning')->count();
+
         return view('admin.admin_dashboard', compact(
             'totalUsers',
             'totalCourses',
             'totalModules',
             'totalLectures',
             'announcements',
-            'courseStats'
+            'courseStats',
+            'completedModules',
+            'pdfMaterials',
+            'videoMaterials'
         ));
     }
 
@@ -53,19 +68,16 @@ class AdminController extends Controller
     {
         $search = $request->search;
 
-        // Summary cards
+        // summary cards
         $totalUsers = DB::table('user')->count();
-
         $newUsers = DB::table('user')
             ->whereDate('userID', '>=', now()->subDays(7)) // placeholder if no created_at
             ->count();
-
         $activeUsers = DB::table('enrolmentcoursemodules')
             ->where('inProgress', 1)
             ->distinct('userID')
             ->count('userID');
-
-        // User table
+        // user table
         $users = DB::table('user')
             ->leftJoin('enrolmentcoursemodules', 'user.userID', '=', 'enrolmentcoursemodules.userID')
             ->when($search, function ($query, $search) {
@@ -81,11 +93,46 @@ class AdminController extends Controller
             ->groupBy('user.userID', 'user.userName', 'user.userEmail')
             ->get();
 
-        return view('admin.user_management', compact(
-            'users',
+                                                                            /* resources summary part */
+
+        // recently uploaded material
+        $recentMaterial = DB::table('learningmaterials')
+            ->orderByDesc('created_at')
+            ->first();
+
+        // most recent uploaded PDF
+        $recentPdf = DB::table('pdflearning')
+            ->join('learningmaterials','pdflearning.learningMaterialID','=','learningmaterials.learningMaterialID')
+            ->select('learningmaterials.learningMaterialTitle')
+            ->orderByDesc('learningmaterials.created_at')
+            ->first();
+
+        // most recent video learning uploaded
+        $recentVideo = DB::table('videolearning')
+            ->join('learningmaterials','videolearning.learningMaterialID','=','learningmaterials.learningMaterialID')
+            ->select('learningmaterials.learningMaterialTitle')
+            ->orderByDesc('learningmaterials.created_at')
+            ->first();
+
+        // unused materials that does not linked to any lecture)
+        $unusedMaterials = DB::table('learningmaterials')
+            ->whereNull('lectID')
+            ->count();
+
+        return view('admin.admin_dashboard', compact(
             'totalUsers',
-            'newUsers',
-            'activeUsers'
+            'totalCourses',
+            'totalModules',
+            'totalLectures',
+            'announcements',
+            'courseStats',
+            'completedModules',
+            'pdfMaterials',
+            'videoMaterials',
+            'recentMaterial',
+            'recentPdf',
+            'recentVideo',
+            'unusedMaterials'
         ));
     }
 
@@ -109,11 +156,11 @@ class AdminController extends Controller
 
     public function createCourseModule()
     {
-        // Fetch both courses and modules
+        // fetch both courses and modules
         $courses = Course::all(); 
-        $modules = Module::all(); // <--- Add this line
+        $modules = Module::all();
 
-        // Pass both variables to the view
+        // pass both variables to the view
         return view('admin.add_course_module', compact('courses', 'modules'));
     }
 
@@ -181,7 +228,12 @@ class AdminController extends Controller
 
     public function announcements()
     {
-        return view('admin.announcements');
+        //newest announcements always appear first
+        $announcements = DB::table('announcements')
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('admin.announcements', compact('announcements')); //retrieve
     }
 
     public function reports()
