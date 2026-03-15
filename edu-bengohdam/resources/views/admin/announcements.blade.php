@@ -11,7 +11,7 @@
             </button>
         </div>
         <div>
-            <a href="{{ route('announcements.create') }}" class="btn btn-primary">
+            <a href="{{ route('admin.announcements.create') }}" class="btn btn-primary">
                 + Add Announcement
             </a>
         </div>
@@ -33,13 +33,13 @@
                 </small>
             </div>
             <div>
-                <a href="{{ route('announcements.view', $announcement->announcementID) }}" class="btn btn-sm btn-light">
+                <a href="{{ route('admin.announcements.view', $announcement->announcementID) }}" class="btn btn-sm btn-light">
                     View
                 </a>
-                <a href="{{ route('announcements.review', $announcement->announcementID) }}" class="btn btn-sm btn-warning">
+                <a href="{{ route('admin.announcements.review', $announcement->announcementID) }}" class="btn btn-sm btn-warning">
                     Review
                 </a>
-                <a href="{{ route('announcements.edit', $announcement->announcementID) }}" class="btn btn-sm btn-light">
+                <a href="{{ route('admin.announcements.edit', $announcement->announcementID) }}" class="btn btn-sm btn-light">
                     Edit
                 </a>
             </div>
