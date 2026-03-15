@@ -279,6 +279,19 @@ class AdminController extends Controller
         $announcement = Announcements::where('announcementID', $id)->first();
         return view('admin.editAnnouncement', compact('announcement'));
     }
+
+    public function updateAnnouncement(Request $request, $id)
+    {
+        $announcement = Announcements::findOrFail($id);
+
+        $announcement->announcementTitle = $request->announcementTitle;
+        $announcement->announcementDetails = $request->announcementDetails;
+
+        $announcement->save();
+
+        return redirect()->route('announcements')
+            ->with('success', 'Announcement updated successfully.');
+    }
     
     public function reports()
     {
