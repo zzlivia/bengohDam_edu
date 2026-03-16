@@ -86,10 +86,10 @@
 </nav>
 <div class="container-fluid">
     <div class="row">
-
         <!--sidebar -->
         <div class="col-md-3 sidebar p-3">
             <h6 class="fw-bold mb-3">Course Modules</h6>
+
             @foreach($course->modules as $module)
 
                 <div class="mb-3">
@@ -104,14 +104,24 @@
 
                     @foreach($module->lectures as $lecture)
 
-                        <div class="ms-2 mb-1">
-                            ○ {{ $lecture->lectName }}
+                        <div class="ms-2 fw-semibold">
+                            {{ $lecture->lectName }}
                         </div>
+
+                        {{-- SHOW LECTURE SECTIONS --}}
+                        @foreach($lecture->sections as $section)
+
+                            <div class="ms-4 small">
+                                ○ {{ $section->section_title }}
+                            </div>
+
+                        @endforeach
 
                         {{-- SHOW MCQ IF THIS LECTURE HAS QUESTIONS --}}
                         @if($lecture->mcqs->count() > 0)
-                            <a href="{{ route('module.questions', $module->moduleID) }}" class="ms-4 text-primary small text-decoration-none">
-                                📝 MCQs {{ $loop->parent->iteration }}
+                            <a href="{{ route('module.questions', $module->moduleID) }}"
+                            class="ms-4 text-primary small text-decoration-none">
+                                📝 MCQs
                             </a>
                         @endif
 
@@ -120,11 +130,11 @@
                 </div>
 
             @endforeach
+
             <a class="sidebar-link" href="{{ route('course.feedback', $course->courseID) }}">
                 Course Feedback
             </a>
         </div>
-
         <!-- main content -->
         <div class="col-md-9 p-4">
             <!-- course name -->
