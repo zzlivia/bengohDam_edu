@@ -7,15 +7,20 @@
         <div class="fw-semibold mb-2"> {{ $module->moduleName }} </div>
         {{-- Lectures --}}
         @foreach($module->lectures as $lecture)
-            <div class="ms-2 mb-1"> ○ {{ $lecture->lectName }} </div>
-            {{-- Sections --}}
+
+            <div class="ms-2 mb-1">
+                ○ {{ $lecture->lectName }}
+            </div>
+
+            {{-- show sections --}}
             @foreach($lecture->sections as $section)
-                <div class="ms-4 small text-muted"> • {{ $section->sectionTitle }} </div>
+
+                <div class="ms-4 small text-muted">
+                    • {{ $section->section_title }}
+                </div>
+
             @endforeach
-            {{-- MCQ --}}
-            @if($lecture->mcqs->count() > 0)
-                <a href="{{ route('module.questions', $module->moduleID) }}" class="ms-4 text-primary small text-decoration-none d-block"> MCQs </a>
-            @endif
+
         @endforeach
     </div>
     @endforeach
