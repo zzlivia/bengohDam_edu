@@ -109,16 +109,10 @@
                 @endforeach
                 {{-- mcq available only when admin allow for it --}}
                 @if($module->mcqs->count() > 0)
-                    <a href="{{ route('module.questions', $module->moduleID) }}"
-                    class="ms-3 text-primary small text-decoration-none">
-                    📝 MCQs
-                    </a>
+                    <a href="{{ route('module.questions', $module->moduleID) }}" class="ms-3 text-primary small text-decoration-none"> MCQs </a>
                 @endif
-
             </div>
-
             @endforeach
-
             <a class="sidebar-link" href="{{ route('course.feedback', $course->courseID) }}">
                 Course Feedback
             </a>
