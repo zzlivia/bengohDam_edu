@@ -14,9 +14,18 @@
                     <div class="video-box my-3 d-flex align-items-center justify-content-center">
                         <span class="text-muted">Video Placeholder</span>
                     </div>
-                    <p>
-                        Lecture description or PDF content can appear here.
-                    </p>
+                    @if($section)
+                        <h5>{{ $section->section_title }}</h5>
+
+                        @if($section->section_type == 'text')
+                            <p>{{ $section->section_content }}</p>
+                        @endif
+
+                        @if($section->section_type == 'pdf')
+                            <iframe src="{{ asset('storage/'.$section->section_file) }}" width="100%" height="400"></iframe>
+                        @endif
+
+                    @endif
                     <div class="d-flex justify-content-between mt-4">
                         <button class="btn btn-outline-secondary btn-nav"> Previous </button>
                         <button class="btn btn-primary btn-nav"> Next </button>
