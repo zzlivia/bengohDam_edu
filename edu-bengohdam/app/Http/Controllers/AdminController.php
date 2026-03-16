@@ -478,6 +478,13 @@ class AdminController extends Controller
         return view('admin.admin_settings');
     }
 
+    public function feedback()
+    {
+        $feedbacks = DB::table('coursefeedback')->get();
+
+        return view('admin.feedback', compact('feedbacks'));
+    }
+
     public function helpSupport()
     {
         return view('admin.admin_help_support');
