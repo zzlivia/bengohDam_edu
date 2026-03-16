@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\LectureSectionController;
 use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\AdminSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -255,7 +256,14 @@ Route::prefix('admin')
     Route::get('/download-report', [AdminController::class, 'downloadReport'])
         ->name('downloadReport');
 
-    Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
+    Route::get('/settings', [AdminController::class, 'settings'])
+        ->name('settings');
+
+    Route::get('/settings', [AdminSettingsController::class,'index'])
+        ->name('settings');
+
+    Route::post('/settings/save', [AdminSettingsController::class,'save'])
+        ->name('settings.save');
 
     Route::get('/help-support', [AdminController::class, 'helpSupport'])->name('help');
 
