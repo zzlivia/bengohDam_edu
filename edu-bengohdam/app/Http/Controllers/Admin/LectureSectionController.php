@@ -10,7 +10,7 @@ use App\Models\LectureSection;
 class LectureSectionController extends Controller
 {
 
-    // STORE LECTURE SECTION (used when adding lesson content later)
+    // store uploaded files
     public function store(Request $request)
     {
         $request->validate([
@@ -19,12 +19,18 @@ class LectureSectionController extends Controller
             'section_type' => 'required'
         ]);
 
+        $filePath = null;
+
+        if($request->hasFile('section_file')){
+            $filePath = $request->file('section_file')->store('lecture_sections','public');
+        }
+
         LectureSection::create([
             'lectID' => $request->lectID,
             'section_title' => $request->section_title,
             'section_type' => $request->section_type,
             'section_content' => $request->section_content,
-            'section_file' => $request->section_file,
+            'section_file' => $filePath,
             'section_order' => $request->section_order ?? 1
         ]);
 
@@ -32,7 +38,7 @@ class LectureSectionController extends Controller
     }
 
 
-    // STORE LECTURE (this is what your form should call)
+    // store lecture
     public function storeLecture(Request $request)
     {
         $request->validate([
