@@ -268,7 +268,11 @@ Route::prefix('admin')
     Route::post('/settings/save', [AdminSettingsController::class,'save'])
         ->name('settings.save');
 
-    Route::get('/help-support', [AdminController::class, 'helpSupport'])->name('help');
+    Route::get('/help-support', [AdminController::class, 'helpSupport'])
+        ->name('help');
+
+    Route::get('/password-requests', [AdminController::class, 'passwordRequests'])
+        ->name('password.requests');
 
     /*
     |--------------------------------------------------------------------------

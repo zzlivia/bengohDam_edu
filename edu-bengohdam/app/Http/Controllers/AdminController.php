@@ -464,6 +464,15 @@ class AdminController extends Controller
         return $pdf->download('bengoh-dam_report.pdf');
     }
 
+    public function passwordRequests()
+    {
+        $requests = DB::table('users')
+            ->where('forgot_password', 1)
+            ->get();
+
+        return view('admin.passwordRequests', compact('requests'));
+    }
+
     public function settings()
     {
         return view('admin.admin_settings');
