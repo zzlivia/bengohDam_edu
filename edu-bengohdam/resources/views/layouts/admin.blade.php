@@ -18,6 +18,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 sidebar">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ route('admin.dashboard') }}"> {{-- logo --}}
+                <img src="{{ asset('images/bengohdam-logo.png') }}" width="30" class="me-2"> Bengoh Academy
+            </a>
             <h5 class="fw-bold mb-4">Bengoh Academy</h5>
             <div>
                 <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard</a>
@@ -40,16 +43,14 @@
             </div>
         </div>
         <div class="col-md-10 p-0">
-            <div class="topbar d-flex justify-content-between align-items-center p-3 px-4">
-
-                <!-- LEFT: Language -->
-                <div class="d-flex align-items-center">
-                    <span class="fw-semibold me-1">Languages</span>
-                    <i class="bi bi-chevron-down"></i>
-                </div>
-                <!-- RIGHT: User + Notification -->
-                <div class="d-flex align-items-center gap-4">
-                    <!-- User Info -->
+            <div class="topbar d-flex align-items-center p-3 px-4">
+                <div class="d-flex align-items-center ms-auto gap-4">
+                    <!-- language -->
+                    <div class="d-flex align-items-center text-muted" style="cursor:pointer;">
+                        <small class="me-1">Languages</small>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <!-- user -->
                     <div class="d-flex align-items-center">
                         <i class="bi bi-person-circle fs-4 me-2"></i>
                         <div class="lh-sm">
@@ -68,23 +69,20 @@
                             @endif
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <!-- receive notification of user forgot password -->
                             <li>
-                                <a class="dropdown-item" href="#"">
+                                <a class="dropdown-item" href="{{ route('admin.password.requests') }}">
                                     Password Reset Requests
                                     <span class="badge bg-danger">{{ $forgotRequests }}</span>
                                 </a>
                             </li>
-                            <!-- course feedback -->
                             <li>
-                                <a class="dropdown-item" href="#"">
+                                <a class="dropdown-item" href="{{ route('admin.feedback') }}">
                                     Course Feedback
                                     <span class="badge bg-warning">{{ $feedbackCount }}</span>
                                 </a>
                             </li>
-                            <!-- notification on announcement to be reviewed -->
                             <li>
-                                <a class="dropdown-item" href="#"">
+                                <a class="dropdown-item" href="{{ route('admin.announcements') }}">
                                     Announcements To Review
                                     <span class="badge bg-primary">{{ $announcementReview }}</span>
                                 </a>
