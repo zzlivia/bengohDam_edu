@@ -156,6 +156,9 @@ Route::post('/admin/signin', [AuthController::class, 'login'])
 Route::post('/admin/logout', [AuthController::class, 'logout'])
     ->name('admin.logout');
 
+Route::post('/request-reset', [AuthController::class, 'requestReset'])
+    ->name('request.reset');
+
 /*
 |--------------------------------------------------------------------------
 | Admin Protected Routes
