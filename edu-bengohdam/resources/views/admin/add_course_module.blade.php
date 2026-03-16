@@ -115,6 +115,45 @@
                 <a href="{{ route('admin.course.module') }}" class="btn btn-secondary">Back</a>
             </form>
         </div>
+        <hr class="my-4">
+
+        <h5 class="mb-3">Existing Modules</h5>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Course</th>
+                    <th>Module Name</th>
+                    <th width="150">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($modules as $index => $module)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $module->course->courseName ?? 'N/A' }}</td>
+                    <td>{{ $module->moduleName }}</td>
+                    <td>
+                        <a href="{{ route('admin.module.edit', $module->moduleID) }}" class="btn btn-sm btn-warning">Edit</a>
+
+                        <form action="{{ route('admin.module.delete', $module->moduleID) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger"
+                                onclick="return confirm('Delete this module?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="4" class="text-center">No modules added yet</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
         {{-- LECTURE FORM --}}
         <div class="tab-pane fade" id="lecture-form">
             <form method="POST" action="{{ route('admin.lecture.store') }}">
@@ -149,6 +188,46 @@
                 </div>
             </form>
         </div>
+        <hr class="my-4">
+        <h5 class="mb-3">Existing Lectures</h5>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Module</th>
+                    <th>Lecture Name</th>
+                    <th>Duration</th>
+                    <th width="150">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($lectures as $index => $lecture)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $lecture->module->moduleName ?? 'N/A' }}</td>
+                    <td>{{ $lecture->lectName }}</td>
+                    <td>{{ $lecture->lect_duration }} min</td>
+                    <td>
+                        <a href="{{ route('admin.lecture.edit', $lecture->lectID) }}" class="btn btn-sm btn-warning">Edit</a>
+
+                        <form action="{{ route('admin.lecture.delete', $lecture->lectID) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger"
+                                onclick="return confirm('Delete this lecture?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center">No lectures added yet</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 </div>
 
