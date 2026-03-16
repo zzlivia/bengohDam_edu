@@ -202,6 +202,12 @@ Route::prefix('admin')
     Route::post('/module/store', [ModuleController::class, 'store'])
         ->name('module.store');
 
+    Route::get('/module/edit/{id}', [ModuleController::class, 'edit'])
+        ->name('module.edit');
+
+    Route::delete('/module/delete/{id}', [ModuleController::class, 'delete'])
+        ->name('module.delete');
+
     /*
     |--------------------------------------------------------------------------
     | Lecture
@@ -210,6 +216,12 @@ Route::prefix('admin')
 
     Route::post('/lecture/store', [LectureSectionController::class, 'storeLecture'])
         ->name('lecture.store');
+
+    Route::get('/admin/lecture/edit/{id}', [ModuleController::class, 'editLecture'])
+        ->name('admin.lecture.edit');
+
+    Route::delete('/admin/lecture/delete/{id}', [ModuleController::class, 'deleteLecture'])
+        ->name('admin.lecture.delete');        
 
     /*
     |--------------------------------------------------------------------------
