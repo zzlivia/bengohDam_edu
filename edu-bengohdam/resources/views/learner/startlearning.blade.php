@@ -89,45 +89,33 @@
         <!--sidebar -->
         <div class="col-md-3 sidebar p-3">
             <h6 class="fw-bold mb-3">Course Modules</h6>
-
             @foreach($course->modules as $module)
-
-                <div class="mb-3">
-
-                    <div class="text-uppercase small text-muted fw-bold">
-                        MODULE {{ $loop->iteration }}
-                    </div>
-
-                    <div class="fw-semibold mb-2">
-                        {{ $module->moduleName }}
-                    </div>
-
-                    @foreach($module->lectures as $lecture)
-
-                        <div class="ms-2 fw-semibold">
-                            {{ $lecture->lectName }}
-                        </div>
-
-                        {{-- SHOW LECTURE SECTIONS --}}
-                        @foreach($lecture->sections as $section)
-
-                            <div class="ms-4 small">
-                                ○ {{ $section->section_title }}
-                            </div>
-
-                        @endforeach
-
-                        {{-- SHOW MCQ IF THIS LECTURE HAS QUESTIONS --}}
-                        @if($lecture->mcqs->count() > 0)
-                            <a href="{{ route('module.questions', $module->moduleID) }}"
-                            class="ms-4 text-primary small text-decoration-none">
-                                📝 MCQs
-                            </a>
-                        @endif
-
-                    @endforeach
-
+            <div class="mb-3">
+                <div class="text-uppercase small text-muted fw-bold">
+                    MODULE {{ $loop->iteration }}
                 </div>
+                <div class="fw-semibold mb-2">
+                    {{ $module->moduleName }}
+                </div>
+                @foreach($module->lectures as $lecture)
+                    <div class="ms-2 fw-semibold">
+                        {{ $lecture->lectName }}
+                    </div>
+                    @foreach($lecture->sections as $section)
+                        <div class="ms-4 small">
+                            ○ {{ $section->section_title }}
+                        </div>
+                    @endforeach
+                @endforeach
+                {{-- mcq available only when admin allow for it --}}
+                @if($module->mcqs->count() > 0)
+                    <a href="{{ route('module.questions', $module->moduleID) }}"
+                    class="ms-3 text-primary small text-decoration-none">
+                    📝 MCQs
+                    </a>
+                @endif
+
+            </div>
 
             @endforeach
 
