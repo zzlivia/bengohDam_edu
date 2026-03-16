@@ -21,7 +21,6 @@
             <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ route('admin.dashboard') }}"> {{-- logo --}}
                 <img src="{{ asset('images/bengohdam-logo.png') }}" width="30" class="me-2"> Bengoh Academy
             </a>
-            <h5 class="fw-bold mb-4">Bengoh Academy</h5>
             <div>
                 <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard</a>
                 <a href="{{ route('admin.user.management') }}" class="{{ request()->routeIs('admin.user.management') ? 'active' : '' }}">User Management</a>
