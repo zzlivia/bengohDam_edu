@@ -37,7 +37,6 @@ class LectureSectionController extends Controller
         return redirect()->back()->with('success','Section added successfully');
     }
 
-
     // store lecture
     public function storeLecture(Request $request)
     {
