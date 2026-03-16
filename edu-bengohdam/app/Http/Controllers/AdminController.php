@@ -441,7 +441,7 @@ class AdminController extends Controller
             'assessmentReport'
         );
         $pdf = Pdf::loadView('admin.reportPDF',$data);
-        return $pdf->download('system_report.pdf');
+        return $pdf->download('bengoh-dam_report.pdf');
     }
 
     public function settings()
