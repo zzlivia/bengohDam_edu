@@ -1,120 +1,145 @@
 @extends('layouts.admin')
 
 @section('content')
+
 <div class="container">
-    {{-- success notification --}}
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-    
-    <h3 class="mb-4">Create Course or Module</h3>
-    
-    <ul class="nav nav-tabs mb-4" id="managementTab" role="tablist">
-        <li class="nav-item">
-            <button class="nav-link active" id="course-tab" data-bs-toggle="tab" data-bs-target="#course-form" type="button">Add Course</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" id="module-tab" data-bs-toggle="tab" data-bs-target="#module-form" type="button">Add Module</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" id="lecture-tab" data-bs-toggle="tab" data-bs-target="#lecture-form" type="button">Add Lecture</button>
-        </li>
-    </ul>
 
-    <div class="tab-content">
-        {{-- COURSE FORM --}}
-        <div class="tab-pane fade show active" id="course-form">
-            <form method="POST" action="{{ route('admin.course.store') }}" enctype="multipart/form-data">
-                @csrf
-                
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Course Code</label>
-                        <input type="text" class="form-control" name="courseCode" required>
-                    </div>
+```
+{{-- SUCCESS ALERT --}}
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
 
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Course Name</label>
-                        <input type="text" class="form-control" name="courseName" required>
-                    </div>
+<h3 class="mb-4">Create Course or Module</h3>
+
+{{-- TABS --}}
+<ul class="nav nav-tabs mb-4" id="managementTab" role="tablist">
+    <li class="nav-item">
+        <button class="nav-link active" id="course-tab" data-bs-toggle="tab" data-bs-target="#course-form" type="button">
+            Add Course
+        </button>
+    </li>
+
+    <li class="nav-item">
+        <button class="nav-link" id="module-tab" data-bs-toggle="tab" data-bs-target="#module-form" type="button">
+            Add Module
+        </button>
+    </li>
+
+    <li class="nav-item">
+        <button class="nav-link" id="lecture-tab" data-bs-toggle="tab" data-bs-target="#lecture-form" type="button">
+            Add Lecture
+        </button>
+    </li>
+</ul>
+
+
+<div class="tab-content">
+
+    {{-- ===================== --}}
+    {{-- COURSE TAB --}}
+    {{-- ===================== --}}
+    <div class="tab-pane fade show active" id="course-form">
+
+        <form method="POST" action="{{ route('admin.course.store') }}" enctype="multipart/form-data">
+            @csrf
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Course Code</label>
+                    <input type="text" class="form-control" name="courseCode" required>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Author</label>
-                        <input type="text" class="form-control" name="courseAuthor" required>
-                    </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Course Name</label>
+                    <input type="text" class="form-control" name="courseName" required>
+                </div>
+            </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Category</label>
-                        <input type="text" class="form-control" name="courseCategory" placeholder="e.g. Programming, Design" required>
-                    </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Author</label>
+                    <input type="text" class="form-control" name="courseAuthor" required>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Level</label>
-                        <select class="form-control" name="courseLevel" required>
-                            <option value="Beginner">Beginner</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Advanced">Advanced</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Duration (Hours)</label>
-                        <input type="number" class="form-control" name="courseDuration" required>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Course Thumbnail</label>
-                        <input type="file" class="form-control" name="courseImg" accept="image/*">
-                    </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Category</label>
+                    <input type="text" class="form-control" name="courseCategory" required>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-control" name="courseDesc" rows="4" required></textarea>
-                </div>
-
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" name="isAvailable" value="1" id="isAvailable" checked>
-                    <label class="form-check-label" for="isAvailable">Make this course available immediately</label>
-                </div>
-
-                <div class="text-end">
-                    <button type="submit" class="btn btn-success">Save Course</button>
-                    <a href="{{ route('admin.course.module') }}" class="btn btn-secondary">Back</a>
-                </div>
-            </form>
-        </div>
-
-        {{-- MODULE FORM --}}
-        <div class="tab-pane fade" id="module-form">
-            <form method="POST" action="{{ route('admin.module.store') }}">
-                @csrf
-                <div class="mb-3">
-                    <label class="form-label">Select Course</label>
-                    <select class="form-control" name="courseID" required>
-                        <option value="">-- Choose a Course --</option>
-                        @foreach($courses as $course)
-                            <option value="{{ $course->courseID }}">{{ $course->courseName }}</option>
-                        @endforeach
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Level</label>
+                    <select class="form-control" name="courseLevel" required>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Module Name</label>
-                    <input type="text" class="form-control" name="moduleName" placeholder="e.g. Introduction to Laravel" required>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Duration (Hours)</label>
+                    <input type="number" class="form-control" name="courseDuration" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Save Module</button>
-                <a href="{{ route('admin.course.module') }}" class="btn btn-secondary">Back</a>
-            </form>
-        </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Course Thumbnail</label>
+                    <input type="file" class="form-control" name="courseImg" accept="image/*">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" name="courseDesc" rows="4" required></textarea>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" name="isAvailable" value="1" id="isAvailable" checked>
+                <label class="form-check-label">Make this course available immediately</label>
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-success">Save Course</button>
+            </div>
+        </form>
+
+    </div>
+
+
+    {{-- ===================== --}}
+    {{-- MODULE TAB --}}
+    {{-- ===================== --}}
+    <div class="tab-pane fade" id="module-form">
+
+        <form method="POST" action="{{ route('admin.module.store') }}">
+            @csrf
+
+            <div class="mb-3">
+                <label class="form-label">Select Course</label>
+                <select class="form-control" name="courseID" required>
+                    <option value="">-- Choose a Course --</option>
+                    @foreach($courses as $course)
+                        <option value="{{ $course->courseID }}">
+                            {{ $course->courseName }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Module Name</label>
+                <input type="text" class="form-control" name="moduleName" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Module</button>
+
+        </form>
+
+
         <hr class="my-4">
 
         <h5 class="mb-3">Existing Modules</h5>
@@ -128,70 +153,105 @@
                     <th width="150">Action</th>
                 </tr>
             </thead>
+
             <tbody>
                 @forelse($modules as $index => $module)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $module->course->courseName ?? 'N/A' }}</td>
-                    <td>{{ $module->moduleName }}</td>
-                    <td>
-                        <a href="{{ route('admin.module.edit', $module->moduleID) }}" class="btn btn-sm btn-warning">Edit</a>
 
-                        <form action="{{ route('admin.module.delete', $module->moduleID) }}" method="POST" class="d-inline">
+                    <td>{{ $module->course->courseName ?? 'N/A' }}</td>
+
+                    <td>{{ $module->moduleName }}</td>
+
+                    <td>
+                        <a href="{{ route('admin.module.edit',$module->moduleID) }}"
+                           class="btn btn-warning btn-sm">Edit</a>
+
+                        <form action="{{ route('admin.module.delete',$module->moduleID) }}"
+                              method="POST"
+                              class="d-inline">
+
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger"
-                                onclick="return confirm('Delete this module?')">
+
+                            <button class="btn btn-danger btn-sm"
+                            onclick="return confirm('Delete this module?')">
                                 Delete
                             </button>
+
                         </form>
                     </td>
                 </tr>
+
                 @empty
                 <tr>
-                    <td colspan="4" class="text-center">No modules added yet</td>
+                    <td colspan="4" class="text-center">
+                        No modules added yet
+                    </td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
-        {{-- LECTURE FORM --}}
-        <div class="tab-pane fade" id="lecture-form">
-            <form method="POST" action="{{ route('admin.lecture.store') }}">
-                @csrf
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Select Module</label>
-                        <select class="form-control" name="moduleID" required>
-                            <option value="">-- Choose a Module --</option>
-                            @foreach($modules as $module)
-                                <option value="{{ $module->moduleID }}">{{ $module->moduleName }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+
+    </div>
+
+
+    {{-- ===================== --}}
+    {{-- LECTURE TAB --}}
+    {{-- ===================== --}}
+    <div class="tab-pane fade" id="lecture-form">
+
+        <form method="POST" action="{{ route('admin.lecture.store') }}">
+            @csrf
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Select Module</label>
+
+                    <select class="form-control" name="moduleID" required>
+                        <option value="">-- Choose a Module --</option>
+
+                        @foreach($modules as $module)
+                            <option value="{{ $module->moduleID }}">
+                                {{ $module->course->courseName }} - {{ $module->moduleName }}
+                            </option>
+                        @endforeach
+
+                    </select>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-8 mb-3">
-                        <label class="form-label">Lecture Name</label>
-                        <input type="text" class="form-control" name="lectName" placeholder="e.g. Setup and Installation" required>
-                    </div>
+            </div>
 
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Duration (Minutes)</label>
-                        <input type="number" class="form-control" name="lect_duration" placeholder="e.g. 15" required>
-                    </div>
+
+            <div class="row">
+
+                <div class="col-md-8 mb-3">
+                    <label class="form-label">Lecture Name</label>
+                    <input type="text" class="form-control" name="lectName" required>
                 </div>
 
-                <div class="mt-3">
-                    <button type="submit" class="btn btn-info text-white">Save Lecture</button>
-                    <a href="{{ route('admin.course.module') }}" class="btn btn-secondary">Back</a>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Duration (Minutes)</label>
+                    <input type="number" class="form-control" name="lect_duration" required>
                 </div>
-            </form>
-        </div>
+
+            </div>
+
+
+            <button type="submit" class="btn btn-info text-white">
+                Save Lecture
+            </button>
+
+        </form>
+
+
         <hr class="my-4">
+
         <h5 class="mb-3">Existing Lectures</h5>
 
         <table class="table table-bordered table-striped">
+
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
@@ -201,59 +261,92 @@
                     <th width="150">Action</th>
                 </tr>
             </thead>
+
             <tbody>
+
                 @forelse($lectures as $index => $lecture)
+
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $lecture->module->moduleName ?? 'N/A' }}</td>
-                    <td>{{ $lecture->lectName }}</td>
-                    <td>{{ $lecture->lect_duration }} min</td>
-                    <td>
-                        <a href="{{ route('admin.lecture.edit', $lecture->lectID) }}" class="btn btn-sm btn-warning">Edit</a>
 
-                        <form action="{{ route('admin.lecture.delete', $lecture->lectID) }}" method="POST" class="d-inline">
+                    <td>{{ $lecture->module->moduleName ?? 'N/A' }}</td>
+
+                    <td>{{ $lecture->lectName }}</td>
+
+                    <td>{{ $lecture->lect_duration }} min</td>
+
+                    <td>
+
+                        <a href="{{ route('admin.lecture.edit',$lecture->lectID) }}"
+                           class="btn btn-warning btn-sm">
+                           Edit
+                        </a>
+
+                        <form action="{{ route('admin.lecture.delete',$lecture->lectID) }}"
+                              method="POST"
+                              class="d-inline">
+
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger"
-                                onclick="return confirm('Delete this lecture?')">
+
+                            <button class="btn btn-danger btn-sm"
+                            onclick="return confirm('Delete this lecture?')">
                                 Delete
                             </button>
+
                         </form>
+
                     </td>
+
                 </tr>
+
                 @empty
                 <tr>
-                    <td colspan="5" class="text-center">No lectures added yet</td>
+                    <td colspan="5" class="text-center">
+                        No lectures added yet
+                    </td>
                 </tr>
                 @endforelse
+
             </tbody>
+
         </table>
+
     </div>
+
+
+</div>
+```
+
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // 1. Get the 'tab' value from the URL (e.g., ?tab=lecture)
-        const urlParams = new URLSearchParams(window.location.search);
-        const tabTarget = urlParams.get('tab');
 
-        if (tabTarget) {
-            // 2. Map the URL parameter to the specific button ID
-            const tabMap = {
-                'course': '#course-tab',
-                'module': '#module-tab',
-                'lecture': '#lecture-tab'
-            };
+document.addEventListener("DOMContentLoaded", function() {
 
-            const selector = tabMap[tabTarget];
-            const tabButton = document.querySelector(selector);
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabTarget = urlParams.get('tab');
 
-            if (tabButton) {
-                // 3. Use Bootstrap's Tab instance to show the tab
-                const tab = new bootstrap.Tab(tabButton);
-                tab.show();
-            }
+    if (tabTarget) {
+
+        const tabMap = {
+            'course': '#course-tab',
+            'module': '#module-tab',
+            'lecture': '#lecture-tab'
+        };
+
+        const selector = tabMap[tabTarget];
+        const tabButton = document.querySelector(selector);
+
+        if (tabButton) {
+            const tab = new bootstrap.Tab(tabButton);
+            tab.show();
         }
-    });
+
+    }
+
+});
+
 </script>
+
 @endsection

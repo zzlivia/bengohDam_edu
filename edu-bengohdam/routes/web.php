@@ -217,11 +217,11 @@ Route::prefix('admin')
     Route::post('/lecture/store', [LectureSectionController::class, 'storeLecture'])
         ->name('lecture.store');
 
-    Route::get('/admin/lecture/edit/{id}', [ModuleController::class, 'editLecture'])
-        ->name('admin.lecture.edit');
+    Route::get('/lecture/edit/{id}', [ModuleController::class, 'editLecture'])
+        ->name('lecture.edit');
 
-    Route::delete('/admin/lecture/delete/{id}', [ModuleController::class, 'deleteLecture'])
-        ->name('admin.lecture.delete');        
+    Route::delete('/lecture/delete/{id}', [ModuleController::class, 'deleteLecture'])
+        ->name('lecture.delete');        
 
     /*
     |--------------------------------------------------------------------------

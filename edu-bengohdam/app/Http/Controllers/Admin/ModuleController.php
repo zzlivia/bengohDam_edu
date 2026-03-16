@@ -40,7 +40,7 @@ class ModuleController extends Controller
         $modules = Module::with('course')->get();
         $lectures = Lecture::with('module')->get();
 
-        return view('admin.course-module', compact('courses','modules','lectures'));
+        return view('admin.add_course_module', compact('courses','modules','lectures'));
     }
 
     // module section

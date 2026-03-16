@@ -170,12 +170,11 @@ class AdminController extends Controller
 
     public function createCourseModule()
     {
-        // fetch both courses and modules
-        $courses = Course::all(); 
+        $courses = Course::all();
         $modules = Module::all();
+        $lectures = Lecture::with('module')->get();
 
-        // pass both variables to the view
-        return view('admin.add_course_module', compact('courses', 'modules'));
+        return view('admin.add_course_module', compact('courses','modules','lectures'));
     }
 
     public function storeCourse(Request $request)
