@@ -76,6 +76,20 @@ class AdminController extends Controller
         // total video learning materials
         $videoMaterials = DB::table('videolearning')->count();
 
+        // forgot password requests
+        $forgotRequests = DB::table('password_reset_tokens')->count();
+
+        // course feedback
+        $feedbackCount = DB::table('coursefeedback')->count();
+
+        // announcements waiting review
+        $announcementReview = DB::table('announcements')
+            ->where('status', 'pending')
+            ->count();
+
+        // total notifications
+        $totalNotifications = $forgotRequests + $feedbackCount + $announcementReview;
+
         return view('admin.admin_dashboard', compact(
             'totalUsers',
             'totalCourses',
@@ -89,7 +103,11 @@ class AdminController extends Controller
             'recentMaterial',
             'recentPdf',
             'recentVideo',
-            'unusedMaterials'
+            'unusedMaterials',
+            'forgotRequests',
+            'feedbackCount',
+            'announcementReview',
+            'totalNotifications'
         ));
     }
 
