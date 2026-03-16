@@ -274,6 +274,10 @@ Route::prefix('admin')
     Route::get('/password-requests', [AdminController::class, 'passwordRequests'])
         ->name('password.requests');
 
+    
+    Route::get('/feedback', [AdminController::class, 'feedback'])
+        ->name('feedback');
+
     /*
     |--------------------------------------------------------------------------
     | Community Stories Admin
