@@ -87,36 +87,7 @@
 <div class="container-fluid">
     <div class="row">
         <!--sidebar -->
-        <div class="col-md-3 sidebar p-3">
-            <h6 class="fw-bold mb-3">Course Modules</h6>
-            @foreach($course->modules as $module)
-            <div class="mb-3">
-                <div class="text-uppercase small text-muted fw-bold">
-                    MODULE {{ $loop->iteration }}
-                </div>
-                <div class="fw-semibold mb-2">
-                    {{ $module->moduleName }}
-                </div>
-                @foreach($module->lectures as $lecture)
-                    <div class="ms-2 fw-semibold">
-                        {{ $lecture->lectName }}
-                    </div>
-                    @foreach($lecture->sections as $section)
-                        <div class="ms-4 small">
-                            ○ {{ $section->section_title }}
-                        </div>
-                    @endforeach
-                @endforeach
-                {{-- mcq available only when admin allow for it --}}
-                @if($module->mcqs->count() > 0)
-                    <a href="{{ route('module.questions', $module->moduleID) }}" class="ms-3 text-primary small text-decoration-none"> MCQs </a>
-                @endif
-            </div>
-            @endforeach
-            <a class="sidebar-link" href="{{ route('course.feedback', $course->courseID) }}">
-                Course Feedback
-            </a>
-        </div>
+        @include('partials.course-sidebar')
         <!-- main content -->
         <div class="col-md-9 p-4">
             <!-- course name -->
