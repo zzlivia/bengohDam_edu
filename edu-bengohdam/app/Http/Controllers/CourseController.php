@@ -110,7 +110,7 @@ class CourseController extends Controller
     public function startLearning($id)
     {
         $course = Course::with([
-            'modules.lectures.sections',
+            'modules.lectures.sections', //will load the table of lecture sections
             'modules.lectures.materials.video',
             'modules.lectures.materials.pdf'
         ])->findOrFail($id);
