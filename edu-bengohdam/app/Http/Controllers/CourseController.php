@@ -110,13 +110,19 @@ class CourseController extends Controller
     public function startLearning($id)
     {
         $course = Course::with([
-            'modules.mcqs', //will load the mcqs
-            'modules.lectures.sections', //will load the table of lecture sections
-            'modules.lectures.materials.video', //will load the video  
-            'modules.lectures.materials.pdf' //will load the PDF
+            'modules.mcqs',
+            'modules.lectures.sections',
+            'modules.lectures.materials.video',
+            'modules.lectures.materials.pdf'
         ])->findOrFail($id);
 
-        return view('learner.startlearning', compact('course'));
+        // get first module
+        $module = $course->modules->first();
+
+        // get first lecture
+        $lecture = $module ? $module->lectures->first() : null;
+
+        return view('learner.startlearning', compact('course','module','lecture'));
     }
     
     //display questions
