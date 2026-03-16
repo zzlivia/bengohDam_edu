@@ -122,7 +122,10 @@ class CourseController extends Controller
         // get first lecture
         $lecture = $module ? $module->lectures->first() : null;
 
-        return view('learner.startlearning', compact('course','module','lecture'));
+        // get first section
+        $section = $lecture ? $lecture->sections->first() : null;
+
+        return view('learner.startlearning', compact('course','module','lecture','section'));
     }
     
     //display questions
