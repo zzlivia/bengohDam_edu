@@ -70,21 +70,21 @@
                         <ul class="dropdown-menu dropdown-menu-end shadow">
                             <!-- receive notification of user forgot password -->
                             <li>
-                                <a class="dropdown-item" href="{{ route('admin.password.requests') }}">
+                                <a class="dropdown-item" href="#"">
                                     Password Reset Requests
                                     <span class="badge bg-danger">{{ $forgotRequests }}</span>
                                 </a>
                             </li>
                             <!-- course feedback -->
                             <li>
-                                <a class="dropdown-item" href="{{ route('admin.feedback') }}">
+                                <a class="dropdown-item" href="#"">
                                     Course Feedback
                                     <span class="badge bg-warning">{{ $feedbackCount }}</span>
                                 </a>
                             </li>
                             <!-- notification on announcement to be reviewed -->
                             <li>
-                                <a class="dropdown-item" href="{{ route('admin.reviewAnnouncements') }}">
+                                <a class="dropdown-item" href="#"">
                                     Announcements To Review
                                     <span class="badge bg-primary">{{ $announcementReview }}</span>
                                 </a>
