@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Module;
+use App\Models\Lecture;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -31,5 +32,14 @@ class ModuleController extends Controller
 
         return redirect()->route('admin.course.module')
             ->with('success', 'Module added successfully!');
+    }
+
+    public function courseModule()
+    {
+        $courses = Course::all();
+        $modules = Module::with('course')->get();
+        $lectures = Lecture::with('module')->get();
+
+        return view('admin.course-module', compact('courses','modules','lectures'));
     }
 }
