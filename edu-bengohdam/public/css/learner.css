@@ -71,3 +71,40 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+/* ===== START LEARNING PAGE ===== */
+
+.sidebar {
+    background: #fff;
+    height: 100vh;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+}
+
+.module-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+    margin-top: 20px;
+}
+
+.lecture-item {
+    font-size: 13px;
+    padding: 4px 0;
+}
+
+.video-box {
+    background: #d9d9d9;
+    height: 300px;
+    border-radius: 6px;
+}
+
+.content-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.btn-nav {
+    min-width: 120px;
+}
