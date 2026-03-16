@@ -77,7 +77,9 @@ class AdminController extends Controller
         $videoMaterials = DB::table('videolearning')->count();
 
         // forgot password requests
-        $forgotRequests = DB::table('password_reset_tokens')->count();
+        $forgotRequests = DB::table('user')
+            ->where('reset_request', 1)
+            ->count();
 
         // course feedback
         $feedbackCount = DB::table('coursefeedback')->count();
