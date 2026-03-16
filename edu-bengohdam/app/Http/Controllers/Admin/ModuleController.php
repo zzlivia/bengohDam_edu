@@ -42,4 +42,39 @@ class ModuleController extends Controller
 
         return view('admin.course-module', compact('courses','modules','lectures'));
     }
+
+    // module section
+
+    public function editModule($id)
+    {
+        $module = Module::where('moduleID', $id)->firstOrFail();
+        $courses = Course::all();
+
+        return view('admin.editModule', compact('module','courses'));
+    }
+
+    public function deleteModule($id)
+    {
+        Module::where('moduleID', $id)->delete();
+
+        return redirect()->back()->with('success','Module deleted successfully');
+    }
+
+
+    // lecture section
+
+    public function editLecture($id)
+    {
+        $lecture = Lecture::where('lectID', $id)->firstOrFail();
+        $modules = Module::all();
+
+        return view('admin.editLecture', compact('lecture','modules'));
+    }
+
+    public function deleteLecture($id)
+    {
+        Lecture::where('lectID', $id)->delete();
+
+        return redirect()->back()->with('success','Lecture deleted successfully');
+    }
 }
