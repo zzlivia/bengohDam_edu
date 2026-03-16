@@ -12,20 +12,12 @@ use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AdminSettingsController;
 
-/*
-|--------------------------------------------------------------------------
-| Public Routes
-|--------------------------------------------------------------------------
-*/
+/* public route */
 
 Route::get('/', fn () => view('learner.homepage'));
 Route::get('/homepage', fn () => view('learner.homepage'))->name('learner.homepage');
 
-/*
-|--------------------------------------------------------------------------
-| Authentication
-|--------------------------------------------------------------------------
-*/
+/* authentication */
 
 Route::get('/login', [AuthenticationController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthenticationController::class, 'login']);
@@ -35,21 +27,13 @@ Route::post('/register', [AuthenticationController::class, 'register']);
 
 Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
-/*
-|--------------------------------------------------------------------------
-| Courses
-|--------------------------------------------------------------------------
-*/
+/* courses */
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 Route::get('/courses/{id}/learn', [CourseController::class, 'startLearning'])->name('courses.learn');
 
-/*
-|--------------------------------------------------------------------------
-| Module Quiz
-|--------------------------------------------------------------------------
-*/
+/* module and mcqs*/
 
 Route::get('/module/{id}/quiz', [CourseController::class, 'showQuiz'])->name('module.quiz');
 
@@ -59,11 +43,11 @@ Route::get('/module/{id}/questions', [CourseController::class, 'showModuleQuesti
 Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQuestions'])
     ->name('module.questions.submit');
 
-/*
-|--------------------------------------------------------------------------
-| Course Feedback
-|--------------------------------------------------------------------------
-*/
+/* lecture section */
+Route::post('/admin/section/store', [LectureSectionController::class,'store'])
+    ->name('admin.section.store');
+
+/* course feedback */
 
 Route::get('/course/{id}/feedback', [CourseController::class, 'courseFeedback'])
     ->name('course.feedback');
@@ -71,39 +55,23 @@ Route::get('/course/{id}/feedback', [CourseController::class, 'courseFeedback'])
 Route::post('/course/feedback', [CourseController::class, 'submitFeedback'])
     ->name('course.feedback.submit');
 
-/*
-|--------------------------------------------------------------------------
-| Course Assessment
-|--------------------------------------------------------------------------
-*/
+/* course assessment*/
 
 Route::get('/course/{id}/assessment', [CourseController::class, 'courseAssessment'])
     ->name('course.assessment');
 
-/*
-|--------------------------------------------------------------------------
-| Course Progress
-|--------------------------------------------------------------------------
-*/
+/* course progress*/
 
 Route::get('/course/{course}/progress', [CourseController::class, 'progress'])
     ->name('course.progress');
 
-/*
-|--------------------------------------------------------------------------
-| Leaderboard
-|--------------------------------------------------------------------------
-*/
+/* leaderboard*/
 
 Route::get('/leaderboards', [CourseController::class, 'leaderboard'])
     ->middleware('auth')
     ->name('leaderboards');
 
-/*
-|--------------------------------------------------------------------------
-| Settings
-|--------------------------------------------------------------------------
-*/
+/* learner's settings*/
 
 Route::prefix('settings')->name('settings.')->group(function () {
 
@@ -132,20 +100,12 @@ Route::prefix('settings')->name('settings.')->group(function () {
     });
 });
 
-/*
-|--------------------------------------------------------------------------
-| Community Stories
-|--------------------------------------------------------------------------
-*/
+/* community stories*/
 
 Route::get('/community-stories', [CommunityStoryController::class, 'index'])
     ->name('community.stories');
 
-/*
-|--------------------------------------------------------------------------
-| Admin Authentication
-|--------------------------------------------------------------------------
-*/
+/* admin authentication*/
 
 Route::get('/admin/signin', [AuthController::class, 'showLogin'])
     ->name('admin.login');
@@ -159,11 +119,7 @@ Route::post('/admin/logout', [AuthController::class, 'logout'])
 Route::post('/request-reset', [AuthController::class, 'requestReset'])
     ->name('request.reset');
 
-/*
-|--------------------------------------------------------------------------
-| Admin Protected Routes
-|--------------------------------------------------------------------------
-*/
+/* admin's management*/
 
 Route::prefix('admin')
     ->middleware('auth:admin')
@@ -193,11 +149,7 @@ Route::prefix('admin')
     Route::delete('/course/delete/{id}', [AdminController::class,'deleteCourse'])
         ->name('course.delete');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Module
-    |--------------------------------------------------------------------------
-    */
+    /* module management*/
 
     Route::post('/module/store', [ModuleController::class, 'store'])
         ->name('module.store');
@@ -208,11 +160,7 @@ Route::prefix('admin')
     Route::delete('/module/delete/{id}', [ModuleController::class, 'delete'])
         ->name('module.delete');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Lecture
-    |--------------------------------------------------------------------------
-    */
+    /* lecture management */
 
     Route::post('/lecture/store', [LectureSectionController::class, 'storeLecture'])
         ->name('lecture.store');
@@ -223,20 +171,12 @@ Route::prefix('admin')
     Route::delete('/lecture/delete/{id}', [ModuleController::class, 'deleteLecture'])
         ->name('lecture.delete');        
 
-    /*
-    |--------------------------------------------------------------------------
-    | Lecture Sections
-    |--------------------------------------------------------------------------
-    */
+    /* lecture section management*/
 
     Route::post('/lecture-sections/store', [LectureSectionController::class, 'store'])
         ->name('lecture.sections.store');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Other Admin Pages
-    |--------------------------------------------------------------------------
-    */
+    /* others */
 
     Route::get('/progress', [AdminController::class, 'progress'])
         ->name('progress');
@@ -290,11 +230,7 @@ Route::prefix('admin')
     Route::get('/feedback', [AdminController::class, 'feedback'])
         ->name('feedback');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Community Stories Admin
-    |--------------------------------------------------------------------------
-    */
+    /* community stories that controlled by admin*/
     Route::get('/stories', [AdminCommunityStoryController::class, 'index'])->name('stories.index');
     Route::get('/stories/create', [AdminCommunityStoryController::class, 'create'])->name('stories.create');
     Route::post('/stories', [AdminCommunityStoryController::class, 'store'])->name('stories.store');
