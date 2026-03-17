@@ -166,8 +166,8 @@ class AdminController extends Controller
         $totalAssessmentsPassed = AssessmentResult::where('status', 'passed')->count();
         $totalCompleted = Progress::where('progressStatus', 'completed')->count();
 
-        $topUser = User::withSum('scores', 'points')
-            ->orderByDesc('scores_sum_points')
+        $topUser = User::withSum('assessmentResults', 'score')
+            ->orderByDesc('assessment_results_sum_score')
             ->first();
 
         return view('admin.dashboard', compact(
