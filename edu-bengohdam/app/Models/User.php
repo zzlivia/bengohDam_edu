@@ -19,4 +19,5 @@ class User extends Authenticatable
     public function progress() { return $this->hasMany(Progress::class, 'userID', 'userID'); }
     public function leaderboard() { return $this->hasOne(Leaderboard::class, 'userID', 'userID'); }
     public function getAuthPassword(){ return $this->userPass; }
+    public function assessmentResults(){return $this->hasMany(AssessmentResult::class, 'userID', 'userID');}
 }
