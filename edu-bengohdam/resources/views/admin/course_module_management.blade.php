@@ -7,10 +7,26 @@
 <div class="row mb-4">
     @php
         $stats = [
-            ['label' => 'Total courses', 'value' => $totalCourses],
-            ['label' => 'Total modules', 'value' => $totalModules],
-            ['label' => 'Total courses taken', 'value' => $coursesTaken],
-            ['label' => 'Total modules completed', 'value' => $modulesCompleted],
+            [
+                'label' => 'Total Courses',
+                'value' => $totalCourses,
+                'link' => route('admin.course.index')
+            ],
+            [
+                'label' => 'Total Modules',
+                'value' => $totalModules,
+                'link' => route('admin.module.index')
+            ],
+            [
+                'label' => 'Feedback Received',
+                'value' => $totalFeedback,
+                'link' => route('admin.feedback.index')
+            ],
+            [
+                'label' => 'Assessments Passed',
+                'value' => $totalAssessmentsPassed,
+                'link' => route('admin.assessment.results')
+            ],
         ];
     @endphp
 
