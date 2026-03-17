@@ -250,17 +250,23 @@ class AdminController extends Controller
 
     public function updateSection(Request $request, $id)
     {
-        $section = LectureSection::findOrFail($id);
-
-        $section->update([
-            'section_title' => $request->section_title,
-            'section_type' => $request->section_type,
-            'section_content' => $request->section_content,
-            'section_order' => $request->section_order
+        $request->validate([
+            'section_title' => 'required',
+            'section_content' => 'required',
+            'section_type' => 'required' // 👈 ADD THIS
         ]);
 
-        return redirect()->back()->with('success','Section updated successfully');
-    }    
+        $section = LectureSection::findOrFail($id);
+
+        $section->section_title = $request->section_title;
+        $section->section_content = $request->section_content;
+        $section->section_type = $request->section_type;
+
+        $section->save();
+
+        return back()->with('success', 'Section updated successfully');
+    }
+
     public function deleteSection($id)
     {
         $section = LectureSection::findOrFail($id);

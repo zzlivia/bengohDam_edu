@@ -223,12 +223,11 @@
                         <input type="text" class="form-control" name="section_title" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Section Type</label>
-                        <select class="form-control" name="section_type">
+                        <label>Section Type</label>
+                        <select name="section_type" id="editType" class="form-control">
                             <option value="text">Text</option>
                             <option value="video">Video</option>
                             <option value="pdf">PDF</option>
-                            <option value="image">Image</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -264,30 +263,40 @@
                             <td>{{ $section->lecture->lectName }}</td>
                             <td>{{ $section->section_title }}</td>
                             <td>
-
-                                <!-- VIEW BUTTON -->
+                                <button class="btn btn-info btn-sm viewSectionBtn" data-title="{{ $section->section_title }}" data-content="{{ $section->section_content }}"> View </button>
                                 <button 
-                                    class="btn btn-info btn-sm viewSectionBtn"
+                                    class="btn btn-warning btn-sm editSectionBtn"
+                                    data-id="{{ $section->sectionID }}"
                                     data-title="{{ $section->section_title }}"
-                                    data-content="{{ $section->section_content }}">
-                                    View
+                                    data-content="{{ $section->section_content }}"
+                                    data-type="{{ $section->section_type }}">
+                                    Edit
                                 </button>
-
-                                <a href="{{ route('admin.section.edit',$section->sectionID) }}" 
-                                class="btn btn-warning btn-sm">Edit</a>
-
-                                <form action="{{ route('admin.section.delete',$section->sectionID) }}" 
-                                    method="POST" class="d-inline">
+                                <form action="{{ route('admin.section.delete',$section->sectionID) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm">Delete</button>
                                 </form>
-
                             </td>
                         </tr>
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="modal fade" id="viewSectionModal" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="viewTitle">Section Title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="viewContent">
+                                        Section content will appear here...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <!-- live preview of the lecture section
                 <hr class="my-4">
                 <h5>Preview</h5>
@@ -387,4 +396,43 @@
         });
     });
     </script>
+
+    <script>
+    document.querySelectorAll('.viewSectionBtn').forEach(button => {
+
+        button.addEventListener('click', function(){
+
+            let title = this.getAttribute('data-title');
+            let content = this.getAttribute('data-content');
+
+            // Set modal content
+            document.getElementById('viewTitle').innerText = title;
+            document.getElementById('viewContent').innerHTML = content;
+
+            // Show modal
+            let modal = new bootstrap.Modal(document.getElementById('viewSectionModal'));
+            modal.show();
+
+        });
+
+    });
+    </script>
+    <script>
+    document.querySelectorAll('.editSectionBtn').forEach(button => {
+        button.addEventListener('click', function(){
+            let id = this.getAttribute('data-id');
+            let title = this.getAttribute('data-title');
+            let content = this.getAttribute('data-content');
+            let type = this.getAttribute('data-type');
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editContent').value = content;
+            document.getElementById('editType').value = type;
+            document.getElementById('editSectionForm').action = 
+                `/admin/section/update/${id}`;
+            let modal = new bootstrap.Modal(document.getElementById('editSectionModal'));
+            modal.show();
+        });
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
