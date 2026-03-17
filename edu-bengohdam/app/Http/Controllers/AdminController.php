@@ -169,6 +169,10 @@ class AdminController extends Controller
             ->orderByDesc('assessment_results_sum_score')
             ->first();
 
+        $announcements = Announcements::orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
+
         return view('admin.admin_dashboard', compact(
             'totalUsers',
             'totalCourses',
@@ -177,7 +181,8 @@ class AdminController extends Controller
             'totalFeedback',
             'totalAssessmentsPassed',
             'totalCompleted',
-            'topUser'
+            'topUser',
+            'announcements'
         ));
     }
 
