@@ -8,6 +8,12 @@ class LectureSection extends Model
 {
     protected $table = 'lecture_sections';
 
+    protected $primaryKey = 'sectionID';
+
+    public $incrementing = true;
+
+    protected $keyType = 'int';
+
     protected $fillable = [
         'lectID',
         'section_title',

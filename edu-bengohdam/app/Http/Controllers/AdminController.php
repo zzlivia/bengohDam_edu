@@ -261,12 +261,12 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success','Section updated successfully');
     }    
-
     public function deleteSection($id)
     {
-        LectureSection::destroy($id);
+        $section = LectureSection::findOrFail($id);
+        $section->delete();
 
-        return redirect()->back()->with('success','Section deleted');
+        return back()->with('success','Section deleted successfully');
     }
 
     public function progress()
