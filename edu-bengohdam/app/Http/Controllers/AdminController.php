@@ -274,7 +274,28 @@ class AdminController extends Controller
 
         return back()->with('success','Section deleted successfully');
     }
+    public function storeMaterials(Request $request, $id)
+    {
+        foreach ($request->materials as $material) {
 
+            $data = [
+                'section_id' => $id,
+                'type' => $material['type'],
+            ];
+
+            if ($material['type'] == 'pdf' && isset($material['file'])) {
+                $file = $material['file'];
+                $path = $file->store('materials', 'public');
+                $data['content'] = $path;
+            } else {
+                $data['content'] = $material['content'] ?? null;
+            }
+
+            Material::create($data);
+        }
+
+        return back()->with('success', 'Materials added successfully!');
+    }
     public function progress()
     {
         $totalProgress = Progress::count();

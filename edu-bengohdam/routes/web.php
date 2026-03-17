@@ -185,6 +185,9 @@ Route::prefix('admin')
     Route::delete('/section/delete/{id}', [AdminController::class, 'deleteSection'])
         ->name('section.delete');
 
+    Route::post('/section/{id}/materials', [LectureSectionController::class, 'storeMaterials'])
+        ->name('section.material.store');
+
     /* others */
 
     Route::get('/progress', [AdminController::class, 'progress'])
