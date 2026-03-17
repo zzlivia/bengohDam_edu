@@ -164,7 +164,7 @@ class AdminController extends Controller
         // NEW
         $totalFeedback = Feedback::count();
         $totalAssessmentsPassed = AssessmentResult::where('status', 'passed')->count();
-        $totalCompleted = Progress::where('status', 'completed')->count();
+        $totalCompleted = Progress::where('progressStatus', 'completed')->count();
 
         $topUser = User::withSum('scores', 'points')
             ->orderByDesc('scores_sum_points')
