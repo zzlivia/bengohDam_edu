@@ -160,8 +160,7 @@ class AdminController extends Controller
         $totalUsers = User::count();
         $totalCourses = Course::count();
         $totalModules = Module::count();
-
-        // NEW
+        $totalLectures = Lecture::count();
         $totalFeedback = Feedback::count();
         $totalAssessmentsPassed = AssessmentResult::where('status', 'passed')->count();
         $totalCompleted = Progress::where('progressStatus', 'completed')->count();
@@ -174,6 +173,7 @@ class AdminController extends Controller
             'totalUsers',
             'totalCourses',
             'totalModules',
+            'totalLectures',
             'totalFeedback',
             'totalAssessmentsPassed',
             'totalCompleted',
