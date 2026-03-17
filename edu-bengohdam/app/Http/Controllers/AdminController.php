@@ -9,6 +9,7 @@ use App\Models\Lecture;
 use App\Models\LectureSection;
 use App\Models\Progress;
 use App\Models\Announcements;
+use App\Models\Feedback;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -156,17 +157,25 @@ class AdminController extends Controller
     {
         $courses = Course::with('modules.lectures.sections')->get();
 
-        $totalCourses = $courses->count();
-        $totalModules = $courses->sum(fn($course) => $course->modules->count());
-        $coursesTaken = 0; // update later from enrolment table
-        $modulesCompleted = 0; // update later from progress table
+        $totalCourses = Course::count();
+        $totalModules = Module::count();
 
-        return view('admin.course_module_management', compact(
-            'courses',
+        // NEW
+        $totalFeedback = Feedback::count();
+        $totalAssessmentsPassed = AssessmentResult::where('status', 'passed')->count();
+        $totalCompleted = Progress::where('status', 'completed')->count();
+
+        $topUser = User::withSum('scores', 'points')
+            ->orderByDesc('scores_sum_points')
+            ->first();
+
+        return view('admin.dashboard', compact(
             'totalCourses',
             'totalModules',
-            'coursesTaken',
-            'modulesCompleted'
+            'totalFeedback',
+            'totalAssessmentsPassed',
+            'totalCompleted',
+            'topUser'
         ));
     }
 

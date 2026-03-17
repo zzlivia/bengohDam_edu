@@ -3,7 +3,6 @@
 @section('content')
 
 <h4 class="fw-bold mb-4">Course/Module Management</h4>
-
 {{-- Summary Cards --}}
 <div class="row mb-4">
     @php
