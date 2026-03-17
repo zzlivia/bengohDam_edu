@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\LearningMaterials;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Module;
@@ -291,7 +292,7 @@ class AdminController extends Controller
                 $data['content'] = $material['content'] ?? null;
             }
 
-            Material::create($data);
+            LearningMaterials::create($data);
         }
 
         return back()->with('success', 'Materials added successfully!');
