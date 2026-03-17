@@ -10,6 +10,7 @@ use App\Models\LectureSection;
 use App\Models\Progress;
 use App\Models\Announcements;
 use App\Models\Feedback;
+use App\Models\AssessmentResult;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
