@@ -173,7 +173,7 @@ class AdminController extends Controller
             ->take(4)
             ->get();
 
-        return view('admin.admin_dashboard', compact(
+        return view('admin.course_module_management', compact(
             'totalUsers',
             'totalCourses',
             'totalModules',

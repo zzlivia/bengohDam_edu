@@ -120,7 +120,6 @@ Route::post('/request-reset', [AuthController::class, 'requestReset'])
     ->name('request.reset');
 
 /* admin's management*/
-
 Route::prefix('admin')
     ->middleware('auth:admin')
     ->name('admin.')
@@ -223,8 +222,8 @@ Route::prefix('admin')
     Route::get('/download-report', [AdminController::class, 'downloadReport'])
         ->name('downloadReport');
 
-    Route::get('/settings', [AdminController::class, 'settings'])
-        ->name('settings');
+    /*Route::get('/settings', [AdminController::class, 'settings'])
+        ->name('settings');*/
 
     Route::get('/settings', [AdminSettingsController::class,'index'])
         ->name('settings');

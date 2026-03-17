@@ -10,22 +10,22 @@
             [
                 'label' => 'Total Courses',
                 'value' => $totalCourses,
-                'link' => route('admin.course.index')
+                /*'link' => route('#')*/
             ],
             [
                 'label' => 'Total Modules',
                 'value' => $totalModules,
-                'link' => route('admin.module.index')
+                /*'link' => route('#')*/
             ],
             [
                 'label' => 'Feedback Received',
                 'value' => $totalFeedback,
-                'link' => route('admin.feedback.index')
+                /*'link' => route('#')*/
             ],
             [
                 'label' => 'Assessments Passed',
                 'value' => $totalAssessmentsPassed,
-                'link' => route('admin.assessment.results')
+                /*'link' => route('#')*/
             ],
         ];
     @endphp
