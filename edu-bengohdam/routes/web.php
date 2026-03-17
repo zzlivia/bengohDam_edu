@@ -43,9 +43,9 @@ Route::get('/module/{id}/questions', [CourseController::class, 'showModuleQuesti
 Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQuestions'])
     ->name('module.questions.submit');
 
-/* lecture section 
+/* lecture section*/ 
 Route::post('/admin/section/store', [LectureSectionController::class,'store'])
-    ->name('admin.section.store');*/
+    ->name('admin.section.store');
 
 /* course feedback */
 
