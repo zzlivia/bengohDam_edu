@@ -43,9 +43,9 @@ Route::get('/module/{id}/questions', [CourseController::class, 'showModuleQuesti
 Route::post('/module/{id}/questions', [CourseController::class, 'submitModuleQuestions'])
     ->name('module.questions.submit');
 
-/* lecture section */
+/* lecture section 
 Route::post('/admin/section/store', [LectureSectionController::class,'store'])
-    ->name('admin.section.store');
+    ->name('admin.section.store');*/
 
 /* course feedback */
 
@@ -175,6 +175,15 @@ Route::prefix('admin')
 
     Route::post('/lecture-sections/store', [LectureSectionController::class, 'store'])
         ->name('lecture.sections.store');
+
+    Route::get('/section/edit/{id}', [AdminController::class, 'editSection'])
+        ->name('section.edit');
+
+    Route::put('/section/update/{id}', [AdminController::class, 'updateSection'])
+        ->name('section.update');
+
+    Route::delete('/section/delete/{id}', [AdminController::class, 'deleteSection'])
+        ->name('section.delete');
 
     /* others */
 
