@@ -16,6 +16,14 @@
             <label>Section Content</label>
             <textarea name="section_content" class="form-control" rows="5" required>{{ $section->section_content }}</textarea>
         </div>
+        <div class="mb-3">
+            <label>Section Type</label>
+            <select name="section_type" class="form-control" required>
+                <option value="text" {{ $section->section_type == 'text' ? 'selected' : '' }}>Text</option>
+                <option value="video" {{ $section->section_type == 'video' ? 'selected' : '' }}>Video</option>
+                <option value="pdf" {{ $section->section_type == 'pdf' ? 'selected' : '' }}>PDF</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-success">Update</button>
         <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
     </form>
