@@ -250,23 +250,30 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const tabTarget = urlParams.get('tab');
-            if (tabTarget) {
-                const tabMap = {
-                    'course': '#course-tab',
-                    'module': '#module-tab',
-                    'lecture': '#lecture-tab'
-                };
-                const selector = tabMap[tabTarget];
-                const tabButton = document.querySelector(selector);
-                if (tabButton) {
-                    const tab = new bootstrap.Tab(tabButton);
-                    tab.show();
-                }
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const tabTarget = urlParams.get('tab');
+
+        if (tabTarget) {
+
+            const tabMap = {
+                'course': '#course-tab',
+                'module': '#module-tab',
+                'lecture': '#lecture-tab',
+                'section': '#section-tab' // ← ADD THIS
+            };
+
+            const selector = tabMap[tabTarget];
+            const tabButton = document.querySelector(selector);
+
+            if (tabButton) {
+                const tab = new bootstrap.Tab(tabButton);
+                tab.show();
             }
-        });
+        }
+
+    });
     </script>
 
 @endsection

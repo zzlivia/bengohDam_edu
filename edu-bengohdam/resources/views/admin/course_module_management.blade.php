@@ -48,13 +48,18 @@
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
-                <a class="dropdown-item py-2" href="{{ route('admin.course.module.create') }}?tab=module"> {{-- change admin.module.create to admin.course.module.create--}}
+                <a class="dropdown-item py-2" href="{{ route('admin.course.module.create', ['tab' => 'module']) }}">
                     <i class="fas fa-layer-group me-2 text-success"></i> Add Module
                 </a>
             </li>
             <li class="nav-item">
-                <a class="dropdown-item py-2" href="{{ route('admin.course.module.create') }}?tab=lecture">
+                <a class="dropdown-item py-2" href="{{ route('admin.course.module.create', ['tab' => 'lecture']) }}">
                     <i class="fas fa-chalkboard-teacher me-2 text-info"></i> Add Lecture
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="dropdown-item py-2" href="{{ route('admin.course.module.create', ['tab' => 'section']) }}">
+                    <i class="fas fa-chalkboard-teacher me-2 text-info"></i> Add Section
                 </a>
             </li>
         </ul>
