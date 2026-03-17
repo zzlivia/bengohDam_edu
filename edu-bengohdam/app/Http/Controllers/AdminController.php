@@ -157,7 +157,7 @@ class AdminController extends Controller
     public function courseModuleManagement()
     {
         $courses = Course::with('modules.lectures.sections')->get();
-
+        $totalUsers = User::count();
         $totalCourses = Course::count();
         $totalModules = Module::count();
 
@@ -171,6 +171,7 @@ class AdminController extends Controller
             ->first();
 
         return view('admin.admin_dashboard', compact(
+            'totalUsers',
             'totalCourses',
             'totalModules',
             'totalFeedback',
