@@ -264,18 +264,31 @@
                             <td>{{ $section->lecture->lectName }}</td>
                             <td>{{ $section->section_title }}</td>
                             <td>
-                                <a href="{{ route('admin.section.edit',$section->sectionID) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="{{ route('admin.section.delete',$section->sectionID) }}" method="POST" class="d-inline">
+
+                                <!-- VIEW BUTTON -->
+                                <button 
+                                    class="btn btn-info btn-sm viewSectionBtn"
+                                    data-title="{{ $section->section_title }}"
+                                    data-content="{{ $section->section_content }}">
+                                    View
+                                </button>
+
+                                <a href="{{ route('admin.section.edit',$section->sectionID) }}" 
+                                class="btn btn-warning btn-sm">Edit</a>
+
+                                <form action="{{ route('admin.section.delete',$section->sectionID) }}" 
+                                    method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger btn-sm"> Delete </button>
+                                    <button class="btn btn-danger btn-sm">Delete</button>
                                 </form>
+
                             </td>
                         </tr>
                         @endforeach
                         </tbody>
                     </table>
-                <!-- live preview of the lecture section-->
+                <!-- live preview of the lecture section
                 <hr class="my-4">
                 <h5>Preview</h5>
                 <div id="sectionPreview" class="border rounded p-3 bg-light">
@@ -283,7 +296,7 @@
                     <div id="previewContent">
                         Section content will appear here...
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -357,6 +370,21 @@
         if(file.type === "application/pdf"){
             previewContent.innerHTML = `<iframe src="${url}" width="100%" height="300"></iframe>`;
         }
+    });
+    </script>
+
+    <!-- JS for view button -->
+    <script>
+    document.querySelectorAll('.viewSectionBtn').forEach(button => {
+        button.addEventListener('click', function(){
+            let title = this.getAttribute('data-title');
+            let content = this.getAttribute('data-content');
+            document.getElementById('previewTitle').innerText = title;
+            document.getElementById('previewContent').innerHTML = content;
+            document.getElementById('sectionPreview').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
     });
     </script>
 @endsection
