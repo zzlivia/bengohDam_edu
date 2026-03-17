@@ -174,6 +174,7 @@ class AdminController extends Controller
             ->get();
 
         return view('admin.course_module_management', compact(
+            'courses',
             'totalUsers',
             'totalCourses',
             'totalModules',
