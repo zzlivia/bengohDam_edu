@@ -245,6 +245,45 @@
                     </div>
                     <button type="submit" class="btn btn-success"> Save Section </button>
                 </form>
+                <!-- allow admin to edit section later -->
+                <hr class="my-4">
+                <h5>Existing Sections</h5>
+                    <table class="table table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Lecture</th>
+                                <th>Section Title</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($sections as $index => $section)
+                        <tr>
+                            <td>{{ $index+1 }}</td>
+                            <td>{{ $section->lecture->lectName }}</td>
+                            <td>{{ $section->section_title }}</td>
+                            <td>
+                                <a href="{{ route('admin.section.edit',$section->sectionID) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('admin.section.delete',$section->sectionID) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm"> Delete </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                <!-- live preview of the lecture section-->
+                <hr class="my-4">
+                <h5>Preview</h5>
+                <div id="sectionPreview" class="border rounded p-3 bg-light">
+                    <h6 id="previewTitle">Section Title</h6>
+                    <div id="previewContent">
+                        Section content will appear here...
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -275,5 +314,49 @@
 
     });
     </script>
+    <!-- JS for live -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function(){
+        const titleInput = document.querySelector('input[name="section_title"]');
+        const contentInput = document.querySelector('textarea[name="section_content"]');
+        const typeInput = document.querySelector('select[name="section_type"]');
+        const previewTitle = document.getElementById("previewTitle");
+        const previewContent = document.getElementById("previewContent");
+        function updatePreview(){
+            previewTitle.innerText = titleInput.value || "Section Title";
+            if(typeInput.value === "text"){
+                previewContent.innerText = contentInput.value || "Text content preview...";
+            }
+            if(typeInput.value === "image"){
+                previewContent.innerHTML = "Image will appear after upload.";
+            }
+            if(typeInput.value === "video"){
+                previewContent.innerHTML = "Video preview will appear here.";
+            }
+            if(typeInput.value === "pdf"){
+                previewContent.innerHTML = "PDF preview will appear here.";
+            }
+        }
+        titleInput.addEventListener("input", updatePreview);
+        contentInput.addEventListener("input", updatePreview);
+        typeInput.addEventListener("change", updatePreview);
+    });
+    </script>
 
+    <!-- preview uploaded files -->
+    <script>
+    const fileInput = document.querySelector('input[name="section_file"]');
+    fileInput.addEventListener("change", function(){
+        const file = this.files[0];
+        if(!file) return;
+        const url = URL.createObjectURL(file);
+        const previewContent = document.getElementById("previewContent");
+        if(file.type.startsWith("image")){
+            previewContent.innerHTML = `<img src="${url}" style="max-width:300px;">`;
+        }
+        if(file.type === "application/pdf"){
+            previewContent.innerHTML = `<iframe src="${url}" width="100%" height="300"></iframe>`;
+        }
+    });
+    </script>
 @endsection

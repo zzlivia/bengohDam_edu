@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Module;
 use App\Models\Progress;
 use App\Models\Lecture;
+use App\Models\LectureSection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -241,9 +242,16 @@ class CourseController extends Controller
     public function create()
     {
         $courses = Course::all();
-        $modules = Module::all();
-        
-        return view('admin.add_course_module', compact('courses', 'modules'));
+        $modules = Module::with('course')->get();
+        $lectures = Lecture::with('module')->get();
+        $sections = LectureSection::with('lecture')->orderBy('section_order')->get();
+
+        return view('admin.add_course_module', compact(
+            'courses',
+            'modules',
+            'lectures',
+            'sections'
+        ));
     }
 
     //handling courses
