@@ -253,7 +253,7 @@ class AdminController extends Controller
         $request->validate([
             'section_title' => 'required',
             'section_content' => 'required',
-            'section_type' => 'required' // 👈 ADD THIS
+            'section_type' => 'required'
         ]);
 
         $section = LectureSection::findOrFail($id);
