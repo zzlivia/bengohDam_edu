@@ -170,7 +170,7 @@ class AdminController extends Controller
             ->orderByDesc('assessment_results_sum_score')
             ->first();
 
-        return view('admin.dashboard', compact(
+        return view('admin.admin_dashboard', compact(
             'totalCourses',
             'totalModules',
             'totalFeedback',
