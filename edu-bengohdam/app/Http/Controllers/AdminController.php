@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Course;
 use App\Models\Module;
 use App\Models\Lecture;
+use App\Models\LectureSection;
 use App\Models\Progress;
 use App\Models\Announcements;
 use Illuminate\Support\Facades\DB;
@@ -171,12 +172,18 @@ class AdminController extends Controller
     public function createCourseModule()
     {
         $courses = Course::all();
-        $modules = Module::all();
+        $modules = Module::with('course')->get();
         $lectures = Lecture::with('module')->get();
+        $sections = LectureSection::with('lecture')->orderBy('section_order')->get();
 
-        return view('admin.add_course_module', compact('courses','modules','lectures'));
+        return view('admin.add_course_module', compact(
+            'courses',
+            'modules',
+            'lectures',
+            'sections'
+        ));
     }
-
+    
     public function storeCourse(Request $request)
     {
         $request->validate([
