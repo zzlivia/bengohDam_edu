@@ -183,7 +183,7 @@ class AdminController extends Controller
             'sections'
         ));
     }
-    
+
     public function storeCourse(Request $request)
     {
         $request->validate([
@@ -239,6 +239,34 @@ class AdminController extends Controller
 
         return redirect()->route('admin.course.module')
             ->with('success','Course deleted successfully');
+    }
+
+    public function editSection($id)
+    {
+        $section = LectureSection::findOrFail($id);
+
+        return view('admin.edit_section', compact('section'));
+    }
+
+    public function updateSection(Request $request, $id)
+    {
+        $section = LectureSection::findOrFail($id);
+
+        $section->update([
+            'section_title' => $request->section_title,
+            'section_type' => $request->section_type,
+            'section_content' => $request->section_content,
+            'section_order' => $request->section_order
+        ]);
+
+        return redirect()->back()->with('success','Section updated successfully');
+    }    
+
+    public function deleteSection($id)
+    {
+        LectureSection::destroy($id);
+
+        return redirect()->back()->with('success','Section deleted');
     }
 
     public function progress()
