@@ -1,5 +1,6 @@
 <?php
 
+//view all stories, create new story, save new story, edit new story, update new story, delete new story
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller; //base controller
