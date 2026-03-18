@@ -1,6 +1,9 @@
 <?php
 
+//handles admin panel logic
 namespace App\Http\Controllers;
+
+//import models
 use App\Models\LearningMaterials;
 use App\Models\User;
 use App\Models\Course;
@@ -11,93 +14,92 @@ use App\Models\Progress;
 use App\Models\Announcements;
 use App\Models\Feedback;
 use App\Models\AssessmentResult;
+
+//laravel utilities
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+
+//pdf generator
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminController extends Controller
 {
-
-    // calculate the number of users in user table
-    public function dashboard()
-    {
-        $totalUsers = User::count();
+    public function dashboard() //admin dashboard 
+    {   
+        //count total records of users, courses, modules, lectures
+        $totalUsers = User::count(); 
         $totalCourses = Course::count();
         $totalModules = Module::count();
         $totalLectures = Lecture::count();
 
-        // announcements
+        //get latest announcements
         $announcements = Announcements::orderBy('created_at', 'desc')
-                        ->take(4)
+                        ->take(4) //4 announcements
                         ->get();
 
-        // most taken courses
+        //get most taken courses
         $courseStats = DB::table('enrolmentcoursemodules')
             ->join('course', 'enrolmentcoursemodules.courseID', '=', 'course.courseID')
             ->select('course.courseName', DB::raw('COUNT(DISTINCT enrolmentcoursemodules.userID) as total'))
             ->groupBy('course.courseName')
             ->orderByDesc('total')
-            ->take(5)
+            ->take(5) //5 courses
             ->get();
 
                                                             /* summary of resources */
 
-        // recently uploaded material
+        //get recent uploaded material
         $recentMaterial = DB::table('learningmaterials')
             ->orderByDesc('created_at')
             ->first();
 
-        // most recent uploaded PDF
+        //get latest uploaded PDF
         $recentPdf = DB::table('pdflearning')
             ->join('learningmaterials','pdflearning.learningMaterialID','=','learningmaterials.learningMaterialID')
             ->select('learningmaterials.learningMaterialTitle')
             ->orderByDesc('learningmaterials.created_at')
             ->first();
 
-        // most recent video learning uploaded
+        //get latest uploaded video learning
         $recentVideo = DB::table('videolearning')
             ->join('learningmaterials','videolearning.learningMaterialID','=','learningmaterials.learningMaterialID')
             ->select('learningmaterials.learningMaterialTitle')
             ->orderByDesc('learningmaterials.created_at')
             ->first();
 
-        // unused materials
+        //count no lecture assigned
         $unusedMaterials = DB::table('learningmaterials')
             ->whereNull('lectID')
             ->count();
 
                                                                                         /* pie chart */
 
-        // completed modules
+        //count completed modules
         $completedModules = DB::table('enrolmentcoursemodules')
             ->where('isCompleted', 1)
             ->count();
 
+        //count resources
         // total pdf learning materials
         $pdfMaterials = DB::table('pdflearning')->count();
-
         // total video learning materials
         $videoMaterials = DB::table('videolearning')->count();
 
-        // forgot password requests
+        //notifications of forgot requests password, feedback, announcement
         $forgotRequests = DB::table('user')
             ->where('reset_request', 1)
             ->count();
-
-        // course feedback
         $feedbackCount = DB::table('coursefeedback')->count();
-
-        // announcements waiting review
         $announcementReview = DB::table('announcements')
             ->where('status', 'pending')
             ->count();
 
-        // total notifications
+        //total notifications
         $totalNotifications = $forgotRequests + $feedbackCount + $announcementReview;
 
-        return view('admin.admin_dashboard', compact(
+        return view('admin.admin_dashboard', compact( //send data back to dashboard
             'totalUsers',
             'totalCourses',
             'totalModules',
@@ -205,13 +207,16 @@ class AdminController extends Controller
 
     public function storeCourse(Request $request)
     {
-        $request->validate([
+        $request->validate([ //validate form input
             'courseCode' => 'required',
             'courseName' => 'required',
             'courseAuthor' => 'required',
             'courseLevel' => 'required'
         ]);
-        $course = new Course();
+
+        $course = new Course(); //create new course
+
+        //assign values 
         $course->courseCode = $request->courseCode;
         $course->courseName = $request->courseName;
         $course->courseAuthor = $request->courseAuthor;
@@ -220,8 +225,9 @@ class AdminController extends Controller
         $course->courseLevel = $request->courseLevel;
         $course->courseDuration = $request->courseDuration;
         $course->isAvailable = $request->isAvailable;
+        //handle image upload
         if ($request->hasFile('courseImg')) {
-            // delete old image
+            // delete old image if exists
             if (!empty($course->courseImg) && file_exists(public_path($course->courseImg))) {
                 unlink(public_path($course->courseImg));
             }
@@ -232,10 +238,9 @@ class AdminController extends Controller
             // save path in DB
             $course->courseImg = 'courses/' . $filename;
         }
-        $course->save();
+        $course->save(); //save to db
 
-        return redirect()->route('admin.course.module')
-            ->with('success', 'Course added successfully!');
+        return redirect()->route('admin.course.module')->with('success', 'Course added successfully!');
     }
 
     public function updateCourse(Request $request, $id)
@@ -316,36 +321,33 @@ class AdminController extends Controller
 
         return back()->with('success','Section deleted successfully');
     }
-    public function storeMaterials(Request $request, $id)
-    {
+    public function storeMaterials(Request $request, $id) //store learning materials
+    {   //loop every each of uploaded material
         foreach ($request->materials as $material) {
-
             $data = [
                 'section_id' => $id,
                 'type' => $material['type'],
             ];
-
+            //check if any pdf upload
             if ($material['type'] == 'pdf' && isset($material['file'])) {
                 $file = $material['file'];
-                $path = $file->store('materials', 'public');
+                $path = $file->store('materials', 'public'); //store file in storage/public/materials
                 $data['content'] = $path;
-            } else {
+            } else { //or else store text or link
                 $data['content'] = $material['content'] ?? null;
             }
-
-            LearningMaterials::create($data);
+            LearningMaterials::create($data); //insert into db
         }
-
         return back()->with('success', 'Materials added successfully!');
     }
-    public function progress()
+    public function progress() //user progress status
     {
-        $totalProgress = Progress::count();
-
+        $totalProgress = Progress::count(); 
+        //count statuses
         $notStarted = Progress::where('progressStatus', 'Not Started')->count();
         $inProgress = Progress::where('progressStatus', 'In Progress')->count();
         $completed = Progress::where('progressStatus', 'Completed')->count();
-
+        //convert to percentage
         $notStartedPercent = $totalProgress > 0 ? round(($notStarted / $totalProgress) * 100) : 0;
         $inProgressPercent = $totalProgress > 0 ? round(($inProgress / $totalProgress) * 100) : 0;
         $completedPercent = $totalProgress > 0 ? round(($completed / $totalProgress) * 100) : 0;
@@ -467,23 +469,22 @@ class AdminController extends Controller
 
     public function reportOverview()
     {
-
-        // Total users
+        // total users
         $totalUsers = User::count();
 
-        // New users (registered this month)
+        // new users registered in a month
         $newUsers = User::whereMonth('created_at', now()->month)->count();
 
-        // Active users (example: users that logged in)
+        // active users that logged in
         $activeUsers = User::where('status', 'active')->count();
 
-        // Inactive users
+        // inactive users
         $inactiveUsers = User::where('status', 'inactive')->count();
 
-        // Guess / unregistered access (if you track visitors)
+        // guest or unregistered users
         $guestUsers = 0;
 
-        // Course & Module Performance
+        // course and module performance
         $courseModules = DB::table('course')
             ->join('module', 'course.courseID', '=', 'module.courseID')
             ->select(
@@ -505,16 +506,14 @@ class AdminController extends Controller
         ));
     }
 
-    public function downloadReport()
-    {
-
-        $totalUsers = DB::table('user')->count();
+    public function downloadReport() //download report in pdf
+    {   
+        //collect statistics
+        $totalUsers = DB::table('user')->count(); 
         // new user recent register
         $newUsers = DB::table('user')
             ->whereDate('created_at', today())
             ->count();
-
-
         // active user define by authenticated attribute
         $activeUsers = DB::table('user')
             ->where('authenticated', 1)
@@ -563,8 +562,8 @@ class AdminController extends Controller
             'courseModules',
             'assessmentReport'
         );
-        $pdf = Pdf::loadView('admin.reportPDF',$data);
-        return $pdf->download('bengoh-dam_report.pdf');
+        $pdf = Pdf::loadView('admin.reportPDF',$data); //load view into pdf
+        return $pdf->download('bengoh-dam_report.pdf'); //name of downloaded report pdf
     }
 
     public function passwordRequests()

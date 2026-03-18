@@ -13,76 +13,60 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    // display all courses
-    public function index(Request $request)
+    public function index(Request $request)// display all courses with search, filter, sort, pagination
     {
         $query = Course::where('isAvailable', 1);
-
-        // SEARCH
+        // search
         if ($request->filled('search')) {
             $query->where('courseName', 'like', '%' . $request->search . '%');
         }
-
-        // FILTER: Category
+        // filter by category
         if ($request->filled('category')) {
             $query->where('courseCategory', $request->category);
         }
-
-        // FILTER: Level
+        // filter by level
         if ($request->filled('level')) {
             $query->where('courseLevel', $request->level);
         }
-
-        // FILTER: Duration
+        // filter by duration
         if ($request->filled('duration')) {
             $query->where('courseDuration', '<=', $request->duration);
         }
-
-        // SORTING
+        //sorting
         switch ($request->sort) {
             case 'latest':
                 $query->orderBy('created_at', 'desc');
                 break;
-
             case 'updated':
                 $query->orderBy('updated_at', 'desc');
                 break;
-
             case 'short':
                 $query->where('courseDuration', '<=', 4);
                 break;
-
             default:
                 $query->orderBy('created_at', 'desc');
                 break;
         }
-
-        $courses = $query->paginate(5)->withQueryString();
-
-
+        $courses = $query->paginate(5)->withQueryString(); //display 5 courses per page
         //for dropdowns
-
         $categories = Course::where('isAvailable', 1)
             ->whereNotNull('courseCategory')
             ->select('courseCategory')
             ->distinct()
             ->orderBy('courseCategory')
             ->pluck('courseCategory');
-
         $levels = Course::where('isAvailable', 1)
             ->whereNotNull('courseLevel')
             ->select('courseLevel')
             ->distinct()
             ->orderBy('courseLevel')
             ->pluck('courseLevel');
-
         $durations = Course::where('isAvailable', 1)
             ->whereNotNull('courseDuration')
             ->select('courseDuration')
             ->distinct()
             ->orderBy('courseDuration')
             ->pluck('courseDuration');
-
 
         return view('learner.view_all_course', compact(
             'courses',
@@ -92,8 +76,7 @@ class CourseController extends Controller
         ));
     }
 
-    // show single course details
-    public function show($id)
+    public function show($id) // show single course details with relationship
     {
         $course = Course::with([
             'modules.lectures.materials.video',
@@ -107,8 +90,7 @@ class CourseController extends Controller
         return view('learner.view_course', compact('course'));
     }
     
-    //redirect user to start learning interface
-    public function startLearning($id)
+    public function startLearning($id) //redirect user to start learning interface
     {
         $course = Course::with([
             'modules.mcqs',
@@ -119,53 +101,46 @@ class CourseController extends Controller
 
         // get first module
         $module = $course->modules->first();
-
         // get first lecture
         $lecture = $module ? $module->lectures->first() : null;
-
         // get first section
         $section = $lecture ? $lecture->sections->first() : null;
 
         return view('learner.startlearning', compact('course','module','lecture','section'));
     }
     
-    //display questions
-    public function showQuiz($id)
+    public function showQuiz($id) //display MCQs
     {
-        $module = Module::with('mcqs.answers')
-                    ->findOrFail($id);
-
+        $module = Module::with('mcqs.answers')->findOrFail($id);
         return view('learner.module_question', compact('module'));
     }
 
-    public function showModuleQuestions($id)
+    public function showModuleQuestions($id) //duplication as above
     {
-        $module = Module::with('mcqs.answers')
-                    ->findOrFail($id);
-
+        $module = Module::with('mcqs.answers')->findOrFail($id);
         return view('learner.module_question', compact('module'));
     }
     
-    public function submitModuleQuestions(Request $request, $id)
+    public function submitModuleQuestions(Request $request, $id) //submit mcqs answer and calculate score
     {
         $module = Module::with('mcqs.answers')->findOrFail($id);
         $score = 0;
         $total = $module->mcqs->count();
         foreach ($module->mcqs as $question) {
-            $selectedAnswer = $request->input('question_' . $question->moduleQs_ID);
+            $selectedAnswer = $request->input('question_' . $question->moduleQs_ID); //get selected answer from form
             if ($selectedAnswer) {
-                $correctAnswer = $question->answers
+                $correctAnswer = $question->answers //find correct answer
                     ->where('ansCorrect', 1)
                     ->first();
-                if ($correctAnswer && $correctAnswer->ansID == $selectedAnswer) {
+                if ($correctAnswer && $correctAnswer->ansID == $selectedAnswer) { //compare selected answer
                     $score++;
                 }
             }
         }
-        return back()->with('result', "You scored $score / $total");
+        return back()->with('result', "You scored $score / $total"); //return result
     }
 
-    public function courseFeedback($id)
+    public function courseFeedback($id) //show feedback form
     {
         $course = Course::with([
             'modules.lectures.mcqs'
@@ -174,19 +149,19 @@ class CourseController extends Controller
         return view('learner.course_feedback', compact('course'));
     }
 
-    public function submitFeedback(Request $request)
+    public function submitFeedback(Request $request) //handle submission of feedback
     {
         return redirect()->back()->with('success','Thank you for your feedback!');
     }
 
-    public function courseAssessment($id)
+    public function courseAssessment($id) //course assessment page
     {
         $course = Course::findOrFail($id);
 
         return view('learner.courseAssessment', compact('course'));
     }
 
-    //update progress auto when a user finishes MCQ or assessment given
+    //update user progress auto when a user finishes MCQ or assessment given
     public function updateProgress($courseID, $activity)
     {
         $progressMap = [
@@ -196,9 +171,8 @@ class CourseController extends Controller
             'MCQ4' => 80,
             'ASSESSMENT' => 100
         ];
-
         $percentage = $progressMap[$activity] ?? 0;
-
+        //update or create user progress record
         Progress::updateOrCreate(
             [
                 'userID' => Auth::id(),
@@ -212,8 +186,7 @@ class CourseController extends Controller
         );
     }
 
-    //calculate overall percentage
-    public function progress($courseID)
+    public function progress($courseID) //show user's progress
     {
         $progress = Progress::where('userID', Auth::id())
                     ->where('courseID', $courseID)
@@ -222,8 +195,7 @@ class CourseController extends Controller
         return view('learner.course_progress', compact('progress'));
     }
     
-    //only registered users can view
-    public function leaderboard()
+    public function leaderboard()   //only registered users can view top learners
     {
         $learners = DB::table('userprogress')
             ->join('users', 'userprogress.userID', '=', 'users.id')
@@ -239,7 +211,7 @@ class CourseController extends Controller
         return view('courses.leaderboards', compact('learners'));
     }
 
-    public function create()
+    public function create() //allow admin to load data 
     {
         $courses = Course::all();
         $modules = Module::with('course')->get();
@@ -253,11 +225,10 @@ class CourseController extends Controller
             'sections'
         ));
     }
-
-    //handling courses
-    public function lectureStore(Request $request)
+    
+    public function lectureStore(Request $request)  //store new lecture
     {
-        // 1. Validation
+        //validate input
         $request->validate([
             'lectID' => 'required|unique:lectures,lectID',
             'moduleID' => 'required|exists:modules,moduleID',
@@ -265,7 +236,7 @@ class CourseController extends Controller
             'lect_duration' => 'required|integer',
         ]);
 
-        // 2. Creation
+        //create lecture
         Lecture::create([
             'lectID'        => $request->lectID,
             'moduleID'      => $request->moduleID,
