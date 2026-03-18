@@ -4,7 +4,7 @@
 
 {{-- intro image --}}
 <div class="mb-4">
-    <img src="{{ asset('images/homepage.png') }}" class="hero-img shadow-sm">
+    <img src="{{ asset('images/homepage.png') }}" class="hero-img shadow-sm"> {{-- C:\xampp\htdocs\PollingSystemDocker\bengohDam_edu\edu-bengohdam\public --}}
 </div>
 
 {{-- feature boxes --}}
