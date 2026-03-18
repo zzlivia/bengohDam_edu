@@ -220,7 +220,7 @@ class AdminController extends Controller
         $course->courseDuration = $request->courseDuration;
         $course->isAvailable = $request->isAvailable;
         if ($request->hasFile('courseImg')) {
-            $image = $request->file('courseImg')->store('courses', 'public');
+            $image = $request->file('courseImg')->store('upload/courses', 'public');
             $course->courseImg = $image;
         }
         $course->save();
@@ -247,10 +247,9 @@ class AdminController extends Controller
             }
             $file = $request->file('courseImg');
             $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/courses'), $filename);
 
-            $file->move(public_path('courses'), $filename);
-
-            $course->courseImg = 'courses/' . $filename;
+            $course->courseImg = 'upload/courses/' . $filename;
         }
         $course->save();
 
