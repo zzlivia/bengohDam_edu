@@ -230,7 +230,7 @@ class AdminController extends Controller
     }
 
     public function updateCourse(Request $request, $id)
-    {
+    { //when user click on edit button of the course
         $course = Course::findOrFail($id);
         $course->courseCode = $request->courseCode;
         $course->courseName = $request->courseName;
@@ -239,11 +239,25 @@ class AdminController extends Controller
         $course->courseCategory = $request->courseCategory;
         $course->courseLevel = $request->courseLevel;
         $course->courseDuration = $request->courseDuration;
+        //update image
+        if ($request->hasFile('courseImg')) {
+            // able to delete old image
+            if ($course->courseImg && file_exists(public_path($course->courseImg))) {
+                unlink(public_path($course->courseImg));
+            }
+            $file = $request->file('courseImg');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            $file->move(public_path('courses'), $filename);
+
+            $course->courseImg = 'courses/' . $filename;
+        }
         $course->save();
 
         return redirect()->route('admin.course.module')
             ->with('success','Course updated successfully');
-    }
+    } 
+    
     public function editCourse($id)
     {
         $course = Course::findOrFail($id);
