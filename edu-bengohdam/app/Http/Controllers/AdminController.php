@@ -221,13 +221,16 @@ class AdminController extends Controller
         $course->courseDuration = $request->courseDuration;
         $course->isAvailable = $request->isAvailable;
         if ($request->hasFile('courseImg')) {
-            // delete old image (storage way)
-            if ($course->courseImg && \Storage::disk('public')->exists($course->courseImg)) {
-                \Storage::disk('public')->delete($course->courseImg);
+            // delete old image
+            if (!empty($course->courseImg) && file_exists(public_path($course->courseImg))) {
+                unlink(public_path($course->courseImg));
             }
-            // store new image
-            $path = $request->file('courseImg')->store('upload/courses', 'public');
-            $course->courseImg = $path;
+            // generate filename
+            $filename = time() . '.' . $request->file('courseImg')->extension();
+            // move file to public/courses
+            $request->file('courseImg')->move(public_path('courses'), $filename);
+            // save path in DB
+            $course->courseImg = 'courses/' . $filename;
         }
         $course->save();
 
@@ -249,13 +252,15 @@ class AdminController extends Controller
         //update image
         if ($request->hasFile('courseImg')) {
             // delete old image
-            if ($course->courseImg && Storage::disk('public')->exists($course->courseImg)) {
-                Storage::disk('public')->delete($course->courseImg);
+            if (!empty($course->courseImg) && file_exists(public_path($course->courseImg))) {
+                unlink(public_path($course->courseImg));
             }
-
-            // store new image
-            $path = $request->file('courseImg')->store('upload/courses', 'public');
-            $course->courseImg = $path;
+            // generate filename
+            $filename = time() . '.' . $request->file('courseImg')->extension();
+            // move file to public/courses
+            $request->file('courseImg')->move(public_path('courses'), $filename);
+            // save path in DB
+            $course->courseImg = 'courses/' . $filename;
         }
         $course->save();
 
