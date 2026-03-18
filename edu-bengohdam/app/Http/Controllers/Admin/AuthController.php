@@ -1,5 +1,6 @@
 <?php
 
+//manages login,logout, password reset requests of admin
 //define folder structure of AuthController
 namespace App\Http\Controllers\Admin;
 
