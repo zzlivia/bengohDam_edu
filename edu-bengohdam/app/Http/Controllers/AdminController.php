@@ -229,6 +229,8 @@ class AdminController extends Controller
             $path = $request->file('courseImg')->store('upload/courses', 'public');
             $course->courseImg = $path;
         }
+        $course->save();
+
         return redirect()->route('admin.course.module')
             ->with('success', 'Course added successfully!');
     }
