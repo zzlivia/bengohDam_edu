@@ -243,9 +243,9 @@ class AdminController extends Controller
         $course->courseAuthor = $request->courseAuthor;
         $course->courseDesc = $request->courseDesc;
         $course->courseCategory = $request->courseCategory;
-        $course->isAvailable = $request->isAvailable;
         $course->courseLevel = $request->courseLevel;
         $course->courseDuration = $request->courseDuration;
+        $course->isAvailable = $request->isAvailable;
         //update image
         if ($request->hasFile('courseImg')) {
             // delete old image
