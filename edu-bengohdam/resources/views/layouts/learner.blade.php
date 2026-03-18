@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav"> {{-- navigation menu --}}
                 <li class="nav-item mx-2"><a class="nav-link active" href="/homepage">Home</a></li>
-                <li class="nav-item mx-2"><a class="nav-link active" href="/courses">Courses</a></li>
+                <li class="nav-item mx-2"><a class="nav-link active" href="{{ route('courses.index') }}">Courses</a></li>
                 <li class="nav-item mx-2"><a class="nav-link" href="/community-stories">Community Stories</a></li>
                 <li class="nav-item mx-2"><a class="nav-link" href="#">About the Dam</a></li>
                 {{-- language switches --}}
