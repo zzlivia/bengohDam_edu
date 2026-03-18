@@ -13,6 +13,7 @@ use App\Models\Feedback;
 use App\Models\AssessmentResult;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -244,15 +245,14 @@ class AdminController extends Controller
         $course->courseDuration = $request->courseDuration;
         //update image
         if ($request->hasFile('courseImg')) {
-            // able to delete old image
-            if ($course->courseImg && file_exists(public_path($course->courseImg))) {
-                unlink(public_path($course->courseImg));
+            // delete old image
+            if ($course->courseImg && Storage::disk('public')->exists($course->courseImg)) {
+                Storage::disk('public')->delete($course->courseImg);
             }
-            $file = $request->file('courseImg');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('upload/courses'), $filename);
 
-            $course->courseImg = 'upload/courses/' . $filename;
+            // store new image
+            $path = $request->file('courseImg')->store('upload/courses', 'public');
+            $course->courseImg = $path;
         }
         $course->save();
 
