@@ -220,11 +220,14 @@ class AdminController extends Controller
         $course->courseDuration = $request->courseDuration;
         $course->isAvailable = $request->isAvailable;
         if ($request->hasFile('courseImg')) {
-            $image = $request->file('courseImg')->store('upload/courses', 'public');
-            $course->courseImg = $image;
+            // delete old image (storage way)
+            if ($course->courseImg && \Storage::disk('public')->exists($course->courseImg)) {
+                \Storage::disk('public')->delete($course->courseImg);
+            }
+            // store new image
+            $path = $request->file('courseImg')->store('upload/courses', 'public');
+            $course->courseImg = $path;
         }
-        $course->save();
-
         return redirect()->route('admin.course.module')
             ->with('success', 'Course added successfully!');
     }
