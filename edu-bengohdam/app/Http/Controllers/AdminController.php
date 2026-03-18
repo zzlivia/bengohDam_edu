@@ -243,6 +243,7 @@ class AdminController extends Controller
         $course->courseAuthor = $request->courseAuthor;
         $course->courseDesc = $request->courseDesc;
         $course->courseCategory = $request->courseCategory;
+        $course->isAvailable = $request->isAvailable;
         $course->courseLevel = $request->courseLevel;
         $course->courseDuration = $request->courseDuration;
         //update image
